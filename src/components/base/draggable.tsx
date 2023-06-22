@@ -10,18 +10,17 @@ type RenderProps<T extends HTMLElement = HTMLElement> = {
   dragging: boolean;
   onExpand: () => void;
 };
+type RenderFn = ({
+  ref,
+  onExpand,
+}: RenderProps<HTMLDivElement>) => React.ReactElement;
 type Props = {
-  visible: ({
-    ref,
-    onExpand,
-  }: RenderProps<HTMLDivElement>) => React.ReactElement;
-  invisible?: ({
-    ref,
-    onExpand,
-  }: RenderProps<HTMLDivElement>) => React.ReactElement;
+  active?: boolean;
+  visible: RenderFn;
+  invisible?: RenderFn;
 };
 
-export const Draggable = ({ visible, invisible }: Props) => {
+export const Draggable = ({ active, visible, invisible }: Props) => {
   const { visibleRef, invisibleRef, height, onExpandToggle } = useExpandable<
     HTMLDivElement,
     HTMLDivElement
@@ -46,10 +45,11 @@ export const Draggable = ({ visible, invisible }: Props) => {
     <DraggableWrapper>
       <article
         className={classNames(
-          'rounded-lg bg-white border-[#f8f8f8]  min-w-[240px] max-w-fit flex flex-col relative transition-[max-height,_shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border-2 border-transparent hover:border-indigo-400',
+          'rounded-lg bg-white border-[#f8f8f8] min-w-[240px] max-w-fit flex flex-col relative transition-[max-height,_shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border-2 hover:border-indigo-400',
           isDragging
             ? 'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400'
-            : null
+            : 'border-transparent',
+          active ? 'border-indigo-200' : 'border-transparent'
         )}
         style={styles}
         onMouseMove={onDrag}

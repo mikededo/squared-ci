@@ -9,7 +9,7 @@ import { DraggableWrapper } from '@/components/dd';
 export const Title: React.FC<Props> = ({ title, onExpand }) => (
   <DraggableWrapper>
     <div className="flex justify-between w-100 px-3 py-1.5">
-      <p className="text-[#333] font-semibold">{title}</p>
+      <p className="font-semibold">{title}</p>
       {onExpand ? (
         <svg
           fill="none"

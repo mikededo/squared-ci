@@ -12,6 +12,7 @@ const Root = () => (
     className="h-screen w-screen relative overflow-hidden"
   >
     <BoxName />
+    <BoxName />
   </main>
 );
 
