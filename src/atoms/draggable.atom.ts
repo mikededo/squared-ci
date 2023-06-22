@@ -6,8 +6,6 @@ type PositionAtom = {
   y: number;
   ox: number;
   oy: number;
-  height: number;
-  width: number;
 };
 type PositionState = Pick<PositionAtom, 'x' | 'y'>;
 type OffsetPositionState = Pick<PositionAtom, 'ox' | 'oy'>;
@@ -23,16 +21,11 @@ const snapPosition = ({ x, y }: PositionState): PositionState => ({
   y: Math.round(y / SnapRatio) * SnapRatio,
 });
 
-export const draggableAtom = ({
-  width,
-  height,
-}: Pick<PositionAtom, 'width' | 'height'>) => {
+export const draggableAtom = () => {
   const initialState: PositionAtom = {
     dragging: false,
-    width,
-    height,
-    x: 0,
-    y: 0,
+    x: 140,
+    y: 280,
     ox: 0,
     oy: 0,
   };

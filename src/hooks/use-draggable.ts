@@ -4,9 +4,7 @@ import { useMemo } from 'react';
 import { draggableAtom } from '@/atoms';
 
 export const useDraggable = () => {
-  const [state, setState] = useAtom(
-    useMemo(() => draggableAtom({ width: 200, height: 100 }), [])
-  );
+  const [state, setState] = useAtom(useMemo(() => draggableAtom(), []));
 
   const handleOnDragStart: React.MouseEventHandler<HTMLElement> = (e) => {
     if (!e) {

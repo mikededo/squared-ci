@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Draggable } from '@/components';
+import { BoxName } from '@/components';
 
 const Root = () => (
   <main
@@ -11,7 +11,7 @@ const Root = () => (
     }}
     className="h-screen w-screen relative overflow-hidden"
   >
-    <Draggable />
+    <BoxName />
   </main>
 );
 
