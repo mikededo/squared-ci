@@ -1,5 +1,5 @@
-import { atom, createStore, useAtom } from 'jotai';
-import { useMemo, useRef } from 'react';
+import { atom, useAtom } from 'jotai';
+import { useEffect, useMemo, useRef } from 'react';
 
 export type WithExpandableRef<T extends HTMLElement = HTMLElement> = {
   expandableRef: React.LegacyRef<T>;
@@ -15,26 +15,28 @@ export const useExpandable = <
 >() => {
   const visibleRef = useRef<T>(null);
   const invisibleRef = useRef<J>(null);
-  const expandableAtom = useMemo(() => atom(true), []);
-  const expandableStore = useMemo(() => createStore(), []);
-  const [expanded, setExpanded] = useAtom(expandableAtom);
 
-  const height = useMemo(
-    () =>
-      expanded
-        ? elementHeight(visibleRef.current) +
-          elementHeight(invisibleRef.current)
-        : elementHeight(visibleRef.current),
-    [expanded]
+  const [expanded, setExpanded] = useAtom(useMemo(() => atom(false), []));
+
+  const [height, setHeight] = useAtom(
+    useMemo(() => atom(elementHeight(visibleRef.current)), [])
   );
 
   const handleOnExpandToggle = () => {
     setExpanded(!expanded);
   };
 
+  useEffect(() => {
+    setHeight(
+      expanded
+        ? elementHeight(visibleRef.current) +
+            elementHeight(invisibleRef.current)
+        : elementHeight(visibleRef.current)
+    );
+  }, [expanded, visibleRef, invisibleRef, setHeight]);
+
   return {
     isExpanded: expanded,
-    expandableStore,
     visibleRef,
     invisibleRef,
     height,

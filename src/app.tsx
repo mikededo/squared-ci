@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BoxName } from '@/components';
+import { BoxName, BoxTrigger } from '@/components';
 
 const Root = () => (
   <main
@@ -12,7 +12,7 @@ const Root = () => (
     className="h-screen w-screen relative overflow-hidden"
   >
     <BoxName />
-    <BoxName />
+    <BoxTrigger />
   </main>
 );
 

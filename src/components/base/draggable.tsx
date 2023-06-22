@@ -45,11 +45,11 @@ export const Draggable = ({ active, visible, invisible }: Props) => {
     <DraggableWrapper>
       <article
         className={classNames(
-          'rounded-lg bg-white border-[#f8f8f8] min-w-[240px] max-w-fit flex flex-col relative transition-[max-height,_shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border-2 hover:border-indigo-400',
+          'rounded-lg bg-white min-w-[240px] max-w-fit flex flex-col absolute transition-[max-height,_shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400',
           isDragging
             ? 'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400'
-            : 'border-transparent',
-          active ? 'border-indigo-200' : 'border-transparent'
+            : 'border-slate-200',
+          active ? 'border-indigo-200' : 'border-slate-200'
         )}
         style={styles}
         onMouseMove={onDrag}

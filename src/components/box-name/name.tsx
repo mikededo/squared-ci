@@ -13,7 +13,7 @@ export const Name: React.FC<
     <div ref={expandableRef} className={classNames('transition-shadow')}>
       <Title title="Workflow basics" onExpand={onExpand} />
       <DraggableWrapper>
-        <div className="px-3 pb-2 pt-1.5">
+        <div className="px-3 pb-3 pt-1.5">
           <Input
             placeholder="Job name"
             disabled={isDragging}
