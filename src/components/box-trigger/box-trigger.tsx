@@ -1,58 +1,88 @@
+import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { Divider, Draggable, DraggableWrapper, Title } from '@/components';
-import { useActiveChildren } from '@/hooks';
+import { Dot, Draggable, DraggableWrapper } from '@/components';
+import { useViewport } from '@/hooks';
+import { useSiblingPath } from '@/hooks/use-sibling-position';
 
-import { InvisibleTriggers } from './invisible-triggers';
+import { BoxTriggerProps } from './box-trigger-props';
+import { InvisibleGroup } from './invisible-group';
 import type { Trigger } from './types';
-import { VisibleTriggers } from './visible-triggers';
+import { VisibleGroup } from './visible-group';
 
 export const BoxTrigger = () => {
-  const { isAnyChildActive } = useActiveChildren();
+  const { width, height } = useViewport();
+  const {
+    originRef,
+    destinationRef,
+    arrowPath,
+    nextX,
+    nextY,
+    originDotPosition,
+    onPositionChange,
+  } = useSiblingPath<HTMLDivElement>();
+
   const [activeTrigger, setActiveTrigger] = useAtom(
     useMemo(() => atom<Trigger | null>(null), [])
   );
 
   const onTriggerChange = (trigger: Trigger) => {
+    onPositionChange();
     setActiveTrigger(trigger === activeTrigger ? null : trigger);
   };
 
+  const handleOnExpand = (onExpand: () => void) => () => {
+    onPositionChange();
+    onExpand();
+  };
+
   return (
-    <DraggableWrapper>
-      <Draggable
-        active={isAnyChildActive}
-        visible={({ ref, onExpand }) => (
-          <DraggableWrapper>
-            <div ref={ref}>
-              <Title title="Workflow trigger" onExpand={onExpand} />
-              <div className="px-3 pb-3 flex flex-col gap-1.5">
-                <p className="text-xs italic font-mono text-gray-400">
-                  {activeTrigger ?? 'Select dispatch'}
-                </p>
-                <VisibleTriggers
-                  selected={activeTrigger}
-                  onIconClick={onTriggerChange}
-                />
-              </div>
-            </div>
-          </DraggableWrapper>
-        )}
-        invisible={({ ref }) => (
-          <DraggableWrapper>
-            <div
-              className="relative px-3 pb-4 pt-2 flex gap-2 flex-col"
-              ref={ref}
-            >
-              <Divider />
-              <InvisibleTriggers
-                selected={activeTrigger}
-                onIconClick={onTriggerChange}
-              />
-            </div>
-          </DraggableWrapper>
-        )}
-      />
-    </DraggableWrapper>
+    <>
+      {activeTrigger ? (
+        <svg
+          className="fill-none fixed pointer-events-none"
+          width={width}
+          height={height}
+        >
+          <path
+            className="z-index-10 stroke-[4px] transition-[stroke] stroke-indigo-500"
+            d={arrowPath}
+          />
+        </svg>
+      ) : null}
+      <DraggableWrapper>
+        <Draggable
+          innerRef={originRef}
+          onPositionChange={onPositionChange}
+          visible={({ ref, onExpand }) => (
+            <VisibleGroup
+              expandableRef={ref}
+              selected={activeTrigger}
+              onExpand={handleOnExpand(onExpand)}
+              onTriggerChange={onTriggerChange}
+            />
+          )}
+          invisible={({ ref }) => (
+            <InvisibleGroup
+              expandableRef={ref}
+              selected={activeTrigger}
+              onTriggerChange={onTriggerChange}
+            />
+          )}
+        >
+          <Dot active={!!activeTrigger} position={originDotPosition} />
+        </Draggable>
+      </DraggableWrapper>
+      {activeTrigger ? (
+        <BoxTriggerProps
+          innerRef={destinationRef}
+          trigger={activeTrigger}
+          initialX={nextX}
+          initialY={nextY}
+          onPositionChange={onPositionChange}
+        />
+      ) : null}
+    </>
   );
 };

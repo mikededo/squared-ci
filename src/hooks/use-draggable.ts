@@ -3,8 +3,20 @@ import { useMemo } from 'react';
 
 import { draggableAtom } from '@/atoms';
 
-export const useDraggable = () => {
-  const [state, setState] = useAtom(useMemo(() => draggableAtom(), []));
+export type Position = { x?: number; y?: number };
+type PositionSideEffects = { onDrag?: (position: Position) => void };
+
+export const useDraggable = ({
+  x,
+  y,
+  onDrag: onDragCallback,
+}: Position & PositionSideEffects) => {
+  const [state, setState] = useAtom(
+    // If x,y are in the dep array, on every sibling update the position
+    // will also change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useMemo(() => draggableAtom({ x, y }), [])
+  );
 
   const handleOnDragStart: React.MouseEventHandler<HTMLElement> = (e) => {
     if (!e) {
@@ -20,7 +32,9 @@ export const useDraggable = () => {
       return;
     }
 
-    setState({ x: e.clientX, y: e.clientY });
+    const position = { x: e.clientX, y: e.clientY };
+    setState(position);
+    onDragCallback?.(position);
   };
 
   const handleOnDragEnd = () => {

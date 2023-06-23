@@ -15,17 +15,20 @@ type AtomUpdate =
   | ({ dragging: true } & OffsetPositionState)
   | (Partial<DragState> & PositionState);
 
-const SnapRatio = 10;
+const SnapRatio = 1;
 const snapPosition = ({ x, y }: PositionState): PositionState => ({
   x: Math.round(x / SnapRatio) * SnapRatio,
   y: Math.round(y / SnapRatio) * SnapRatio,
 });
 
-export const draggableAtom = () => {
+export const draggableAtom = ({
+  x,
+  y,
+}: Partial<Pick<PositionAtom, 'x' | 'y'>> = {}) => {
   const initialState: PositionAtom = {
     dragging: false,
-    x: 140,
-    y: 280,
+    x: x ?? 140,
+    y: y ?? 280,
     ox: 0,
     oy: 0,
   };

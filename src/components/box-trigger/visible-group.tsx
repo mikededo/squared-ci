@@ -1,0 +1,35 @@
+import React from 'react';
+
+import { DraggableWrapper, Title } from '@/components';
+import { ExpandableToggler, WithExpandableRef } from '@/hooks';
+
+import type { Trigger } from './types';
+import { VisibleTriggers } from './visible-triggers';
+
+type Props = {
+  selected: Trigger | null;
+  onTriggerChange: (trigger: Trigger) => void;
+};
+
+export const VisibleGroup: React.FC<
+  WithExpandableRef<HTMLDivElement> & ExpandableToggler & Props
+> = ({ selected, expandableRef, onExpand, onTriggerChange }) => (
+  <DraggableWrapper>
+    <div ref={expandableRef}>
+      <DraggableWrapper>
+        <Title title="Workflow trigger" onExpand={onExpand} />
+        <div className="px-3 pb-3 flex flex-col gap-1.5">
+          <DraggableWrapper>
+            <p className="text-xs italic font-mono text-gray-400">
+              {selected ?? 'Select dispatch'}
+            </p>
+            <VisibleTriggers
+              selected={selected}
+              onIconClick={onTriggerChange}
+            />
+          </DraggableWrapper>
+        </div>
+      </DraggableWrapper>
+    </div>
+  </DraggableWrapper>
+);

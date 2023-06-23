@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import { useDraggable, useExpandable } from '@/hooks';
+import { Position, useDraggable, useExpandable } from '@/hooks';
 
 import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
 
@@ -15,18 +15,32 @@ type RenderFn = ({
   onExpand,
 }: RenderProps<HTMLDivElement>) => React.ReactElement;
 type Props = {
+  initialX?: number;
+  initialY?: number;
   active?: boolean;
-  visible: RenderFn;
+  visible?: RenderFn;
   invisible?: RenderFn;
+  innerRef?: React.LegacyRef<HTMLElement>;
+  onPositionChange?: (position: Position) => void;
 };
 
-export const Draggable = ({ active, visible, invisible }: Props) => {
+export const Draggable: React.FC<PropsWithChildren<Props>> = ({
+  active,
+  initialX,
+  initialY,
+  innerRef,
+  visible,
+  invisible,
+  children,
+  onPositionChange,
+}) => {
   const { visibleRef, invisibleRef, height, onExpandToggle } = useExpandable<
     HTMLDivElement,
     HTMLDivElement
   >();
-  const { isDragging, position, onDrag, onDragStart, onDragEnd } =
-    useDraggable();
+  const { isDragging, position, onDrag, onDragStart, onDragEnd } = useDraggable(
+    { x: initialX, y: initialY, onDrag: onPositionChange }
+  );
 
   const handleOnDragStart = (e: React.MouseEvent<HTMLElement>) => {
     if (isEventFromDataDraggable(e)) {
@@ -35,17 +49,17 @@ export const Draggable = ({ active, visible, invisible }: Props) => {
   };
 
   const styles: React.CSSProperties = {
-    transform: `translate(${position.x}px, ${position.y}px)`,
+    top: position.y,
+    left: position.x,
     cursor: isDragging ? 'grabbing' : 'grab',
-    maxHeight: height,
-    overflow: 'hidden',
   };
 
   return (
     <DraggableWrapper>
       <article
+        ref={innerRef}
         className={classNames(
-          'rounded-lg bg-white min-w-[240px] max-w-fit flex flex-col absolute transition-[max-height,_shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400',
+          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-[shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400',
           isDragging
             ? 'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400'
             : 'border-slate-200',
@@ -57,18 +71,26 @@ export const Draggable = ({ active, visible, invisible }: Props) => {
         onMouseUp={onDragEnd}
         data-draggable={true}
       >
-        {visible({
-          ref: visibleRef,
-          dragging: isDragging,
-          onExpand: onExpandToggle,
-        })}
-        {invisible
-          ? invisible({
-              ref: invisibleRef,
-              dragging: isDragging,
-              onExpand: onExpandToggle,
-            })
-          : null}
+        <div
+          className="flex flex-col overflow-hidden transition-[max-height]"
+          style={{ maxHeight: visible ? height : undefined }}
+        >
+          {visible
+            ? visible({
+                ref: visibleRef,
+                dragging: isDragging,
+                onExpand: onExpandToggle,
+              })
+            : null}
+          {invisible
+            ? invisible({
+                ref: invisibleRef,
+                dragging: isDragging,
+                onExpand: onExpandToggle,
+              })
+            : null}
+        </div>
+        {children}
       </article>
     </DraggableWrapper>
   );
