@@ -1,6 +1,5 @@
-import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Dot, Draggable, DraggableWrapper } from '@/components';
 import { useViewport } from '@/hooks';
