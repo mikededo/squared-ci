@@ -128,6 +128,13 @@ export const useSiblingPath = <T extends HTMLElement>() => {
     });
   };
 
+  const onUpdatePath = () => {
+    // We force to update one of the elements, otherwise references
+    // will not detect x and y position changes
+    updateOrigin();
+    updateDestination();
+  };
+
   useEffect(() => {
     updateOrigin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,11 +155,6 @@ export const useSiblingPath = <T extends HTMLElement>() => {
     nextY: initialSiblingY,
     originDotPosition,
     arrowPath: path,
-    onPositionChange: () => {
-      // We force to update one of the elements, otherwise references
-      // will not detect x and y position changes
-      updateOrigin();
-      updateDestination();
-    },
+    onUpdatePath,
   };
 };

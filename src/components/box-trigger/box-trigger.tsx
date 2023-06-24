@@ -1,14 +1,12 @@
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
-import { Dot, Draggable, DraggableWrapper } from '@/components';
 import { useViewport } from '@/hooks';
 import { useSiblingPath } from '@/hooks/use-sibling-position';
 
 import { BoxTriggerProps } from './box-trigger-props';
-import { InvisibleGroup } from './invisible-group';
+import { BoxTriggerSelector } from './box-trigger-selector';
 import type { Trigger } from './types';
-import { VisibleGroup } from './visible-group';
 
 export const BoxTrigger = () => {
   const { width, height } = useViewport();
@@ -19,20 +17,20 @@ export const BoxTrigger = () => {
     nextX,
     nextY,
     originDotPosition,
-    onPositionChange,
+    onUpdatePath,
   } = useSiblingPath<HTMLDivElement>();
 
   const [activeTrigger, setActiveTrigger] = useAtom(
     useMemo(() => atom<Trigger | null>(null), [])
   );
 
-  const onTriggerChange = (trigger: Trigger) => {
-    onPositionChange();
+  const handleOnTriggerChange = (trigger: Trigger) => {
+    onUpdatePath();
     setActiveTrigger(trigger === activeTrigger ? null : trigger);
   };
 
   const handleOnExpand = (onExpand: () => void) => () => {
-    onPositionChange();
+    onUpdatePath();
     onExpand();
   };
 
@@ -50,36 +48,21 @@ export const BoxTrigger = () => {
           />
         </svg>
       ) : null}
-      <DraggableWrapper>
-        <Draggable
-          innerRef={originRef}
-          onPositionChange={onPositionChange}
-          visible={({ ref, onExpand }) => (
-            <VisibleGroup
-              expandableRef={ref}
-              selected={activeTrigger}
-              onExpand={handleOnExpand(onExpand)}
-              onTriggerChange={onTriggerChange}
-            />
-          )}
-          invisible={({ ref }) => (
-            <InvisibleGroup
-              expandableRef={ref}
-              selected={activeTrigger}
-              onTriggerChange={onTriggerChange}
-            />
-          )}
-        >
-          <Dot active={!!activeTrigger} position={originDotPosition} />
-        </Draggable>
-      </DraggableWrapper>
+      <BoxTriggerSelector
+        innerRef={originRef}
+        selected={activeTrigger}
+        dotPosition={originDotPosition}
+        onExpand={handleOnExpand}
+        onPositionChange={onUpdatePath}
+        onTriggerChange={handleOnTriggerChange}
+      />
       {activeTrigger ? (
         <BoxTriggerProps
           innerRef={destinationRef}
           trigger={activeTrigger}
           initialX={nextX}
           initialY={nextY}
-          onPositionChange={onPositionChange}
+          onPositionChange={onUpdatePath}
         />
       ) : null}
     </>
