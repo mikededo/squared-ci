@@ -1,10 +1,10 @@
-import React, { useLayoutEffect } from 'react';
+import { atom, useAtom } from 'jotai';
+import React, { useLayoutEffect, useMemo } from 'react';
 
 import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
-import { useActiveChildren } from '@/hooks';
 
-import { None } from './customizations';
-import { Trigger } from './types';
+import { None, Types } from './customizations';
+import { Trigger, TriggerCustomization } from './types';
 
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
@@ -21,7 +21,22 @@ export const BoxTriggerProps: React.FC<Props> = ({
   trigger,
   onPositionChange,
 }) => {
-  const { isAnyChildActive } = useActiveChildren();
+  const [selectedTypes, setSelectedTypes] = useAtom(
+    useMemo(() => atom<Set<string>>(new Set<string>()), [])
+  );
+
+  const handleOnTypeToggle = (type: string) => {
+    setSelectedTypes(() => {
+      const updated = new Set([...selectedTypes]);
+      if (updated.has(type)) {
+        updated.delete(type);
+      } else {
+        updated.add(type);
+      }
+      return updated;
+    });
+    onPositionChange?.();
+  };
 
   useLayoutEffect(() => {
     onPositionChange?.();
@@ -34,14 +49,21 @@ export const BoxTriggerProps: React.FC<Props> = ({
         innerRef={innerRef}
         initialX={initialX}
         initialY={initialY}
-        active={isAnyChildActive}
         onPositionChange={onPositionChange}
       >
         <DraggableWrapper>
           <Title title={trigger ? `${trigger} props` : 'No trigger selected'} />
           <div className="px-3 pb-3">
             {trigger ? (
-              <None />
+              TriggerCustomization[trigger] === 'types' ? (
+                <Types
+                  trigger={trigger}
+                  selected={[...selectedTypes]}
+                  onTypeToggle={handleOnTypeToggle}
+                />
+              ) : (
+                <None />
+              )
             ) : (
               <DraggableWrapper>
                 <p className="text-sm text-center text-gray-400">

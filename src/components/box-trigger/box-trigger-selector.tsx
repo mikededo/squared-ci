@@ -10,7 +10,7 @@ type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
   selected: Trigger | null;
   dotPosition?: DotPosition;
-  onExpand: (onDraggableExpand: () => void) => void;
+  onExpand: (onDraggableExpand: () => void) => () => void;
   onPositionChange: () => void;
   onTriggerChange: (trigger: Trigger) => void;
 };
