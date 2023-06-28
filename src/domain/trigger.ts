@@ -1,5 +1,3 @@
-import { Equals } from '@/domain/shared';
-
 export type Trigger =
   | 'check_run'
   | 'check_suite'

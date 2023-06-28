@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Divider, DraggableWrapper } from '@/components';
+import { Trigger } from '@/domain/trigger';
 import { WithExpandableRef } from '@/hooks';
 
 import { InvisibleTriggers } from './invisible-triggers';
-import type { Trigger } from './types';
 
 type Props = {
   selected: Trigger | null;

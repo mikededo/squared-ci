@@ -1,4 +1,4 @@
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import React, { useLayoutEffect, useMemo } from 'react';
 
 import { triggerPropsAtom } from '@/atoms';

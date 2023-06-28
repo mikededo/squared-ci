@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { DraggableWrapper, Title } from '@/components';
+import type { Trigger } from '@/domain/trigger';
 import { ExpandableToggler, WithExpandableRef } from '@/hooks';
 
-import type { Trigger } from './types';
 import { VisibleTriggers } from './visible-triggers';
 
 type Props = {

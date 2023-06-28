@@ -10,8 +10,27 @@ import {
 import React from 'react';
 
 import { Icon } from '@/components';
+import { Trigger } from '@/domain/trigger';
 
-import type { IconGroupProps, Trigger } from './types';
+type IconGroupProps = {
+  selected: Trigger | null;
+  onIconClick: (trigger: Trigger) => void;
+};
+
+type TriggerItem = {
+  key: Trigger;
+  icon: React.ReactNode;
+};
+
+const Triggers: TriggerItem[] = [
+  { key: 'pull_request', icon: <GitPullRequestIcon /> },
+  { key: 'workflow_dispatch', icon: <ZapIcon /> },
+  { key: 'push', icon: <RepoPushIcon /> },
+  { key: 'issues', icon: <IssueOpenedIcon /> },
+  { key: 'issue_comment', icon: <CommentIcon /> },
+  { key: 'fork', icon: <RepoForkedIcon /> },
+  { key: 'release', icon: <PackageIcon /> },
+];
 
 export const VisibleTriggers: React.FC<IconGroupProps> = ({
   selected,
@@ -23,39 +42,15 @@ export const VisibleTriggers: React.FC<IconGroupProps> = ({
 
   return (
     <div className="grid grid-cols-4 grid-flow-row-dense gap-1 justify-between">
-      <Icon
-        selected={selected === 'pull_request'}
-        onClick={handleOnClick('pull_request')}
-      >
-        <GitPullRequestIcon />
-      </Icon>
-      <Icon
-        selected={selected === 'workflow_dispatch'}
-        onClick={handleOnClick('workflow_dispatch')}
-      >
-        <ZapIcon />
-      </Icon>
-      <Icon selected={selected === 'push'} onClick={handleOnClick('push')}>
-        <RepoPushIcon />
-      </Icon>
-      <Icon selected={selected === 'issues'} onClick={handleOnClick('issues')}>
-        <IssueOpenedIcon />
-      </Icon>
-      <Icon
-        selected={selected === 'issue_comment'}
-        onClick={handleOnClick('issue_comment')}
-      >
-        <CommentIcon />
-      </Icon>
-      <Icon selected={selected === 'fork'} onClick={handleOnClick('fork')}>
-        <RepoForkedIcon />
-      </Icon>
-      <Icon
-        selected={selected === 'release'}
-        onClick={handleOnClick('release')}
-      >
-        <PackageIcon />
-      </Icon>
+      {Triggers.map(({ key, icon }) => (
+        <Icon
+          key={key}
+          selected={selected === key}
+          onClick={handleOnClick(key)}
+        >
+          {icon}
+        </Icon>
+      ))}
     </div>
   );
 };
