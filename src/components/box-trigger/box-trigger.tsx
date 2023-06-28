@@ -1,12 +1,12 @@
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
+import type { Trigger } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
 import { useSiblingPath } from '@/hooks/use-sibling-position';
 
 import { BoxTriggerProps } from './box-trigger-props';
 import { BoxTriggerSelector } from './box-trigger-selector';
-import type { Trigger } from './types';
 
 export const BoxTrigger = () => {
   const { width, height } = useViewport();

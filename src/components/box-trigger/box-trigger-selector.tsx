@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Dot, DotPosition, Draggable, DraggableWrapper } from '@/components';
+import { Trigger } from '@/domain/trigger';
 
 import { InvisibleGroup } from './invisible-group';
-import { Trigger } from './types';
 import { VisibleGroup } from './visible-group';
 
 type Props = {

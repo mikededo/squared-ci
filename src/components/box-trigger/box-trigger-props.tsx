@@ -1,10 +1,16 @@
 import { atom, useAtom } from 'jotai';
 import React, { useLayoutEffect, useMemo } from 'react';
 
+import { triggerPropsAtom } from '@/atoms';
 import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
+import {
+  CustomTypesCustomizationKeys,
+  type Trigger,
+  TriggerCustomization,
+  TypesCustomizationKeys,
+} from '@/domain/trigger';
 
 import { None, Types } from './customizations';
-import { Trigger, TriggerCustomization } from './types';
 
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
@@ -22,21 +28,15 @@ export const BoxTriggerProps: React.FC<Props> = ({
   onPositionChange,
 }) => {
   const [selectedTypes, setSelectedTypes] = useAtom(
-    useMemo(() => atom<Set<string>>(new Set<string>()), [])
+    useMemo(() => triggerPropsAtom(), [])
   );
 
-  const handleOnTypeToggle = (type: string) => {
-    setSelectedTypes(() => {
-      const updated = new Set([...selectedTypes]);
-      if (updated.has(type)) {
-        updated.delete(type);
-      } else {
-        updated.add(type);
-      }
-      return updated;
-    });
-    onPositionChange?.();
-  };
+  const handleOnTypesToggle =
+    (trigger: TypesCustomizationKeys | CustomTypesCustomizationKeys) =>
+    (type: string) => {
+      setSelectedTypes([trigger, type]);
+      onPositionChange?.();
+    };
 
   useLayoutEffect(() => {
     onPositionChange?.();
@@ -55,11 +55,16 @@ export const BoxTriggerProps: React.FC<Props> = ({
           <Title title={trigger ? `${trigger} props` : 'No trigger selected'} />
           <div className="px-3 pb-3">
             {trigger ? (
-              TriggerCustomization[trigger] === 'types' ? (
+              TriggerCustomization[trigger] === 'types' ||
+              TriggerCustomization[trigger] === 'custom-types' ? (
                 <Types
                   trigger={trigger}
-                  selected={[...selectedTypes]}
-                  onTypeToggle={handleOnTypeToggle}
+                  selected={[...(selectedTypes[trigger] as Set<string>)]}
+                  onTypeToggle={handleOnTypesToggle(
+                    trigger as
+                      | TypesCustomizationKeys
+                      | CustomTypesCustomizationKeys
+                  )}
                 />
               ) : (
                 <None />

@@ -11,7 +11,7 @@ type Props = {
 export const Chip: React.FC<Props> = ({ text, active, onClick }) => (
   <div
     className={classNames(
-      'py-1 px-2.5 rounded-full w-fit flex items-center gap-2 transition-all cursor-pointer',
+      'py-1 px-2 rounded-full w-fit flex items-center gap-2 transition-all cursor-pointer',
       active
         ? 'bg-indigo-100 hover:bg-indigo-200 active:bg-indigo-300'
         : 'bg-gray-100 hover:bg-gray-200 active:bg-gray-300'
@@ -20,7 +20,7 @@ export const Chip: React.FC<Props> = ({ text, active, onClick }) => (
   >
     <p
       className={classNames(
-        'text-sm',
+        'text-sm leading-4',
         active ? 'text-indigo-600' : 'text-gray-500'
       )}
     >
