@@ -71,5 +71,6 @@ module.exports = {
         moduleDirectory: ['src', 'node_modules'],
       },
     },
+    react: { version: 'detect' },
   },
 };

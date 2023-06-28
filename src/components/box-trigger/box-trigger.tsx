@@ -2,14 +2,13 @@ import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
-import { useViewport } from '@/hooks';
 import { useSiblingPath } from '@/hooks/use-sibling-position';
 
 import { BoxTriggerProps } from './box-trigger-props';
 import { BoxTriggerSelector } from './box-trigger-selector';
+import { BoxConnectors } from '..';
 
 export const BoxTrigger = () => {
-  const { width, height } = useViewport();
   const {
     originRef,
     destinationRef,
@@ -20,51 +19,55 @@ export const BoxTrigger = () => {
     onUpdatePath,
   } = useSiblingPath<HTMLDivElement>();
 
-  const [activeTrigger, setActiveTrigger] = useAtom(
-    useMemo(() => atom<Trigger | null>(null), [])
+  const [activeTriggers, setActiveTriggers] = useAtom(
+    useMemo(() => atom<Set<Trigger>>(new Set<Trigger>()), [])
   );
+  const paths =
+    activeTriggers.size > 0
+      ? [...activeTriggers].reduce(
+          (prev, key) => [...prev, { key: key, path: arrowPath }],
+          [] as { key: string; path: string }[]
+        )
+      : [];
 
   const handleOnTriggerChange = (trigger: Trigger) => {
+    const updated = new Set([...activeTriggers]);
+    if (updated.has(trigger)) {
+      updated.delete(trigger);
+    } else {
+      updated.add(trigger);
+    }
+    setActiveTriggers(updated);
+
     onUpdatePath();
-    setActiveTrigger(trigger === activeTrigger ? null : trigger);
   };
 
   const handleOnExpand = (onExpand: () => void) => () => {
-    onUpdatePath();
     onExpand();
+    onUpdatePath();
   };
 
   return (
     <>
-      {activeTrigger ? (
-        <svg
-          className="fill-none fixed pointer-events-none"
-          width={width}
-          height={height}
-        >
-          <path
-            className="z-index-10 stroke-[4px] transition-[stroke] stroke-indigo-500"
-            d={arrowPath}
-          />
-        </svg>
-      ) : null}
+      <BoxConnectors paths={paths} />
       <BoxTriggerSelector
         innerRef={originRef}
-        selected={activeTrigger}
+        selected={activeTriggers}
         dotPosition={originDotPosition}
         onExpand={handleOnExpand}
         onPositionChange={onUpdatePath}
         onTriggerChange={handleOnTriggerChange}
       />
-      {activeTrigger ? (
+      {[...activeTriggers].map((trigger) => (
         <BoxTriggerProps
+          key={trigger}
           innerRef={destinationRef}
-          trigger={activeTrigger}
+          trigger={trigger}
           initialX={nextX}
           initialY={nextY}
           onPositionChange={onUpdatePath}
         />
-      ) : null}
+      ))}
     </>
   );
 };

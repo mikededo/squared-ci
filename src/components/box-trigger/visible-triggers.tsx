@@ -13,7 +13,7 @@ import { Icon } from '@/components';
 import { Trigger } from '@/domain/trigger';
 
 type IconGroupProps = {
-  selected: Trigger | null;
+  selected: Set<Trigger>;
   onIconClick: (trigger: Trigger) => void;
 };
 
@@ -45,7 +45,7 @@ export const VisibleTriggers: React.FC<IconGroupProps> = ({
       {Triggers.map(({ key, icon }) => (
         <Icon
           key={key}
-          selected={selected === key}
+          selected={selected.has(key)}
           onClick={handleOnClick(key)}
         >
           {icon}

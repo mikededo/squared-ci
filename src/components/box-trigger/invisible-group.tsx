@@ -7,7 +7,7 @@ import { WithExpandableRef } from '@/hooks';
 import { InvisibleTriggers } from './invisible-triggers';
 
 type Props = {
-  selected: Trigger | null;
+  selected: Set<Trigger>;
   onTriggerChange: (trigger: Trigger) => void;
 };
 

@@ -1,6 +1,8 @@
 import { atom, useAtom } from 'jotai';
 import { useEffect, useMemo, useRef } from 'react';
 
+import { useSizeObserver } from '.';
+
 export type WithExpandableRef<T extends HTMLElement = HTMLElement> = {
   expandableRef: React.LegacyRef<T>;
 };
@@ -17,10 +19,20 @@ export const useExpandable = <
   const invisibleRef = useRef<J>(null);
 
   const [expanded, setExpanded] = useAtom(useMemo(() => atom(false), []));
-
   const [height, setHeight] = useAtom(
     useMemo(() => atom(elementHeight(visibleRef.current)), [])
   );
+
+  useSizeObserver({
+    element: visibleRef?.current,
+    onUpdate: (entry) => {
+      setHeight(
+        expanded
+          ? entry.contentRect.height + elementHeight(invisibleRef.current)
+          : entry.contentRect.height
+      );
+    },
+  });
 
   const handleOnExpandToggle = () => {
     setExpanded(!expanded);

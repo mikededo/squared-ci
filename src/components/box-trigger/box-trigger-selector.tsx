@@ -8,7 +8,7 @@ import { VisibleGroup } from './visible-group';
 
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
-  selected: Trigger | null;
+  selected: Set<Trigger>;
   dotPosition?: DotPosition;
   onExpand: (onDraggableExpand: () => void) => () => void;
   onPositionChange: () => void;
@@ -43,7 +43,7 @@ export const BoxTriggerSelector: React.FC<Props> = ({
         />
       )}
     >
-      <Dot active={!!selected} position={dotPosition} />
+      <Dot active={selected.size > 0} position={dotPosition} />
     </Draggable>
   </DraggableWrapper>
 );
