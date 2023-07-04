@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
 import { useViewport } from '@/hooks';

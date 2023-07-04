@@ -100,7 +100,6 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
         innerRef={ref}
         initialX={initialX}
         initialY={initialY}
-        // eslint-disable-next-line
         onPositionChange={handleOnNotifyListeners}
       >
         <DraggableWrapper>
