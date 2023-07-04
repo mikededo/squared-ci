@@ -1,5 +1,4 @@
 export * from './base';
-export * from './box-connector';
 export * from './box-name';
 export * from './box-trigger';
 export * from './chip';

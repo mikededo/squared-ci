@@ -1,34 +1,34 @@
 import { atom, useAtom } from 'jotai';
-import React, { useMemo } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
-import { useSiblingPath } from '@/hooks/use-sibling-position';
+import { useViewport } from '@/hooks';
+import { useHorizontalOrigin } from '@/stores';
 
+import { BoxTriggerConnector } from './box-trigger-connector';
 import { BoxTriggerProps } from './box-trigger-props';
 import { BoxTriggerSelector } from './box-trigger-selector';
-import { BoxConnectors } from '..';
 
 export const BoxTrigger = () => {
-  const {
-    originRef,
-    destinationRef,
-    arrowPath,
-    nextX,
-    nextY,
-    originDotPosition,
-    onUpdatePath,
-  } = useSiblingPath<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
+  const { width, height } = useViewport();
+  const { addOrigin, onParentChange } = useHorizontalOrigin();
 
   const [activeTriggers, setActiveTriggers] = useAtom(
     useMemo(() => atom<Set<Trigger>>(new Set<Trigger>()), [])
   );
-  const paths =
-    activeTriggers.size > 0
-      ? [...activeTriggers].reduce(
-          (prev, key) => [...prev, { key: key, path: arrowPath }],
-          [] as { key: string; path: string }[]
-        )
-      : [];
+
+  const handleOnParentChange = () => {
+    if (!ref.current) {
+      return;
+    }
+
+    const { x, y, width, height } = ref.current.getBoundingClientRect();
+    onParentChange({
+      rect: { x, y, width, height },
+      screen: { width, height },
+    });
+  };
 
   const handleOnTriggerChange = (trigger: Trigger) => {
     const updated = new Set([...activeTriggers]);
@@ -38,35 +38,44 @@ export const BoxTrigger = () => {
       updated.add(trigger);
     }
     setActiveTriggers(updated);
-
-    onUpdatePath();
+    handleOnParentChange();
   };
 
   const handleOnExpand = (onExpand: () => void) => () => {
     onExpand();
-    onUpdatePath();
+    handleOnParentChange();
   };
+
+  useLayoutEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+
+    const { x, y, width } = ref.current.getBoundingClientRect();
+    addOrigin({ x, y, width, height: 160 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
-      <BoxConnectors paths={paths} />
+      <svg
+        className="fill-none fixed pointer-events-none"
+        width={width}
+        height={height}
+      >
+        {[...activeTriggers].map((trigger) => (
+          <BoxTriggerConnector key={trigger} trigger={trigger} />
+        ))}
+      </svg>
       <BoxTriggerSelector
-        innerRef={originRef}
+        innerRef={ref}
         selected={activeTriggers}
-        dotPosition={originDotPosition}
         onExpand={handleOnExpand}
-        onPositionChange={onUpdatePath}
+        onPositionChange={handleOnParentChange}
         onTriggerChange={handleOnTriggerChange}
       />
       {[...activeTriggers].map((trigger) => (
-        <BoxTriggerProps
-          key={trigger}
-          innerRef={destinationRef}
-          trigger={trigger}
-          initialX={nextX}
-          initialY={nextY}
-          onPositionChange={onUpdatePath}
-        />
+        <BoxTriggerProps key={trigger} trigger={trigger} />
       ))}
     </>
   );

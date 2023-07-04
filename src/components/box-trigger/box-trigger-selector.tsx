@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dot, DotPosition, Draggable, DraggableWrapper } from '@/components';
+import { Dot, Draggable, DraggableWrapper } from '@/components';
 import { Trigger } from '@/domain/trigger';
 
 import { InvisibleGroup } from './invisible-group';
@@ -9,7 +9,6 @@ import { VisibleGroup } from './visible-group';
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
   selected: Set<Trigger>;
-  dotPosition?: DotPosition;
   onExpand: (onDraggableExpand: () => void) => () => void;
   onPositionChange: () => void;
   onTriggerChange: (trigger: Trigger) => void;
@@ -18,7 +17,6 @@ type Props = {
 export const BoxTriggerSelector: React.FC<Props> = ({
   innerRef,
   selected,
-  dotPosition,
   onExpand,
   onPositionChange,
   onTriggerChange,
@@ -43,7 +41,8 @@ export const BoxTriggerSelector: React.FC<Props> = ({
         />
       )}
     >
-      <Dot active={selected.size > 0} position={dotPosition} />
+      <Dot active={selected.size > 0} position="left" />
+      <Dot active={selected.size > 0} position="right" />
     </Draggable>
   </DraggableWrapper>
 );

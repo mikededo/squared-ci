@@ -1,32 +1,53 @@
 import { useAtom } from 'jotai';
-import React, { useLayoutEffect, useMemo } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { triggerPropsAtom } from '@/atoms';
-import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
+import {
+  Dot,
+  DotPosition,
+  Draggable,
+  DraggableWrapper,
+  Title,
+} from '@/components';
 import {
   CustomTypesCustomizationKeys,
   type Trigger,
   TriggerCustomization,
   TypesCustomizationKeys,
 } from '@/domain/trigger';
+import { useViewport } from '@/hooks';
+import { useHorizontalDestination } from '@/stores';
 
 import { None, Types } from './customizations';
 
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
   trigger: Trigger | null;
-  initialX: number;
-  initialY: number;
-  onPositionChange?: () => void;
 };
 
-export const BoxTriggerProps: React.FC<Props> = ({
-  innerRef,
-  initialX,
-  initialY,
-  trigger,
-  onPositionChange,
-}) => {
+type ConnectorPosition = {
+  initialX: number;
+  initialY: number;
+  dotPosition: DotPosition | null;
+};
+
+export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const screen = useViewport();
+  const { addDestination, onDestinationChange } = useHorizontalDestination();
+
+  const [{ initialX, initialY, dotPosition }, setInitialPosition] =
+    useState<ConnectorPosition>({
+      initialX: 0,
+      initialY: 0,
+      dotPosition: null,
+    });
   const [selectedTypes, setSelectedTypes] = useAtom(
     useMemo(() => triggerPropsAtom(), [])
   );
@@ -35,21 +56,52 @@ export const BoxTriggerProps: React.FC<Props> = ({
     (trigger: TypesCustomizationKeys | CustomTypesCustomizationKeys) =>
     (type: string) => {
       setSelectedTypes([trigger, type]);
-      onPositionChange?.();
     };
 
+  const handleOnNotifyListeners = () => {
+    if (!trigger || !ref.current) {
+      return;
+    }
+
+    const { x, y, width, height } = ref.current.getBoundingClientRect();
+    onDestinationChange({
+      trigger,
+      destination: { x, y, width, height },
+      screen,
+    });
+  };
+
+  useEffect(() => {
+    if (!trigger || !ref.current) {
+      return;
+    }
+
+    const { x, y, width, height } = ref.current.getBoundingClientRect();
+
+    const initialPosition = addDestination({
+      trigger,
+      screen,
+      initialRect: { x, y, width, height },
+    });
+    if (initialPosition) {
+      setInitialPosition(initialPosition);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref]);
+
   useLayoutEffect(() => {
-    onPositionChange?.();
+    handleOnNotifyListeners();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <DraggableWrapper>
       <Draggable
-        innerRef={innerRef}
+        innerRef={ref}
         initialX={initialX}
         initialY={initialY}
-        onPositionChange={onPositionChange}
+        // eslint-disable-next-line
+        onPositionChange={handleOnNotifyListeners}
       >
         <DraggableWrapper>
           <Title title={trigger ? `${trigger} props` : 'No trigger selected'} />
@@ -78,7 +130,7 @@ export const BoxTriggerProps: React.FC<Props> = ({
             )}
           </div>
         </DraggableWrapper>
-        <Dot active={!!trigger} position="left" />
+        {dotPosition ? <Dot active position={dotPosition} /> : null}
       </Draggable>
     </DraggableWrapper>
   );
