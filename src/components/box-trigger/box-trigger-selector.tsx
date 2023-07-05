@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Dot, Draggable, DraggableWrapper } from '@/components';
-import { Trigger } from '@/domain/trigger';
+import type { Trigger } from '@/domain/trigger';
 
 import { InvisibleGroup } from './invisible-group';
 import { VisibleGroup } from './visible-group';

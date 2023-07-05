@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import { Icon } from '@/components';
-import { Trigger } from '@/domain/trigger';
+import type { Trigger } from '@/domain/trigger';
 
 type IconGroupProps = {
   selected: Set<Trigger>;

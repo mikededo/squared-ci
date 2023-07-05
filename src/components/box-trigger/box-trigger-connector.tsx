@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Trigger } from '@/domain/trigger';
+import type { Trigger } from '@/domain/trigger';
 import { useHorizontalListener } from '@/stores';
 
 type Props = { trigger: Trigger | null };

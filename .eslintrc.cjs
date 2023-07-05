@@ -12,6 +12,7 @@ module.exports = {
   plugins: ['react-refresh', 'react', '@typescript-eslint', 'import'],
   rules: {
     '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/consistent-type-imports': 'error',
     'arrow-body-style': ['error', 'as-needed'],
     'import/extensions': [
       'error',
@@ -55,12 +56,13 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'react-refresh/only-export-components': 'warn',
     'react/jsx-filename-extension': [0],
     'react/jsx-props-no-spreading': [0],
-    'react/require-default-props': [0],
+    'react/prop-types': [0],
     'react/react-in-jsx-scope': 2,
+    'react/require-default-props': [0],
     'react/self-closing-comp': ['error', { component: true, html: true }],
-    'react-refresh/only-export-components': 'warn',
     'sort-imports': ['error', { ignoreDeclarationSort: true }],
   },
   settings: {

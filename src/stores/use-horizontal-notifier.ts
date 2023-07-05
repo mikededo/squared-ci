@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 
-import { Trigger } from '@/domain/trigger';
-import { useViewport } from '@/hooks';
+import type { Trigger } from '@/domain/trigger';
+import type { useViewport } from '@/hooks';
 
-import {
+import type {
   DotPosition,
-  Rect,
+  Rect} from './use-horizontal-notifier.helpers';
+import {
   calculateProperties,
 } from './use-horizontal-notifier.helpers';
 

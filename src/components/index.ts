@@ -7,3 +7,4 @@ export * from './divider';
 export * from './dot';
 export * from './icon';
 export * from './input';
+export * from './visualiser';

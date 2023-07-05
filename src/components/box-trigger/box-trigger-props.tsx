@@ -8,18 +8,20 @@ import React, {
 } from 'react';
 
 import { triggerPropsAtom } from '@/atoms';
+import type {
+  DotPosition} from '@/components';
 import {
   Dot,
-  DotPosition,
   Draggable,
   DraggableWrapper,
   Title,
 } from '@/components';
-import {
+import type {
   CustomTypesCustomizationKeys,
+  TypesCustomizationKeys} from '@/domain/trigger';
+import {
   type Trigger,
-  TriggerCustomization,
-  TypesCustomizationKeys,
+  TriggerCustomization
 } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
 import { useHorizontalDestination } from '@/stores';

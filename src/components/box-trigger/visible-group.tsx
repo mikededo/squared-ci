@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DraggableWrapper, Title } from '@/components';
 import type { Trigger } from '@/domain/trigger';
-import { ExpandableToggler, WithExpandableRef } from '@/hooks';
+import type { ExpandableToggler, WithExpandableRef } from '@/hooks';
 
 import { VisibleTriggers } from './visible-triggers';
 

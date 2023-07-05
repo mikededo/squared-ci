@@ -1,4 +1,4 @@
-import { useViewport } from '@/hooks';
+import type { useViewport } from '@/hooks';
 
 export type Rect = {
   x: number;

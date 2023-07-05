@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
 
 type Args<T extends HTMLElement> = {
   element: React.RefObject<T>['current'];

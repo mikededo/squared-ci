@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
-import { Equals } from '@/domain/shared';
-import {
+import type { Equals } from '@/domain/shared';
+import type {
   Customization,
   Trigger,
   TriggerCustomization,

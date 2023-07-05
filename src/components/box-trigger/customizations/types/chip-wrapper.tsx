@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+import React from 'react';
 
 export const ChipWrapper: React.FC<Required<PropsWithChildren>> = ({
   children,

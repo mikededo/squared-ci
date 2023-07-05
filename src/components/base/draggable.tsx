@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import React, { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+import React from 'react';
 
-import { Position, useDraggable, useExpandable } from '@/hooks';
+import type { Position} from '@/hooks';
+import { useDraggable, useExpandable } from '@/hooks';
 
 import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Chip } from '@/components';
-import { Trigger, TriggerTypes } from '@/domain/trigger';
+import type { Trigger} from '@/domain/trigger';
+import { TriggerTypes } from '@/domain/trigger';
 
 import { ChipWrapper } from './chip-wrapper';
 
