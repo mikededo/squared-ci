@@ -8,21 +8,13 @@ import React, {
 } from 'react';
 
 import { triggerPropsAtom } from '@/atoms';
-import type {
-  DotPosition} from '@/components';
-import {
-  Dot,
-  Draggable,
-  DraggableWrapper,
-  Title,
-} from '@/components';
+import type { DotPosition } from '@/components';
+import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
 import type {
   CustomTypesCustomizationKeys,
-  TypesCustomizationKeys} from '@/domain/trigger';
-import {
-  type Trigger,
-  TriggerCustomization
+  TypesCustomizationKeys,
 } from '@/domain/trigger';
+import { type Trigger, TriggerCustomization } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
 import { useHorizontalDestination } from '@/stores';
 
@@ -110,15 +102,17 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
             {trigger ? (
               TriggerCustomization[trigger] === 'types' ||
               TriggerCustomization[trigger] === 'custom-types' ? (
-                <Types
-                  trigger={trigger}
-                  selected={[...(selectedTypes[trigger] as Set<string>)]}
-                  onTypeToggle={handleOnTypesToggle(
-                    trigger as
-                      | TypesCustomizationKeys
-                      | CustomTypesCustomizationKeys
-                  )}
-                />
+                <DraggableWrapper>
+                  <Types
+                    trigger={trigger}
+                    selected={[...(selectedTypes[trigger] as Set<string>)]}
+                    onTypeToggle={handleOnTypesToggle(
+                      trigger as
+                        | TypesCustomizationKeys
+                        | CustomTypesCustomizationKeys
+                    )}
+                  />
+                </DraggableWrapper>
               ) : (
                 <None />
               )
