@@ -1,9 +1,9 @@
 import React from 'react';
 
-import type { RequiredChildrenFC } from './types';
+import type { RequiredChildrenFC } from '@/domain/shared';
 
 export const Line: RequiredChildrenFC = ({ children }) => (
-  <p className="font-mono text-sm">{children}</p>
+  <p className="font-mono text-sm text-sky-900">{children}</p>
 );
 
 export const Keyword: RequiredChildrenFC = ({ children }) => (

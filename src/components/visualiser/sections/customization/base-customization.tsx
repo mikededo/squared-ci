@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { Keyword, Tabbed } from '@/components';
 import type {
   NoneCustomizationKeys,
   TBDCustomizationKeys,
 } from '@/domain/trigger';
 
-import { Keyword, Tabbed } from '../../shared';
 
 type Props = {
   text: NoneCustomizationKeys | TBDCustomizationKeys;

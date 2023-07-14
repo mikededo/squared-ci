@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { Keyword, Line, Tabbed } from '../shared';
+import { Comment, Keyword, Line, Tabbed } from '@/components';
 
 export const WorkflowJobs: React.FC = () => (
   <>
+    <Line>
+      <Comment># The following code is just an example</Comment>
+    </Line>
     <Line>
       <Keyword>jobs</Keyword>:
     </Line>

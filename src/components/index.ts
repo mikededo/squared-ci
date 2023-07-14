@@ -8,3 +8,4 @@ export * from './dot';
 export * from './icon';
 export * from './input';
 export * from './visualiser';
+export * from './visualiser-items';

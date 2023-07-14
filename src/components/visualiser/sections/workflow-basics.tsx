@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Comment, Keyword, Line } from '@/components';
 import { useWorkflowBasicsStore } from '@/stores';
 
-import { Comment, Keyword, Line } from '../shared';
 
 export const WorkflowBasics: React.FC = () => {
   const { name, runName } = useWorkflowBasicsStore();

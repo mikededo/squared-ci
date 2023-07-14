@@ -29,7 +29,7 @@ const BulletList: React.FC<Pick<ListProps, 'items' | 'tabFactor'>> = ({
   <>
     {items.map((item) => (
       <Tabbed key={item} tabs={tabFactor * 2 + 2}>
-        - {item}
+        <span className="text-[#333]">-</span> {item}
       </Tabbed>
     ))}
   </>

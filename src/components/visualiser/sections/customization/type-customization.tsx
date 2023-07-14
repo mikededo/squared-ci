@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { Keyword, List, Tabbed } from '@/components';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
 } from '@/domain/trigger';
 
-import { Keyword, List, Tabbed } from '../../shared';
 
 type TypeCustomizationTriggerProps = {
   text: TypesCustomizationKeys | CustomTypesCustomizationKeys;
