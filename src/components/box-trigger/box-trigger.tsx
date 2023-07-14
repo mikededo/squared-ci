@@ -1,9 +1,11 @@
-import { atom, useAtom } from 'jotai';
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
+import { isCronCustomization } from '@/domain/trigger';
+import { isTbdCustomization } from '@/domain/trigger';
+import { isNoneCustomization } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
-import { useHorizontalOrigin } from '@/stores';
+import { useHorizontalOrigin, useWorkflowTriggersStore } from '@/stores';
 
 import { BoxTriggerConnector } from './box-trigger-connector';
 import { BoxTriggerProps } from './box-trigger-props';
@@ -14,9 +16,13 @@ export const BoxTrigger = () => {
   const { width, height } = useViewport();
   const { addOrigin, onParentChange } = useHorizontalOrigin();
 
-  const [activeTriggers, setActiveTriggers] = useAtom(
-    useMemo(() => atom<Set<Trigger>>(new Set<Trigger>()), [])
-  );
+  const {
+    triggers,
+    toggleCronTrigger,
+    toggleTbdTrigger,
+    toggleTypeTrigger,
+    toggleNoneTrigger,
+  } = useWorkflowTriggersStore();
 
   const handleOnParentChange = () => {
     if (!ref.current) {
@@ -31,13 +37,20 @@ export const BoxTrigger = () => {
   };
 
   const handleOnTriggerChange = (trigger: Trigger) => {
-    const updated = new Set([...activeTriggers]);
-    if (updated.has(trigger)) {
-      updated.delete(trigger);
-    } else {
-      updated.add(trigger);
+    if (isNoneCustomization(trigger)) {
+      toggleNoneTrigger(trigger);
+      return;
     }
-    setActiveTriggers(updated);
+    if (isCronCustomization(trigger)) {
+      toggleCronTrigger(trigger);
+      return;
+    }
+    if (isTbdCustomization(trigger)) {
+      toggleTbdTrigger(trigger);
+      return;
+    }
+    toggleTypeTrigger(trigger);
+
     handleOnParentChange();
   };
 
@@ -63,18 +76,18 @@ export const BoxTrigger = () => {
         width={width}
         height={height}
       >
-        {[...activeTriggers].map((trigger) => (
+        {[...triggers].map((trigger) => (
           <BoxTriggerConnector key={trigger} trigger={trigger} />
         ))}
       </svg>
       <BoxTriggerSelector
         innerRef={ref}
-        selected={activeTriggers}
+        selected={triggers}
         onExpand={handleOnExpand}
         onPositionChange={handleOnParentChange}
         onTriggerChange={handleOnTriggerChange}
       />
-      {[...activeTriggers].map((trigger) => (
+      {[...triggers].map((trigger) => (
         <BoxTriggerProps key={trigger} trigger={trigger} />
       ))}
     </>

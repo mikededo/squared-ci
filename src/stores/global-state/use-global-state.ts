@@ -17,7 +17,7 @@ export const useWorkflowBasicsStore = () =>
     onChangeRunName,
   }));
 
-export const useWorkfloTriggersStore = () =>
+export const useWorkflowTriggersStore = () =>
   globalStore(
     ({
       noneCustomization,

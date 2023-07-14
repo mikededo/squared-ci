@@ -113,6 +113,21 @@ export const CronCustomizations = Object.entries(TriggerCustomization).reduce(
   {}
 ) as CronCustomizationKeys;
 
+export const isNoneCustomization = (
+  trigger: Trigger
+): trigger is NoneCustomizationKeys => TriggerCustomization[trigger] === 'none';
+export const isTypeCustomization = (
+  trigger: Trigger
+): trigger is TypesCustomizationKeys | CustomTypesCustomizationKeys =>
+  TriggerCustomization[trigger] === 'types' ||
+  TriggerCustomization[trigger] === 'custom-types';
+export const isTbdCustomization = (
+  trigger: Trigger
+): trigger is TBDCustomizationKeys => TriggerCustomization[trigger] === 'tbd';
+export const isCronCustomization = (
+  trigger: Trigger
+): trigger is CronCustomizationKeys => TriggerCustomization[trigger] === 'cron';
+
 export const BaseTriggerTypes = ['created', 'edited', 'deleted'];
 export const PullRequestTypes = [
   'assigned',

@@ -1,22 +1,15 @@
-import { useAtom } from 'jotai';
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { triggerPropsAtom } from '@/atoms';
 import type { DotPosition } from '@/components';
 import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
 } from '@/domain/trigger';
-import { type Trigger, TriggerCustomization } from '@/domain/trigger';
+import { isTypeCustomization } from '@/domain/trigger';
+import { type Trigger } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
-import { useHorizontalDestination } from '@/stores';
+import { useHorizontalDestination, useWorkflowTriggersStore } from '@/stores';
 
 import { None, Types } from './customizations';
 
@@ -35,6 +28,7 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
   const ref = useRef<HTMLDivElement>(null);
   const screen = useViewport();
   const { addDestination, onDestinationChange } = useHorizontalDestination();
+  const { toggleTypeTriggerProp, getTriggerTypes } = useWorkflowTriggersStore();
 
   const [{ initialX, initialY, dotPosition }, setInitialPosition] =
     useState<ConnectorPosition>({
@@ -42,14 +36,11 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
       initialY: 0,
       dotPosition: null,
     });
-  const [selectedTypes, setSelectedTypes] = useAtom(
-    useMemo(() => triggerPropsAtom(), [])
-  );
 
   const handleOnTypesToggle =
     (trigger: TypesCustomizationKeys | CustomTypesCustomizationKeys) =>
     (type: string) => {
-      setSelectedTypes([trigger, type]);
+      toggleTypeTriggerProp(trigger, type);
     };
 
   const handleOnNotifyListeners = () => {
@@ -100,17 +91,12 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
           <Title title={trigger ? `${trigger} props` : 'No trigger selected'} />
           <div className="px-3 pb-3">
             {trigger ? (
-              TriggerCustomization[trigger] === 'types' ||
-              TriggerCustomization[trigger] === 'custom-types' ? (
+              isTypeCustomization(trigger) ? (
                 <DraggableWrapper>
                   <Types
                     trigger={trigger}
-                    selected={[...(selectedTypes[trigger] as Set<string>)]}
-                    onTypeToggle={handleOnTypesToggle(
-                      trigger as
-                        | TypesCustomizationKeys
-                        | CustomTypesCustomizationKeys
-                    )}
+                    selected={[...getTriggerTypes(trigger)]}
+                    onTypeToggle={handleOnTypesToggle(trigger)}
                   />
                 </DraggableWrapper>
               ) : (
