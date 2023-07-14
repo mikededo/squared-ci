@@ -1,7 +1,6 @@
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 
-type RequiredChildrenFC = React.FC<Required<PropsWithChildren>>;
+import type { RequiredChildrenFC } from './types';
 
 export const Line: RequiredChildrenFC = ({ children }) => (
   <p className="font-mono text-sm">{children}</p>
@@ -15,9 +14,10 @@ export const Comment: RequiredChildrenFC = ({ children }) => (
   <span className="text-gray-500">{children}</span>
 );
 
-export const Tabbed: React.FC<
-  Required<PropsWithChildren<{ tabs: number }>>
-> = ({ children, tabs }) => (
+export const Tabbed: RequiredChildrenFC<{ tabs: number }> = ({
+  children,
+  tabs,
+}) => (
   <Line>
     <span>{'\xa0'.repeat(tabs)}</span>
     {children}
