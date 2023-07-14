@@ -14,7 +14,8 @@ const InLineList: React.FC<Pick<ListProps, 'items'>> = ({ items }) => (
     [
     {items.map((item, index, { length }) => (
       <React.Fragment key={item}>
-        &apos;{item}&apos;{index === length - 1 ? '' : ', '}
+        {item}
+        {index === length - 1 ? '' : ', '}
       </React.Fragment>
     ))}
     ]

@@ -14,8 +14,8 @@ export const Page: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <article
       className={classNames(
-        'fixed transition-all top-4 bottom-4 w-[440px] bg-white px-4 pt-2 pb-4 border border-slate-200 rounded-lg',
-        opened ? 'right-4' : '-right-[440px]'
+        'fixed transition-all top-4 bottom-4 w-[600px] bg-white px-4 pt-2 pb-4 border border-slate-200 rounded-lg',
+        opened ? 'right-4' : '-right-[600px]'
       )}
     >
       <div
