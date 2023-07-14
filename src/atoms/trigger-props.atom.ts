@@ -2,11 +2,14 @@ import { atom } from 'jotai';
 
 import type { Equals } from '@/domain/shared';
 import type {
+  Cron,
   Customization,
   Trigger,
   TriggerCustomization,
   TriggerCustomizationKeys,
-  TriggerCustomizationType,
+  TriggerCustomizationType} from '@/domain/trigger';
+import {
+  DefaultCronValue
 } from '@/domain/trigger';
 
 type TriggerStateConfiguration = {
@@ -19,7 +22,7 @@ type TriggerStateConfiguration = {
     : Equals<(typeof TriggerCustomization)[K], 'tbd'> extends true
     ? Map<unknown, unknown>
     : Equals<(typeof TriggerCustomization)[K], 'cron'> extends true
-    ? [string, string, string, string, string]
+    ? Cron
     : null;
 };
 type TriggerStateUpdaterValue<T extends Customization> = Equals<
@@ -34,7 +37,7 @@ type TriggerStateUpdaterValue<T extends Customization> = Equals<
   : Equals<T, 'tbd'> extends true
   ? string
   : Equals<T, 'cron'> extends true
-  ? [string, string, string, string, string]
+  ? Cron
   : null;
 export type TriggerStateUpdater = {
   [K in TriggerCustomizationKeys]: [
@@ -73,7 +76,7 @@ const TriggerBaseState: TriggerStateConfiguration = {
   registry_package: new Set(),
   release: new Set(),
   repository_dispatch: new Set(),
-  schedule: ['*', '*', '*', '*', '*'],
+  schedule: DefaultCronValue,
   status: null,
   watch: new Set(),
   workflow_call: null,

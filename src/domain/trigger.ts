@@ -1,3 +1,6 @@
+export type Cron = [string, string, string, string, string];
+export const DefaultCronValue: Cron = ['*', '*', '*', '*', '*'];
+
 export type Trigger =
   | 'check_run'
   | 'check_suite'

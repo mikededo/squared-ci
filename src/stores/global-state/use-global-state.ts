@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 
-import type { WorkflowBasicsStore } from './types';
+import type { GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
-
-type GlobalStore = WorkflowBasicsStore;
+import { workflowTriggersStore } from './workflow-triggers';
 
 const globalStore = create<GlobalStore>()((...args) => ({
   ...workflowBasicsStore(...args),
+  ...workflowTriggersStore(...args),
 }));
 
 export const useWorkflowBasicsStore = () =>
@@ -16,3 +16,32 @@ export const useWorkflowBasicsStore = () =>
     onChangeName,
     onChangeRunName,
   }));
+
+export const useWorkfloTriggersStore = () =>
+  globalStore(
+    ({
+      noneCustomization,
+      typeCustomization,
+      tbdCustomization,
+      cronCustomization,
+      triggers,
+      toggleNoneTrigger,
+      getTriggerTypes,
+      toggleTypeTrigger,
+      toggleTypeTriggerProp,
+      toggleTbdTrigger,
+      toggleCronTrigger,
+    }) => ({
+      noneCustomization,
+      typeCustomization,
+      tbdCustomization,
+      cronCustomization,
+      triggers,
+      toggleNoneTrigger,
+      getTriggerTypes,
+      toggleTypeTrigger,
+      toggleTypeTriggerProp,
+      toggleTbdTrigger,
+      toggleCronTrigger,
+    })
+  );
