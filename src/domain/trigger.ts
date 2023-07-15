@@ -38,7 +38,13 @@ export type Trigger =
   | 'workflow_dispatch' // visible
   | 'workflow_run';
 
-export type Customization = 'none' | 'types' | 'custom-types' | 'cron' | 'tbd';
+export type Customization =
+  | 'none'
+  | 'types'
+  | 'types-branches-paths'
+  | 'types-branches-tags'
+  | 'custom-types'
+  | 'cron';
 export const TriggerCustomization = {
   check_run: 'types',
   check_suite: 'types',
@@ -60,12 +66,12 @@ export const TriggerCustomization = {
   project_card: 'types',
   project_column: 'types',
   public: 'none',
-  pull_request: 'types',
+  pull_request: 'types-branches-paths',
   pull_request_comment: 'types',
   pull_request_review: 'types',
   pull_request_review_comment: 'types',
-  pull_request_target: 'types',
-  push: 'tbd',
+  pull_request_target: 'types-branches-tags',
+  push: 'types-branches-paths',
   registry_package: 'types',
   release: 'types',
   repository_dispatch: 'custom-types',
@@ -87,7 +93,9 @@ type CustomizationKeys<T extends Customization> = {
 export type NoneCustomizationKeys = CustomizationKeys<'none'>;
 export type TypesCustomizationKeys = CustomizationKeys<'types'>;
 export type CustomTypesCustomizationKeys = CustomizationKeys<'custom-types'>;
-export type TBDCustomizationKeys = CustomizationKeys<'tbd'>;
+export type ComplexTypesCustomizationKeys = CustomizationKeys<
+  'types-branches-paths' | 'types-branches-tags'
+>;
 export type CronCustomizationKeys = CustomizationKeys<'cron'>;
 
 export const NoneCustomizations = Object.entries(TriggerCustomization).reduce(
@@ -104,10 +112,6 @@ export const CustomTypesCustomizations = Object.entries(
   (res, [key, value]) => ({ ...res, [key]: value === 'custom-types' }),
   {}
 ) as CustomTypesCustomizationKeys;
-export const TBDCustomizations = Object.entries(TriggerCustomization).reduce(
-  (res, [key, value]) => ({ ...res, [key]: value === 'tbd' }),
-  {}
-) as TBDCustomizationKeys;
 export const CronCustomizations = Object.entries(TriggerCustomization).reduce(
   (res, [key, value]) => ({ ...res, [key]: value === 'cron' }),
   {}
@@ -121,9 +125,11 @@ export const isTypeCustomization = (
 ): trigger is TypesCustomizationKeys | CustomTypesCustomizationKeys =>
   TriggerCustomization[trigger] === 'types' ||
   TriggerCustomization[trigger] === 'custom-types';
-export const isTbdCustomization = (
+export const isComplexCustomization = (
   trigger: Trigger
-): trigger is TBDCustomizationKeys => TriggerCustomization[trigger] === 'tbd';
+): trigger is ComplexTypesCustomizationKeys =>
+  TriggerCustomization[trigger] === 'types-branches-tags' ||
+  TriggerCustomization[trigger] === 'types-branches-paths';
 export const isCronCustomization = (
   trigger: Trigger
 ): trigger is CronCustomizationKeys => TriggerCustomization[trigger] === 'cron';

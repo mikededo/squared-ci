@@ -66,15 +66,13 @@ export const calculateProperties = (
   const deltaY = originY - destinationY;
 
   const destinationDotPosition: DotPosition =
-    deltaX - (origin?.width ?? 0) / 2 < 0 ? 'right' : 'left';
+    deltaX - (origin?.width ?? 0) / 2 < 0 ? 'left' : 'right';
 
   const controlPointX =
     (originX + destinationX) / 2 - Math.abs(deltaX) * ScalingFactor;
 
   const path = `M ${
-    destinationDotPosition === 'right'
-      ? originX
-      : originX - (origin?.width ?? 0)
+    destinationDotPosition === 'left' ? originX : originX - (origin?.width ?? 0)
   },${originY} C ${
     controlPointX *
     (Math.abs(deltaY) < TwoCurveLimit

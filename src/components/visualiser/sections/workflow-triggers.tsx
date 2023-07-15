@@ -12,7 +12,7 @@ export const WorkflowTriggers: React.FC = () => {
   const {
     triggers,
     noneCustomization,
-    tbdCustomization,
+    // TODO: complexCustomization,
     typeCustomization,
     // TODO: cronCustomization,
   } = useWorkflowTriggersStore();
@@ -35,9 +35,6 @@ export const WorkflowTriggers: React.FC = () => {
         />
       ))}
       {[...noneCustomization].map((customization) => (
-        <BaseCustomizationTrigger key={customization} text={customization} />
-      ))}
-      {[...tbdCustomization].map((customization) => (
         <BaseCustomizationTrigger key={customization} text={customization} />
       ))}
     </>

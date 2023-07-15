@@ -1,9 +1,9 @@
 import type {
+  ComplexTypesCustomizationKeys,
   Cron,
   CronCustomizationKeys,
   CustomTypesCustomizationKeys,
   NoneCustomizationKeys,
-  TBDCustomizationKeys,
   TypesCustomizationKeys,
 } from '@/domain/trigger';
 import type { Trigger } from '@/domain/trigger';
@@ -27,7 +27,10 @@ type WorkflowTriggersState = {
     TypesCustomizationKeys | CustomTypesCustomizationKeys,
     Set<string>
   >;
-  tbdCustomization: Set<TBDCustomizationKeys>;
+  complexCustomization: Map<
+    ComplexTypesCustomizationKeys,
+    Map<string, Set<string>>
+  >;
   cronCustomization: Map<CronCustomizationKeys, Cron>;
   triggers: Set<Trigger>;
 };
@@ -44,7 +47,7 @@ type WorkflowTriggersActions = {
     TypesCustomizationKeys | CustomTypesCustomizationKeys,
     string
   >;
-  toggleTbdTrigger: Single<TBDCustomizationKeys>;
+  toggleComplexTrigger: Single<ComplexTypesCustomizationKeys>;
   toggleCronTrigger: Single<CronCustomizationKeys>;
 };
 export type WorkflowTriggersStore = WorkflowTriggersState &

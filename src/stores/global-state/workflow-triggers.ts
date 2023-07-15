@@ -36,7 +36,7 @@ export const workflowTriggersStore: StateCreator<
 > = (set, get) => ({
   noneCustomization: new Set(),
   typeCustomization: new Map(),
-  tbdCustomization: new Set(),
+  complexCustomization: new Map(),
   cronCustomization: new Map(),
   triggers: new Set(),
   toggleNoneTrigger: (trigger) => {
@@ -51,16 +51,16 @@ export const workflowTriggersStore: StateCreator<
         : addToSet(noneCustomization, trigger),
     });
   },
-  toggleTbdTrigger: (trigger) => {
-    const { triggers, tbdCustomization } = get();
+  toggleComplexTrigger: (trigger) => {
+    const { triggers, complexCustomization } = get();
     const exists = triggers.has(trigger);
     set({
       triggers: exists
         ? removeFromSet(triggers, trigger)
         : addToSet(triggers, trigger),
-      tbdCustomization: exists
-        ? removeFromSet(tbdCustomization, trigger)
-        : addToSet(tbdCustomization, trigger),
+      complexCustomization: exists
+        ? removeFromMap(complexCustomization, trigger)
+        : addToMap(complexCustomization, trigger, new Map()),
     });
   },
   toggleTypeTrigger: (trigger) => {

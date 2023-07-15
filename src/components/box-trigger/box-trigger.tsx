@@ -1,9 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
-import { isCronCustomization } from '@/domain/trigger';
-import { isTbdCustomization } from '@/domain/trigger';
-import { isNoneCustomization } from '@/domain/trigger';
+import {
+  isComplexCustomization,
+  isCronCustomization,
+  isNoneCustomization,
+} from '@/domain/trigger';
 import { useViewport } from '@/hooks';
 import { useHorizontalOrigin, useWorkflowTriggersStore } from '@/stores';
 
@@ -19,7 +21,7 @@ export const BoxTrigger = () => {
   const {
     triggers,
     toggleCronTrigger,
-    toggleTbdTrigger,
+    toggleComplexTrigger,
     toggleTypeTrigger,
     toggleNoneTrigger,
   } = useWorkflowTriggersStore();
@@ -45,8 +47,8 @@ export const BoxTrigger = () => {
       toggleCronTrigger(trigger);
       return;
     }
-    if (isTbdCustomization(trigger)) {
-      toggleTbdTrigger(trigger);
+    if (isComplexCustomization(trigger)) {
+      toggleComplexTrigger(trigger);
       return;
     }
     toggleTypeTrigger(trigger);
