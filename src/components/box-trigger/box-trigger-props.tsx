@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import type { DotPosition } from '@/components';
 import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
+import { Positions } from '@/config';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
@@ -32,9 +33,9 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
 
   const [{ initialX, initialY, dotPosition }, setInitialPosition] =
     useState<ConnectorPosition>({
-      initialX: 0,
-      initialY: 0,
-      dotPosition: null,
+      initialX: Positions.BoxTriggerPropsX,
+      initialY: Positions.BoxTriggerPropsY,
+      dotPosition: 'left',
     });
 
   const handleOnTypesToggle =

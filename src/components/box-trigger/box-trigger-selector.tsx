@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Dot, Draggable, DraggableWrapper } from '@/components';
+import { Positions } from '@/config';
 import type { Trigger } from '@/domain/trigger';
 
 import { InvisibleGroup } from './invisible-group';
@@ -24,6 +25,8 @@ export const BoxTriggerSelector: React.FC<Props> = ({
   <DraggableWrapper>
     <Draggable
       innerRef={innerRef}
+      initialX={Positions.BoxTriggerX}
+      initialY={Positions.BoxTriggerY}
       onPositionChange={onPositionChange}
       visible={({ ref, onExpand: onDraggableExpand }) => (
         <VisibleGroup

@@ -21,14 +21,11 @@ const snapPosition = ({ x, y }: PositionState): PositionState => ({
   y: Math.round(y / SnapRatio) * SnapRatio,
 });
 
-export const draggableAtom = ({
-  x,
-  y,
-}: Partial<Pick<PositionAtom, 'x' | 'y'>> = {}) => {
+export const draggableAtom = ({ x, y }: Pick<PositionAtom, 'x' | 'y'>) => {
   const initialState: PositionAtom = {
     dragging: false,
-    x: x ?? 140,
-    y: y ?? 280,
+    x: x,
+    y: y,
     ox: 0,
     oy: 0,
   };

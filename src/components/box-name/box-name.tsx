@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Draggable, DraggableWrapper } from '@/components';
+import { Positions } from '@/config';
 import { useActiveChildren } from '@/hooks';
 
 import { Name } from './name';
@@ -17,6 +18,8 @@ export const BoxName = () => {
     <DraggableWrapper>
       <Draggable
         active={isAnyChildActive}
+        initialX={Positions.BoxNameX}
+        initialY={Positions.BoxNameY}
         visible={({ ref, dragging, onExpand }) => (
           <Name
             expandableRef={ref}

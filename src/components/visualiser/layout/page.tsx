@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 
 export const Page: React.FC<PropsWithChildren> = ({ children }) => {
-  const [opened, setOpened] = useAtom(useMemo(() => atom(true), []));
+  const [opened, setOpened] = useAtom(useMemo(() => atom(false), []));
 
   const onToggleStatus = () => {
     setOpened((prev) => !prev);

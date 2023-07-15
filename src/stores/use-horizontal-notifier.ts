@@ -3,12 +3,8 @@ import { create } from 'zustand';
 import type { Trigger } from '@/domain/trigger';
 import type { useViewport } from '@/hooks';
 
-import type {
-  DotPosition,
-  Rect} from './use-horizontal-notifier.helpers';
-import {
-  calculateProperties,
-} from './use-horizontal-notifier.helpers';
+import type { DotPosition, Rect } from './use-horizontal-notifier.helpers';
+import { calculateProperties } from './use-horizontal-notifier.helpers';
 
 type Screen = ReturnType<typeof useViewport>;
 type WithScreen<T extends object, F = void> = (
@@ -57,6 +53,7 @@ const horizontalPathCommunication = create<State & Actions>()((set, get) => ({
       destinations: { ...state.destinations, [trigger]: initialRect },
       listeners: { ...state.listeners, [trigger]: path },
     }));
+
     return {
       initialX: initialSiblingX,
       initialY: initialSiblingY,

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-import type { Position} from '@/hooks';
+import type { Position } from '@/hooks';
 import { useDraggable, useExpandable } from '@/hooks';
 
 import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
@@ -17,8 +17,8 @@ type RenderFn = ({
   onExpand,
 }: RenderProps<HTMLDivElement>) => React.ReactElement;
 type Props = {
-  initialX?: number;
-  initialY?: number;
+  initialX: number;
+  initialY: number;
   active?: boolean;
   visible?: RenderFn;
   invisible?: RenderFn;
