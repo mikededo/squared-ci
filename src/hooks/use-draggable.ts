@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { draggableAtom } from '@/atoms';
 
-export type Position = { x?: number; y?: number };
+export type Position = { x: number; y: number };
 type PositionSideEffects = { onDrag?: (position: Position) => void };
 
 export const useDraggable = ({

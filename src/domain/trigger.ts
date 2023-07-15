@@ -95,21 +95,21 @@ export const NoneCustomizations = Object.entries(TriggerCustomization).reduce(
   {}
 ) as NoneCustomizationKeys;
 export const TypesCustomizations = Object.entries(TriggerCustomization).reduce(
-  (res, [key, value]) => ({ ...res, [key]: value === 'none' }),
+  (res, [key, value]) => ({ ...res, [key]: value === 'types' }),
   {}
 ) as TypesCustomizationKeys;
 export const CustomTypesCustomizations = Object.entries(
   TriggerCustomization
 ).reduce(
-  (res, [key, value]) => ({ ...res, [key]: value === 'none' }),
+  (res, [key, value]) => ({ ...res, [key]: value === 'custom-types' }),
   {}
 ) as CustomTypesCustomizationKeys;
 export const TBDCustomizations = Object.entries(TriggerCustomization).reduce(
-  (res, [key, value]) => ({ ...res, [key]: value === 'none' }),
+  (res, [key, value]) => ({ ...res, [key]: value === 'tbd' }),
   {}
 ) as TBDCustomizationKeys;
 export const CronCustomizations = Object.entries(TriggerCustomization).reduce(
-  (res, [key, value]) => ({ ...res, [key]: value === 'none' }),
+  (res, [key, value]) => ({ ...res, [key]: value === 'cron' }),
   {}
 ) as CronCustomizationKeys;
 
