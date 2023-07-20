@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BoxName, BoxTrigger, Visualiser } from '@/components';
+import { BoxName, BoxTrigger, GlobalDrag, Visualiser } from '@/components';
 
 const Root = () => (
   <main
@@ -9,10 +9,13 @@ const Root = () => (
         'linear-gradient(#e8e8e8 1px,transparent 0),linear-gradient(90deg, #e8e8e8 1px, #f8f8f8 0)',
       backgroundSize: '50px 50px',
     }}
-    className="h-screen w-screen relative overflow-hidden"
+    className="overflow-hidden"
+    id="main"
   >
-    <BoxName />
-    <BoxTrigger />
+    <GlobalDrag>
+      <BoxName />
+      <BoxTrigger />
+    </GlobalDrag>
     <Visualiser />
   </main>
 );

@@ -5,6 +5,7 @@ export * from './chip';
 export * from './dd';
 export * from './divider';
 export * from './dot';
+export * from './global-drag';
 export * from './icon';
 export * from './input';
 export * from './visualiser';

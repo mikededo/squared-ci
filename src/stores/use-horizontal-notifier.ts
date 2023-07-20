@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import type { InitialPosition } from '@/domain/shared';
 import type { Trigger } from '@/domain/trigger';
 import type { useViewport } from '@/hooks';
 
@@ -20,11 +21,8 @@ type State = {
 type Actions = {
   addOrigin: (origin: Rect) => void;
   addDestination: WithScreen<
-    {
-      trigger: Trigger;
-      initialRect: Rect;
-    },
-    { initialX: number; initialY: number; dotPosition: DotPosition } | undefined
+    { trigger: Trigger; initialRect: Rect },
+    ({ dotPosition: DotPosition } & InitialPosition) | undefined
   >;
   removeDestination: (key: Trigger) => void;
   addListener: (key: Trigger) => void;

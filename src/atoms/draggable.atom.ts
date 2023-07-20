@@ -1,19 +1,15 @@
 import { atom } from 'jotai';
 
-type PositionAtom = {
-  dragging: boolean;
-  x: number;
-  y: number;
-  ox: number;
-  oy: number;
-};
-type PositionState = Pick<PositionAtom, 'x' | 'y'>;
-type OffsetPositionState = Pick<PositionAtom, 'ox' | 'oy'>;
+import type { OriginPosition, Position } from '@/domain/shared';
+
+type PositionAtom = { dragging: boolean } & Position & OriginPosition;
+type PositionState = Position;
+type OffsetPositionState = OriginPosition;
 type DragState = Pick<PositionAtom, 'dragging'>;
 type AtomUpdate =
   | { dragging: false }
   | ({ dragging: true } & OffsetPositionState)
-  | (Partial<DragState> & PositionState);
+  | (Partial<DragState> & PositionState & { force?: boolean });
 
 const SnapRatio = 1;
 const snapPosition = ({ x, y }: PositionState): PositionState => ({
@@ -21,7 +17,15 @@ const snapPosition = ({ x, y }: PositionState): PositionState => ({
   y: Math.round(y / SnapRatio) * SnapRatio,
 });
 
-export const draggableAtom = ({ x, y }: Pick<PositionAtom, 'x' | 'y'>) => {
+type DraggableAtomArgs = PositionState & {
+  absoluteValue?: boolean;
+};
+
+export const draggableAtom = ({
+  x,
+  y,
+  absoluteValue = true,
+}: DraggableAtomArgs) => {
   const initialState: PositionAtom = {
     dragging: false,
     x: x,
@@ -41,15 +45,17 @@ export const draggableAtom = ({ x, y }: Pick<PositionAtom, 'x' | 'y'>) => {
         return;
       }
 
-      if (!current.dragging) {
+      if (!current.dragging && !nextPosition.force) {
         return;
       }
 
+      const x = nextPosition.x - current.ox;
+      const y = nextPosition.y - current.oy;
       const snappedPosition: PositionAtom = {
         ...current,
         ...snapPosition({
-          x: Math.abs(nextPosition.x - current.ox),
-          y: Math.abs(nextPosition.y - current.oy),
+          x: absoluteValue ? Math.abs(x) : x,
+          y: absoluteValue ? Math.abs(y) : y,
         }),
       };
       set(base, snappedPosition);

@@ -1,3 +1,4 @@
+import type { OriginPosition, Position } from '@/domain/shared';
 import type {
   ComplexTypesCustomizationKeys,
   Cron,
@@ -8,8 +9,17 @@ import type {
 } from '@/domain/trigger';
 import type { Trigger } from '@/domain/trigger';
 
-type Single<T, R = void> = (arg0: T) => R;
-type Double<T, J, R = void> = (arg0: T, arg1: J) => R;
+export type Empty<R = void> = () => R;
+export type Single<T, R = void> = (arg0: T) => R;
+export type Double<T, J, R = void> = (arg0: T, arg1: J) => R;
+
+type GlobalDragState = Position & OriginPosition & { isDragging: boolean };
+type GlobalDragActions = {
+  onDragStart: Single<React.MouseEvent<HTMLElement, MouseEvent>>;
+  onDragEnd: Empty;
+  onDragChange: Single<React.MouseEvent<HTMLElement, MouseEvent>>;
+};
+export type GlobalDragStore = GlobalDragState & GlobalDragActions;
 
 type WorkflowBasicsState = {
   name?: string;
@@ -53,4 +63,6 @@ type WorkflowTriggersActions = {
 export type WorkflowTriggersStore = WorkflowTriggersState &
   WorkflowTriggersActions;
 
-export type GlobalStore = WorkflowBasicsStore & WorkflowTriggersStore;
+export type GlobalStore = GlobalDragStore &
+  WorkflowBasicsStore &
+  WorkflowTriggersStore;

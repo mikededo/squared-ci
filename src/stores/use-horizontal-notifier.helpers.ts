@@ -1,11 +1,7 @@
+import type { Position } from '@/domain/shared';
 import type { useViewport } from '@/hooks';
 
-export type Rect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
+export type Rect = { width: number; height: number } & Position;
 export type DotPosition = 'top' | 'left' | 'bottom' | 'right';
 
 const getNextX = (

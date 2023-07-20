@@ -2,20 +2,23 @@ import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 
 import { draggableAtom } from '@/atoms';
+import type { Position } from '@/domain/shared';
 
-export type Position = { x: number; y: number };
 type PositionSideEffects = { onDrag?: (position: Position) => void };
+type UseDraggableArgs = Position &
+  PositionSideEffects & { absoluteValue?: boolean };
 
 export const useDraggable = ({
   x,
   y,
   onDrag: onDragCallback,
-}: Position & PositionSideEffects) => {
+  absoluteValue,
+}: UseDraggableArgs) => {
   const [state, setState] = useAtom(
     // If x,y are in the dep array, on every sibling update the position
     // will also change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useMemo(() => draggableAtom({ x, y }), [])
+    useMemo(() => draggableAtom({ x, y, absoluteValue }), [])
   );
 
   const handleOnDragStart: React.MouseEventHandler<HTMLElement> = (e) => {

@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { DotPosition } from '@/components';
 import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
 import { Positions } from '@/config';
+import type { InitialPosition } from '@/domain/shared';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
@@ -19,11 +20,7 @@ type Props = {
   trigger: Trigger | null;
 };
 
-type ConnectorPosition = {
-  initialX: number;
-  initialY: number;
-  dotPosition: DotPosition | null;
-};
+type ConnectorPosition = { dotPosition: DotPosition | null } & InitialPosition;
 
 export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
   const ref = useRef<HTMLDivElement>(null);

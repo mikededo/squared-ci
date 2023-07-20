@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-import type { Position } from '@/hooks';
+import type { InitialPosition, Position } from '@/domain/shared';
 import { useDraggable, useExpandable } from '@/hooks';
 
 import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
@@ -17,14 +17,12 @@ type RenderFn = ({
   onExpand,
 }: RenderProps<HTMLDivElement>) => React.ReactElement;
 type Props = {
-  initialX: number;
-  initialY: number;
   active?: boolean;
   visible?: RenderFn;
   invisible?: RenderFn;
   innerRef?: React.LegacyRef<HTMLElement>;
   onPositionChange?: (position: Position) => void;
-};
+} & InitialPosition;
 
 export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   active,
@@ -43,6 +41,8 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   const { isDragging, position, onDrag, onDragStart, onDragEnd } = useDraggable(
     { x: initialX, y: initialY, onDrag: onPositionChange }
   );
+  // TODO: Find a solution, currently disabled
+  // const { x, y } = useGlobalDragListener();
 
   const handleOnDragStart = (e: React.MouseEvent<HTMLElement>) => {
     if (isEventFromDataDraggable(e)) {
