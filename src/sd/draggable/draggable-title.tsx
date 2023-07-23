@@ -4,9 +4,9 @@ type Props = {
   title: string;
   onExpand?: React.MouseEventHandler<SVGSVGElement>;
 };
-import { DraggableWrapper } from '@/components/dd';
+import { DraggableWrapper } from '@/sd';
 
-export const Title: React.FC<Props> = ({ title, onExpand }) => (
+export const DraggableTitle: React.FC<Props> = ({ title, onExpand }) => (
   <DraggableWrapper>
     <div className="flex justify-between w-100 px-3 py-1.5">
       <p className="font-semibold">{title}</p>

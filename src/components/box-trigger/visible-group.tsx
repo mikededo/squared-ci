@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { DraggableWrapper, Title } from '@/components';
 import type { Trigger } from '@/domain/trigger';
 import type { ExpandableToggler, WithExpandableRef } from '@/hooks';
+import { DraggableTitle, DraggableWrapper } from '@/sd';
 
 import { VisibleTriggers } from './visible-triggers';
 
@@ -16,8 +16,8 @@ export const VisibleGroup: React.FC<
 > = ({ selected, expandableRef, onExpand, onTriggerChange }) => (
   <DraggableWrapper>
     <div ref={expandableRef}>
+      <DraggableTitle title="Workflow trigger" onExpand={onExpand} />
       <DraggableWrapper>
-        <Title title="Workflow trigger" onExpand={onExpand} />
         <div className="px-3 pb-3 flex flex-col gap-1.5">
           <DraggableWrapper>
             <p className="text-xs italic font-mono text-gray-400 max-w-[210px]">

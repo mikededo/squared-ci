@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Keyword, Tabbed } from '@/components';
 import type { NoneCustomizationKeys } from '@/domain/trigger';
+import { VisualiserItems } from '@/sd';
+
+const { Keyword, Tabbed } = VisualiserItems;
 
 type Props = { text: NoneCustomizationKeys };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Divider } from '@/components';
+import { Divider } from '@/sd';
 
 export const Header: React.FC = () => (
   <>

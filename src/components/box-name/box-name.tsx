@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Draggable, DraggableWrapper } from '@/components';
 import { Positions } from '@/config';
 import { useActiveChildren } from '@/hooks';
+import { Draggable, DraggableWrapper } from '@/sd';
 
 import { Name } from './name';
 import { RunName } from './run-name';

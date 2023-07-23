@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-import { Comment, Line } from '@/components';
+import { VisualiserItems } from '@/sd';
+
+const { Comment, Line } = VisualiserItems;
 
 export const Main: React.FC<PropsWithChildren> = ({ children }) => (
   <div className="relative w-full mt-2">

@@ -1,32 +1,9 @@
 import React from 'react';
 
-import { Divider, Toggle } from '@/components';
-import type { FeatureSwitches } from '@/stores';
-import { useFeatureSwitch } from '@/stores';
+import { Divider } from '@/sd';
 
+import { Feature } from './feature';
 import { Page } from './page';
-
-type Props = {
-  feature: keyof FeatureSwitches;
-  description?: string;
-};
-
-const Feature: React.FC<Props> = ({ feature, description }) => {
-  const { [feature]: isActive, toggleFS } = useFeatureSwitch(feature);
-
-  const handleOnClick = () => {
-    toggleFS(feature);
-  };
-
-  return (
-    <li>
-      <Toggle text="Global drag" value={isActive} onClick={handleOnClick} />
-      {description ? (
-        <p className="font-light text-sm text-gray-400">{description}</p>
-      ) : null}
-    </li>
-  );
-};
 
 export const Features: React.FC = () => (
   <Page>

@@ -1,2 +1,2 @@
 export * from './none';
-export *from './types';
+export * from './types';

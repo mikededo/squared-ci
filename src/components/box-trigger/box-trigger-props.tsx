@@ -1,7 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import type { DotPosition } from '@/components';
-import { Dot, Draggable, DraggableWrapper, Title } from '@/components';
 import { Positions } from '@/config';
 import type { InitialPosition } from '@/domain/shared';
 import type {
@@ -11,6 +9,8 @@ import type {
 import { isTypeCustomization } from '@/domain/trigger';
 import { type Trigger } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
+import type { DotPosition } from '@/sd';
+import { Dot, Draggable, DraggableTitle, DraggableWrapper } from '@/sd';
 import { useHorizontalDestination, useWorkflowTriggersStore } from '@/stores';
 
 import { None, Types } from './customizations';
@@ -86,7 +86,9 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
         onPositionChange={handleOnNotifyListeners}
       >
         <DraggableWrapper>
-          <Title title={trigger ? `${trigger} props` : 'No trigger selected'} />
+          <DraggableTitle
+            title={trigger ? `${trigger} props` : 'No trigger selected'}
+          />
           <div className="px-3 pb-3">
             {trigger ? (
               isTypeCustomization(trigger) ? (

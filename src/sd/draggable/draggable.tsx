@@ -4,9 +4,8 @@ import React from 'react';
 
 import type { InitialPosition, Position } from '@/domain/shared';
 import { useDraggable, useExpandable } from '@/hooks';
+import { DraggableWrapper, isEventFromDataDraggable } from '@/sd';
 import { useFeatureSwitch, useGlobalDragListener } from '@/stores';
-
-import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
 
 type RenderProps<T extends HTMLElement = HTMLElement> = {
   ref: React.RefObject<T>;

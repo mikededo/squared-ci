@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Comment, Keyword, Line } from '@/components';
+import { VisualiserItems } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 import {
   BaseCustomizationTrigger,
   TypeCustomizationTrigger,
 } from './customization';
+
+const { Comment, Keyword, Line } = VisualiserItems;
 
 export const WorkflowTriggers: React.FC = () => {
   const {

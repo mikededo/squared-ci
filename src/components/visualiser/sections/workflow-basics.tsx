@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Comment, Keyword, Line } from '@/components';
+import { VisualiserItems } from '@/sd';
 import { useWorkflowBasicsStore } from '@/stores';
 
+const { Comment, Keyword, Line } = VisualiserItems;
 
 export const WorkflowBasics: React.FC = () => {
   const { name, runName } = useWorkflowBasicsStore();

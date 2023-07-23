@@ -17,6 +17,7 @@ export const Toggle: React.FC<Props> = ({ text, value, onClick }) => (
         checked={value}
         className="sr-only peer"
         onClick={onClick}
+        readOnly
       />
       <div
         className={classNames(

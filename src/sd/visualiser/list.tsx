@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Keyword, Tabbed } from './base';
+import { Keyword, Tabbed } from './keywords';
 
 type ListProps = {
   tabFactor: number;

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Keyword, List, Tabbed } from '@/components';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
 } from '@/domain/trigger';
+import { VisualiserItems } from '@/sd';
 
+const { Keyword, List, Tabbed } = VisualiserItems;
 
 type TypeCustomizationTriggerProps = {
   text: TypesCustomizationKeys | CustomTypesCustomizationKeys;

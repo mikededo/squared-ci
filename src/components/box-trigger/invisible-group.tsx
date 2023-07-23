@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Divider, DraggableWrapper } from '@/components';
 import type { Trigger } from '@/domain/trigger';
 import type { WithExpandableRef } from '@/hooks';
+import { Divider, DraggableWrapper } from '@/sd';
 
 import { InvisibleTriggers } from './invisible-triggers';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Dot, Draggable, DraggableWrapper } from '@/components';
 import { Positions } from '@/config';
 import type { Trigger } from '@/domain/trigger';
+import { Dot, Draggable, DraggableWrapper } from '@/sd';
 
 import { InvisibleGroup } from './invisible-group';
 import { VisibleGroup } from './visible-group';

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-export const Icon: React.FC<
+export const IconButton: React.FC<
   PropsWithChildren<
     { selected?: boolean } & React.DetailedHTMLProps<
       React.ButtonHTMLAttributes<HTMLButtonElement>,

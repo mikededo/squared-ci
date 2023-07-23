@@ -29,8 +29,8 @@ import {
 } from '@primer/octicons-react';
 import React from 'react';
 
-import { Icon } from '@/components';
 import type { Trigger } from '@/domain/trigger';
+import { IconButton } from '@/sd';
 
 type IconGroupProps = {
   selected: Set<Trigger>;
@@ -83,13 +83,13 @@ export const InvisibleTriggers: React.FC<IconGroupProps> = ({
   return (
     <div className="grid grid-cols-4 grid-flow-row-dense gap-1 justify-between">
       {Triggers.map(({ key, icon }) => (
-        <Icon
+        <IconButton
           key={key}
           selected={selected.has(key)}
           onClick={handleOnClick(key)}
         >
           {icon}
-        </Icon>
+        </IconButton>
       ))}
     </div>
   );

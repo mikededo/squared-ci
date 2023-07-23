@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DraggableWrapper } from '@/components';
+import { DraggableWrapper } from '@/sd';
 
 export const None: React.FC = () => (
   <DraggableWrapper>
