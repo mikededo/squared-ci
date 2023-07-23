@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { BoxName, BoxTrigger, GlobalDrag, Visualiser } from '@/components';
+import {
+  BoxName,
+  BoxTrigger,
+  Features,
+  GlobalDrag,
+  Visualiser,
+} from '@/components';
 
 const Root = () => (
   <main
@@ -17,6 +23,7 @@ const Root = () => (
       <BoxTrigger />
     </GlobalDrag>
     <Visualiser />
+    <Features />
   </main>
 );
 

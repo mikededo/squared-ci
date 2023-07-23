@@ -8,5 +8,7 @@ export * from './dot';
 export * from './global-drag';
 export * from './icon';
 export * from './input';
+export * from './toggle';
+export * from './features';
 export * from './visualiser';
 export * from './visualiser-items';

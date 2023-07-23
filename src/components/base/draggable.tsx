@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { InitialPosition, Position } from '@/domain/shared';
 import { useDraggable, useExpandable } from '@/hooks';
+import { useFeatureSwitch, useGlobalDragListener } from '@/stores';
 
 import { DraggableWrapper, isEventFromDataDraggable } from '../dd';
 
@@ -41,8 +42,8 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   const { isDragging, position, onDrag, onDragStart, onDragEnd } = useDraggable(
     { x: initialX, y: initialY, onDrag: onPositionChange }
   );
-  // TODO: Find a solution, currently disabled
-  // const { x, y } = useGlobalDragListener();
+  const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');
+  const { x, y } = useGlobalDragListener();
 
   const handleOnDragStart = (e: React.MouseEvent<HTMLElement>) => {
     if (isEventFromDataDraggable(e)) {
@@ -51,8 +52,8 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   };
 
   const styles: React.CSSProperties = {
-    top: position.y,
-    left: position.x,
+    top: position.y + (fsGlobalDrag ? y : 0),
+    left: position.x + (fsGlobalDrag ? x : 0),
     cursor: isDragging ? 'grabbing' : 'grab',
   };
 

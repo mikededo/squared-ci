@@ -13,6 +13,15 @@ export type Empty<R = void> = () => R;
 export type Single<T, R = void> = (arg0: T) => R;
 export type Double<T, J, R = void> = (arg0: T, arg1: J) => R;
 
+export type FeatureSwitchesState = {
+  fsGlobalDrag: boolean;
+};
+type FeatureSwitchesActions = {
+  toggleFS: Single<keyof FeatureSwitchesState>;
+};
+export type FeatureSwitchesStore = FeatureSwitchesState &
+  FeatureSwitchesActions;
+
 type GlobalDragState = Position & OriginPosition & { isDragging: boolean };
 type GlobalDragActions = {
   onDragStart: Single<React.MouseEvent<HTMLElement, MouseEvent>>;
@@ -63,6 +72,7 @@ type WorkflowTriggersActions = {
 export type WorkflowTriggersStore = WorkflowTriggersState &
   WorkflowTriggersActions;
 
-export type GlobalStore = GlobalDragStore &
+export type GlobalStore = FeatureSwitchesStore &
+  GlobalDragStore &
   WorkflowBasicsStore &
   WorkflowTriggersStore;

@@ -1,5 +1,13 @@
+import classNames from 'classnames';
 import React from 'react';
 
-export const Divider: React.FC = () => (
-  <hr className="w-100 mb-1 border-dashed border-slate-200" />
+type Props = { className?: string };
+
+export const Divider: React.FC<Props> = ({ className }) => (
+  <hr
+    className={classNames(
+      'w-100 mb-1 border-dashed border-slate-200',
+      className
+    )}
+  />
 );
