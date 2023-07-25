@@ -104,7 +104,7 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
               )
             ) : (
               <DraggableWrapper>
-                <p className="text-sm text-center text-gray-400">
+                <p className="text-sm text-center text-gray-400 dark:text-slate-200">
                   Select a triggger to display its properties
                 </p>
               </DraggableWrapper>

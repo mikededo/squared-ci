@@ -9,18 +9,11 @@ import type {
 } from '@/domain/trigger';
 import type { Trigger } from '@/domain/trigger';
 
+import type { FeatureSwitchesStore } from './feature-switches';
+
 export type Empty<R = void> = () => R;
 export type Single<T, R = void> = (arg0: T) => R;
 export type Double<T, J, R = void> = (arg0: T, arg1: J) => R;
-
-export type FeatureSwitchesState = {
-  fsGlobalDrag: boolean;
-};
-type FeatureSwitchesActions = {
-  toggleFS: Single<keyof FeatureSwitchesState>;
-};
-export type FeatureSwitchesStore = FeatureSwitchesState &
-  FeatureSwitchesActions;
 
 type GlobalDragState = Position & OriginPosition & { isDragging: boolean };
 type GlobalDragActions = {

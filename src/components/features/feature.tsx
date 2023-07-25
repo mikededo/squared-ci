@@ -20,7 +20,9 @@ export const Feature: React.FC<Props> = ({ feature, description }) => {
     <li>
       <Toggle text="Global drag" value={isActive} onClick={handleOnClick} />
       {description ? (
-        <p className="font-light text-sm text-gray-400">{description}</p>
+        <p className="font-light text-sm text-gray-400 dark:text-slate-200 max-w-[320px]">
+          {description}
+        </p>
       ) : null}
     </li>
   );

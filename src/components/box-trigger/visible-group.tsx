@@ -20,7 +20,7 @@ export const VisibleGroup: React.FC<
       <DraggableWrapper>
         <div className="px-3 pb-3 flex flex-col gap-1.5">
           <DraggableWrapper>
-            <p className="text-xs italic font-mono text-gray-400 max-w-[210px]">
+            <p className="text-xs italic font-mono text-gray-400 dark:text-slate-200 max-w-[210px]">
               {selected.size > 0 ? [...selected].join(', ') : 'Select dispatch'}
             </p>
             <VisibleTriggers

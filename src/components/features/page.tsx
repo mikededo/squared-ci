@@ -15,19 +15,19 @@ export const Page: RequiredChildrenFC = ({ children }) => {
   return (
     <article
       className={classNames(
-        'fixed transition-all top-4 min-h-[240px] w-[400px] bg-white px-4 pt-2 pb-4 border border-slate-200 rounded-lg',
+        'fixed transition-all top-4 min-h-[240px] w-[400px] bg-white dark:bg-slate-800 px-4 pt-2 pb-4 border border-slate-200 rounded-lg',
         opened ? 'left-4' : '-left-[400px]'
       )}
     >
       <div
-        className="w-10 h-10 bg-white rounded-lg absolute top-4 -right-10 rounded-l-none border border-slate-200 flex justify-center items-center"
+        className="w-10 h-10 bg-white dark:bg-slate-800 rounded-lg absolute top-4 -right-10 rounded-l-none border border-slate-200 flex justify-center items-center"
         onClick={onToggleStatus}
       >
-        <div className="hover:bg-slate-50 active:bg-slate-200 rounded-full w-8 h-8 flex justify-center items-center">
+        <div className="hover:bg-slate-50 active:bg-slate-200 dark:hover:bg-slate-700 dark:active:bg-slate-600 rounded-full w-8 h-8 flex justify-center items-center transition-colors">
           <BeakerIcon
             className={classNames(
               'transition-all cursor-pointer',
-              opened ? 'fill-indigo-500' : 'fill-current'
+              opened ? 'fill-indigo-500 dark:fill-indigo-400' : 'fill-current'
             )}
           />
         </div>

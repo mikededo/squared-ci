@@ -21,8 +21,10 @@ export const Toggle: React.FC<Props> = ({ text, value, onClick }) => (
       />
       <div
         className={classNames(
-          "w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full dark:bg-gray-700 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 ",
-          value ? 'after:translate-x-full after:border-white bg-blue-600' : null
+          "w-11 h-6 peer rounded-full transition-all after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all after:bg-white",
+          value
+            ? 'after:translate-x-full after:border-white bg-amber-500 dark:border-gray-600'
+            : 'bg-gray-200 dark:bg-gray-700'
         )}
       />
     </div>

@@ -61,7 +61,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
       <article
         ref={innerRef}
         className={classNames(
-          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-[shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400',
+          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-[shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400 dark:bg-slate-800 dark:shadow-none',
           isDragging
             ? 'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400'
             : 'border-slate-200',

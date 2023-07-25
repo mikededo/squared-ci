@@ -8,11 +8,11 @@ import { Page } from './page';
 export const Features: React.FC = () => (
   <Page>
     <p className="font-semibold">Experiments</p>
-    <p className="font-light text-sm text-gray-400">
+    <p className="font-light text-sm text-gray-400 dark:text-slate-200">
       You can activate these experiments in order to test beta or unfinished
       features.
     </p>
-    <p className="font-light text-sm text-gray-400 italic">
+    <p className="font-light text-sm text-gray-400 dark:text-slate-200 italic">
       Use them at your own risk!
     </p>
     <Divider className="mt-2 mb-3" />
@@ -20,6 +20,10 @@ export const Features: React.FC = () => (
       <Feature
         feature="fsGlobalDrag"
         description="Background dragging, moving all items"
+      />
+      <Feature
+        feature="fsDarkTheme"
+        description='Enables the dark theme. This will display a button to toggle the dark theme. As of now, you need to add the class="dark" to the <html> element!'
       />
     </ul>
   </Page>

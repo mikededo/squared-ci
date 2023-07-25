@@ -25,7 +25,7 @@ export const RunName: React.FC<WithExpandableRef<HTMLDivElement> & Props> = ({
       >
         <DraggableWrapper>
           <Divider />
-          <p className="text-xs text-gray-400 uppercase">
+          <p className="text-xs text-gray-400 dark:text-slate-200 uppercase">
             Additional properties
           </p>
         </DraggableWrapper>
