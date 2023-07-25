@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 
+import type { FeatureSwitchesState } from './feature-switches';
 import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
-import type { FeatureSwitchesState, GlobalStore } from './types';
+import type { GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
 import { workflowTriggersStore } from './workflow-triggers';
 

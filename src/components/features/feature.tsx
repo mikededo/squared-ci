@@ -18,7 +18,11 @@ export const Feature: React.FC<Props> = ({ feature, description }) => {
 
   return (
     <li>
-      <Toggle text="Global drag" value={isActive} onClick={handleOnClick} />
+      <Toggle
+        text="Global drag"
+        value={isActive as boolean}
+        onClick={handleOnClick}
+      />
       {description ? (
         <p className="font-light text-sm text-gray-400 dark:text-slate-200 max-w-[320px]">
           {description}
