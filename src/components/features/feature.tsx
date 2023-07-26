@@ -1,11 +1,11 @@
 import React from 'react';
 
+import type { FeatureSwitches } from '@/domain/feature-switches';
 import { Toggle } from '@/sd';
-import type { FeatureSwitches } from '@/stores';
 import { useFeatureSwitch } from '@/stores';
 
 type Props = {
-  feature: keyof FeatureSwitches;
+  feature: FeatureSwitches;
   title: string;
   description?: string;
 };
