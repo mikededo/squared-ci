@@ -19,10 +19,12 @@ export const Features: React.FC = () => (
     <ul className="flex flex-col gap-1 ">
       <Feature
         feature="fsGlobalDrag"
+        title="Global drag"
         description="Background dragging, moving all items"
       />
       <Feature
         feature="fsDarkTheme"
+        title="Dark theme"
         description='Enables the dark theme. This will display a button to toggle the dark theme. As of now, you need to add the class="dark" to the <html> element!'
       />
     </ul>

@@ -5,6 +5,7 @@ import {
   BoxTrigger,
   Features,
   GlobalDrag,
+  Menu,
   Visualiser,
 } from '@/components';
 
@@ -19,8 +20,9 @@ const Root = () => (
       <BoxName />
       <BoxTrigger />
     </GlobalDrag>
-    <Visualiser />
+    <Menu />
     <Features />
+    <Visualiser />
   </main>
 );
 
