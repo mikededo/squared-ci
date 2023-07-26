@@ -1,17 +1,17 @@
 import { create } from 'zustand';
 
-type Modes = 'dark' | 'light';
+import type { ThemeModes } from '@/domain/local-storage';
+import { LS } from '@/domain/local-storage';
+
 type State = {
-  mode: Modes;
+  mode: ThemeModes;
 };
 type Actions = {
-  onToggleMode: (mode?: Modes) => void;
+  onToggleMode: (mode?: ThemeModes) => void;
   onLoadMode: () => void;
 };
 
-const LSKey = 'theme-mode';
-
-const setHTMLThemeClass = (mode: Modes) => {
+const setHTMLThemeClass = (mode: ThemeModes) => {
   document.documentElement.className = '';
   document.documentElement.classList.add(mode);
 };
@@ -20,16 +20,17 @@ const themeMode = create<State & Actions>()((set, get) => ({
   mode: 'light',
   onToggleMode: (mode) => {
     const newMode = mode ?? (get().mode === 'light' ? 'dark' : 'light');
+
     set({ mode: newMode });
-    window.localStorage.setItem(LSKey, newMode);
     setHTMLThemeClass(newMode);
+    LS.set('themeMode', newMode);
   },
   onLoadMode: () => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    const mode = window.localStorage.getItem('theme-mode') as Modes;
+    const mode = LS.get('themeMode');
     if (mode) {
       set({ mode });
       setHTMLThemeClass(mode);

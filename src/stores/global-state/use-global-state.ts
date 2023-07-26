@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
-import type { FeatureSwitchesState } from './feature-switches';
+import type { FeatureSwitches } from '@/domain/feature-switches';
+
 import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
 import type { Empty, GlobalStore } from './types';
@@ -14,7 +15,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...workflowTriggersStore(...args),
 }));
 
-export const useFeatureSwitch = <FS extends keyof FeatureSwitchesState>(
+export const useFeatureSwitch = <FS extends FeatureSwitches>(
   fs: FS
 ): { [key in FS]: boolean } & { toggleFS: Empty } =>
   globalStore(
@@ -26,6 +27,8 @@ export const useFeatureSwitch = <FS extends keyof FeatureSwitchesState>(
         },
       } as never)
   );
+export const useActiveFSCount = () =>
+  globalStore(({ activeFSCount }) => activeFSCount);
 
 export const useGlobalDragNotifier = () =>
   globalStore(({ isDragging, onDragStart, onDragEnd, onDragChange }) => ({

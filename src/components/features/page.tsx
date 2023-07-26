@@ -4,9 +4,11 @@ import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
 import type { RequiredChildrenFC } from '@/domain/shared';
+import { useActiveFSCount } from '@/stores';
 
 export const Page: RequiredChildrenFC = ({ children }) => {
   const [opened, setOpened] = useAtom(useMemo(() => atom(false), []));
+  const activeFSCount = useActiveFSCount();
 
   const onToggleStatus = () => {
     setOpened((prev) => !prev);
@@ -27,10 +29,22 @@ export const Page: RequiredChildrenFC = ({ children }) => {
           <BeakerIcon
             className={classNames(
               'transition-all cursor-pointer',
-              opened ? 'fill-indigo-500 dark:fill-indigo-400' : 'fill-current'
+              opened ? 'fill-indigo-500' : 'fill-current'
             )}
           />
         </div>
+        <div
+          className={classNames(
+            'absolute bg-orange-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center animate-ping',
+            activeFSCount > 0 ? 'opacity-50' : 'opacity-0'
+          )}
+        />
+        <div
+          className={classNames(
+            'absolute bg-amber-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center',
+            activeFSCount > 0 ? 'scale-100' : 'scale-0'
+          )}
+        />
       </div>
       {children}
     </article>
