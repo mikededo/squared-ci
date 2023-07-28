@@ -14,16 +14,18 @@ export const globalDragStore: StateCreator<
   oy: 0,
   isDragging: false,
   onDragStart: (e) => {
-    if (!e) {
+    if (!e || !get().fsGlobalDrag) {
       return;
     }
 
-    // TODO: set isDragging to true to enable global dragging
-    // set({ ox: e.clientX, oy: e.clientY });
+    set({ isDragging: true, ox: e.clientX, oy: e.clientY });
   },
   onDragEnd: () => {
-    // TODO: disabled
-    // set({ isDragging: false });
+    if (!get().fsGlobalDrag) {
+      return;
+    }
+
+    set({ isDragging: false });
   },
   onDragChange: (e) => {
     if (!e || !get().isDragging) {
