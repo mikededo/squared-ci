@@ -1,6 +1,8 @@
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
+import { Button } from '@/sd';
+
 import { Dialog } from './dialog';
 import type { NewItem } from './new';
 import { New } from './new';
@@ -69,15 +71,11 @@ export const News: React.FC = () => {
             />
           ))}
         </div>
-        <div className="flex justify-end p-5 pt-0">
-          <button
-            className="py-2 px-4 rounded-full transition-colors bg-indigo-500 hover:bg-indigo-400 active:bg-indigo-600 dark:bg-slate-700 dark:hover:bg-slate-600 dark:active:bg-slate-500"
-            onClick={onToggleStatus}
-          >
-            <p className="uppercase text-white text-sm font-semibold">
-              Understood
-            </p>
-          </button>
+        <div className="flex justify-end p-5 pt-0 gap-2">
+          <Button onClick={onToggleStatus} variant="text">
+            Don&apos;t show again
+          </Button>
+          <Button onClick={onToggleStatus}>Understood</Button>
         </div>
       </div>
     </Dialog>
