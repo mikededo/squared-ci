@@ -6,6 +6,7 @@ export type ThemeModes = 'light' | 'dark';
 export type LocalStorageData = {
   featureSwitches: Record<FeatureSwitches, boolean>;
   themeMode: ThemeModes;
+  showNews: boolean;
 };
 export type LocalStorageKeys = keyof LocalStorageData;
 

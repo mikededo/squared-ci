@@ -1,11 +1,11 @@
-import { atom, useAtom } from 'jotai';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Button } from '@/sd';
 
 import { Dialog } from './dialog';
 import type { NewItem } from './new';
 import { New } from './new';
+import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
@@ -52,11 +52,8 @@ const NewsList: NewItem[] = [
 ];
 
 export const News: React.FC = () => {
-  const [opened, setOpened] = useAtom(useMemo(() => atom(true), []));
+  const { opened, onToggleStatus, onHideNews } = useNews();
 
-  const onToggleStatus = () => {
-    setOpened((prev) => !prev);
-  };
   return !opened ? null : (
     <Dialog>
       <div className="flex flex-col justify-between h-full w-full">
@@ -72,7 +69,7 @@ export const News: React.FC = () => {
           ))}
         </div>
         <div className="flex justify-end p-5 pt-0 gap-2">
-          <Button onClick={onToggleStatus} variant="text">
+          <Button onClick={onHideNews} variant="text">
             Don&apos;t show again
           </Button>
           <Button onClick={onToggleStatus}>Understood</Button>
