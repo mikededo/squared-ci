@@ -1,5 +1,6 @@
 export * from './button';
 export * from './chip';
+export * from './col';
 export * from './divider';
 export * from './dot';
 export * from './draggable';

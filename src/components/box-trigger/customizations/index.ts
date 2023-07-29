@@ -1,2 +1,1 @@
-export * from './none';
-export * from './types';
+export * from './type-renderer';

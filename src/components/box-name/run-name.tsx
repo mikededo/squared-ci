@@ -17,6 +17,7 @@ export const RunName: React.FC<WithExpandableRef<HTMLDivElement> & Props> = ({
   const handleOnChangeRunName = (e: React.FormEvent<HTMLInputElement>) => {
     onChangeRunName(e.currentTarget.value);
   };
+
   return (
     <DraggableWrapper>
       <div

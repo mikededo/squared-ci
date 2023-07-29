@@ -1,5 +1,8 @@
 import type { OriginPosition, Position } from '@/domain/shared';
 import type {
+  ComplexBranchesCustomizationKeys,
+  ComplexPathCustomizationKeys,
+  ComplexTagsCustomizationKeys,
   ComplexTypesCustomizationKeys,
   Cron,
   CronCustomizationKeys,
@@ -33,7 +36,13 @@ type WorkflowBasicsActions = {
 };
 export type WorkflowBasicsStore = WorkflowBasicsState & WorkflowBasicsActions;
 
-type WorkflowTriggersState = {
+export type ComplexTypeCustomizationProps =
+  | 'types'
+  | 'branches'
+  | 'tags'
+  | 'paths';
+
+export type WorkflowTriggersState = {
   noneCustomization: Set<NoneCustomizationKeys>;
   typeCustomization: Map<
     TypesCustomizationKeys | CustomTypesCustomizationKeys,
@@ -41,7 +50,7 @@ type WorkflowTriggersState = {
   >;
   complexCustomization: Map<
     ComplexTypesCustomizationKeys,
-    Map<string, Set<string>>
+    Map<ComplexTypeCustomizationProps, Set<string>>
   >;
   cronCustomization: Map<CronCustomizationKeys, Cron>;
   triggers: Set<Trigger>;
@@ -49,17 +58,28 @@ type WorkflowTriggersState = {
 type WorkflowTriggersActions = {
   toggleNoneTrigger: Single<NoneCustomizationKeys>;
   getTriggerTypes: Single<
-    TypesCustomizationKeys | CustomTypesCustomizationKeys,
+    | TypesCustomizationKeys
+    | CustomTypesCustomizationKeys
+    | ComplexTypesCustomizationKeys,
+    Set<string>
+  >;
+  getComplexTriggerBranches: Single<
+    ComplexBranchesCustomizationKeys,
     Set<string>
   >;
   toggleTypeTrigger: Single<
     TypesCustomizationKeys | CustomTypesCustomizationKeys
   >;
   toggleTypeTriggerProp: Double<
-    TypesCustomizationKeys | CustomTypesCustomizationKeys,
+    | TypesCustomizationKeys
+    | CustomTypesCustomizationKeys
+    | ComplexTypesCustomizationKeys,
     string
   >;
   toggleComplexTrigger: Single<ComplexTypesCustomizationKeys>;
+  toggleComplexTriggerBranch: Double<ComplexBranchesCustomizationKeys, string>;
+  toggleComplexTriggerPath: Double<ComplexPathCustomizationKeys, string>;
+  toggleComplexTriggerTag: Double<ComplexTagsCustomizationKeys, string>;
   toggleCronTrigger: Single<CronCustomizationKeys>;
 };
 export type WorkflowTriggersStore = WorkflowTriggersState &

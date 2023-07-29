@@ -1,8 +1,13 @@
 import type { StateCreator } from 'zustand';
 
-import { DefaultCronValue } from '@/domain/trigger';
+import type { ComplexTypesCustomizationKeys } from '@/domain/trigger';
+import { DefaultCronValue, isComplexCustomization } from '@/domain/trigger';
 
-import type { GlobalStore, WorkflowTriggersStore } from './types';
+import type {
+  ComplexTypeCustomizationProps,
+  GlobalStore,
+  WorkflowTriggersStore,
+} from './types';
 
 const addToSet = <T>(elements: Set<T>, element: T): Set<T> => {
   const clone = new Set([...elements]);
@@ -27,6 +32,33 @@ const removeFromMap = <K, V>(elements: Map<K, V>, key: K) => {
   clone.delete(key);
   return clone;
 };
+
+const addToComplexCustomization = (
+  complexCustomization: WorkflowTriggersStore['complexCustomization'],
+  customization: Map<ComplexTypeCustomizationProps, Set<string>>,
+  trigger: ComplexTypesCustomizationKeys,
+  key: ComplexTypeCustomizationProps,
+  value: string
+) => {
+  const branchesCustomization = customization.get(key) ?? new Set<string>();
+  const updatedCustomization = addToMap(
+    customization,
+    key,
+    branchesCustomization.has(value)
+      ? removeFromSet(branchesCustomization, value)
+      : addToSet(branchesCustomization, value)
+  );
+
+  return addToMap(complexCustomization, trigger, updatedCustomization);
+};
+
+const complexTypeMap = () =>
+  new Map([
+    ['types', new Set<string>()],
+    ['tags', new Set<string>()],
+    ['paths', new Set<string>()],
+    ['branches', new Set<string>()],
+  ] as const);
 
 export const workflowTriggersStore: StateCreator<
   GlobalStore,
@@ -60,7 +92,7 @@ export const workflowTriggersStore: StateCreator<
         : addToSet(triggers, trigger),
       complexCustomization: exists
         ? removeFromMap(complexCustomization, trigger)
-        : addToMap(complexCustomization, trigger, new Map()),
+        : addToMap(complexCustomization, trigger, complexTypeMap()),
     });
   },
   toggleTypeTrigger: (trigger) => {
@@ -76,25 +108,100 @@ export const workflowTriggersStore: StateCreator<
     });
   },
   getTriggerTypes: (trigger) => {
-    const { typeCustomization } = get();
-    const customization = typeCustomization.get(trigger);
-
-    return customization ?? new Set();
+    const { typeCustomization, complexCustomization } = get();
+    if (isComplexCustomization(trigger)) {
+      return complexCustomization.get(trigger)?.get('types') ?? new Set();
+    } else {
+      return typeCustomization.get(trigger) ?? new Set();
+    }
   },
   toggleTypeTriggerProp: (trigger, prop) => {
-    const { typeCustomization } = get();
-    const customization = typeCustomization.get(trigger);
+    const { typeCustomization, complexCustomization } = get();
+    if (isComplexCustomization(trigger)) {
+      const customization = complexCustomization.get(trigger);
+      if (!customization) {
+        return;
+      }
+
+      set({
+        complexCustomization: addToComplexCustomization(
+          complexCustomization,
+          customization,
+          trigger,
+          'types',
+          prop
+        ),
+      });
+    } else {
+      const customization = typeCustomization.get(trigger);
+      if (!customization) {
+        return;
+      }
+
+      set({
+        typeCustomization: addToMap(
+          typeCustomization,
+          trigger,
+          customization.has(prop)
+            ? removeFromSet(customization, prop)
+            : addToSet(customization, prop)
+        ),
+      });
+    }
+  },
+  toggleComplexTriggerBranch: (trigger, branch) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
     if (!customization) {
       return;
     }
 
     set({
-      typeCustomization: addToMap(
-        typeCustomization,
+      complexCustomization: addToComplexCustomization(
+        complexCustomization,
+        customization,
         trigger,
-        customization.has(prop)
-          ? removeFromSet(customization, prop)
-          : addToSet(customization, prop)
+        'branches',
+        branch
+      ),
+    });
+  },
+  getComplexTriggerBranches: (trigger) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
+    return customization?.get('branches') ?? new Set();
+  },
+  toggleComplexTriggerPath: (trigger, path) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
+    if (!customization) {
+      return;
+    }
+
+    set({
+      complexCustomization: addToComplexCustomization(
+        complexCustomization,
+        customization,
+        trigger,
+        'paths',
+        path
+      ),
+    });
+  },
+  toggleComplexTriggerTag: (trigger, tags) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
+    if (!customization) {
+      return;
+    }
+
+    set({
+      complexCustomization: addToComplexCustomization(
+        complexCustomization,
+        customization,
+        trigger,
+        'tags',
+        tags
       ),
     });
   },

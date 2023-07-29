@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
+import { isComplexCustomization } from '@/domain/trigger';
 import { TriggerTypes } from '@/domain/trigger';
-import { Chip, ChipWrapper } from '@/sd';
+import { Chip, ChipWrapper, VCol } from '@/sd';
 
 type Props = {
   trigger: Trigger;
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export const Types: React.FC<Props> = ({ trigger, selected, onTypeToggle }) => {
+  const withTitle = useMemo(() => isComplexCustomization(trigger), [trigger]);
+
   const handleOnTypeToggle = (type: string) => () => {
     onTypeToggle(type);
   };
@@ -21,15 +24,20 @@ export const Types: React.FC<Props> = ({ trigger, selected, onTypeToggle }) => {
   }
 
   return (
-    <ChipWrapper>
-      {types.map((type) => (
-        <Chip
-          key={type}
-          text={type}
-          active={selected.includes(type)}
-          onClick={handleOnTypeToggle(type)}
-        />
-      ))}
-    </ChipWrapper>
+    <VCol>
+      {withTitle ? (
+        <p className="font-mono italic text-xs text-gray-400">Types</p>
+      ) : null}
+      <ChipWrapper>
+        {types.map((type) => (
+          <Chip
+            key={type}
+            text={type}
+            active={selected.includes(type)}
+            onClick={handleOnTypeToggle(type)}
+          />
+        ))}
+      </ChipWrapper>
+    </VCol>
   );
 };

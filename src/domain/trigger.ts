@@ -96,6 +96,13 @@ export type CustomTypesCustomizationKeys = CustomizationKeys<'custom-types'>;
 export type ComplexTypesCustomizationKeys = CustomizationKeys<
   'types-branches-paths' | 'types-branches-tags'
 >;
+export type ComplexBranchesCustomizationKeys = CustomizationKeys<
+  'types-branches-paths' | 'types-branches-tags'
+>;
+export type ComplexPathCustomizationKeys =
+  CustomizationKeys<'types-branches-paths'>;
+export type ComplexTagsCustomizationKeys =
+  CustomizationKeys<'types-branches-tags'>;
 export type CronCustomizationKeys = CustomizationKeys<'cron'>;
 
 export const NoneCustomizations = Object.entries(TriggerCustomization).reduce(
@@ -120,16 +127,28 @@ export const CronCustomizations = Object.entries(TriggerCustomization).reduce(
 export const isNoneCustomization = (
   trigger: Trigger
 ): trigger is NoneCustomizationKeys => TriggerCustomization[trigger] === 'none';
-export const isTypeCustomization = (
-  trigger: Trigger
-): trigger is TypesCustomizationKeys | CustomTypesCustomizationKeys =>
-  TriggerCustomization[trigger] === 'types' ||
-  TriggerCustomization[trigger] === 'custom-types';
 export const isComplexCustomization = (
   trigger: Trigger
-): trigger is ComplexTypesCustomizationKeys =>
-  TriggerCustomization[trigger] === 'types-branches-tags' ||
-  TriggerCustomization[trigger] === 'types-branches-paths';
+): trigger is ComplexTypesCustomizationKeys => {
+  const triggerType = TriggerCustomization[trigger];
+  return (
+    triggerType === 'types-branches-tags' ||
+    triggerType === 'types-branches-paths'
+  );
+};
+export const isTypeCustomization = (
+  trigger: Trigger
+): trigger is
+  | TypesCustomizationKeys
+  | CustomTypesCustomizationKeys
+  | ComplexTypesCustomizationKeys => {
+  const triggerType = TriggerCustomization[trigger];
+  return (
+    triggerType === 'types' ||
+    triggerType === 'custom-types' ||
+    isComplexCustomization(trigger)
+  );
+};
 export const isCronCustomization = (
   trigger: Trigger
 ): trigger is CronCustomizationKeys => TriggerCustomization[trigger] === 'cron';

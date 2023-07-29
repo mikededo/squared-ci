@@ -61,6 +61,10 @@ export const useWorkflowTriggersStore = () =>
       toggleTypeTrigger,
       toggleTypeTriggerProp,
       toggleComplexTrigger,
+      toggleComplexTriggerPath,
+      toggleComplexTriggerBranch,
+      getComplexTriggerBranches,
+      toggleComplexTriggerTag,
       toggleCronTrigger,
     }) => ({
       noneCustomization,
@@ -73,6 +77,10 @@ export const useWorkflowTriggersStore = () =>
       toggleTypeTrigger,
       toggleTypeTriggerProp,
       toggleComplexTrigger,
+      toggleComplexTriggerPath,
+      toggleComplexTriggerBranch,
+      getComplexTriggerBranches,
+      toggleComplexTriggerTag,
       toggleCronTrigger,
     })
   );

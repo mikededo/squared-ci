@@ -2,18 +2,13 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { Positions } from '@/config';
 import type { InitialPosition } from '@/domain/shared';
-import type {
-  CustomTypesCustomizationKeys,
-  TypesCustomizationKeys,
-} from '@/domain/trigger';
-import { isTypeCustomization } from '@/domain/trigger';
 import { type Trigger } from '@/domain/trigger';
 import { useViewport } from '@/hooks';
 import type { DotPosition } from '@/sd';
 import { Dot, Draggable, DraggableTitle, DraggableWrapper } from '@/sd';
-import { useHorizontalDestination, useWorkflowTriggersStore } from '@/stores';
+import { useHorizontalDestination } from '@/stores';
 
-import { None, Types } from './customizations';
+import { TypeRenderer } from './customizations';
 
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
@@ -26,7 +21,6 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
   const ref = useRef<HTMLDivElement>(null);
   const screen = useViewport();
   const { addDestination, onDestinationChange } = useHorizontalDestination();
-  const { toggleTypeTriggerProp, getTriggerTypes } = useWorkflowTriggersStore();
 
   const [{ initialX, initialY, dotPosition }, setInitialPosition] =
     useState<ConnectorPosition>({
@@ -34,12 +28,6 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
       initialY: Positions.BoxTriggerPropsY,
       dotPosition: 'left',
     });
-
-  const handleOnTypesToggle =
-    (trigger: TypesCustomizationKeys | CustomTypesCustomizationKeys) =>
-    (type: string) => {
-      toggleTypeTriggerProp(trigger, type);
-    };
 
   const handleOnNotifyListeners = () => {
     if (!trigger || !ref.current) {
@@ -90,25 +78,9 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
             title={trigger ? `${trigger} props` : 'No trigger selected'}
           />
           <div className="px-3 pb-3">
-            {trigger ? (
-              isTypeCustomization(trigger) ? (
-                <DraggableWrapper>
-                  <Types
-                    trigger={trigger}
-                    selected={[...getTriggerTypes(trigger)]}
-                    onTypeToggle={handleOnTypesToggle(trigger)}
-                  />
-                </DraggableWrapper>
-              ) : (
-                <None />
-              )
-            ) : (
-              <DraggableWrapper>
-                <p className="text-sm text-center text-gray-400 dark:text-slate-200">
-                  Select a triggger to display its properties
-                </p>
-              </DraggableWrapper>
-            )}
+            <DraggableWrapper>
+              <TypeRenderer trigger={trigger} />
+            </DraggableWrapper>
           </div>
         </DraggableWrapper>
         {dotPosition ? <Dot active position={dotPosition} /> : null}
