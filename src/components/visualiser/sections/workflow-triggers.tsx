@@ -5,6 +5,7 @@ import { useWorkflowTriggersStore } from '@/stores';
 
 import {
   BaseCustomizationTrigger,
+  ComplexTypeCustomizationTrigger,
   TypeCustomizationTrigger,
 } from './customization';
 
@@ -14,7 +15,7 @@ export const WorkflowTriggers: React.FC = () => {
   const {
     triggers,
     noneCustomization,
-    // TODO: complexCustomization,
+    complexCustomization,
     typeCustomization,
     // TODO: cronCustomization,
   } = useWorkflowTriggersStore();
@@ -29,6 +30,13 @@ export const WorkflowTriggers: React.FC = () => {
       <Line>
         <Keyword>on</Keyword>:
       </Line>
+      {[...complexCustomization].map(([customization, triggers]) => (
+        <ComplexTypeCustomizationTrigger
+          key={customization}
+          text={customization}
+          customizations={triggers}
+        />
+      ))}
       {[...typeCustomization].map(([customization, types]) => (
         <TypeCustomizationTrigger
           key={customization}

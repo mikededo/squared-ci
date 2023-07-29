@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added branches customization',
+    description:
+      'Added the possibility of adding branches to the triggers that can be triggered by filtering the events that happen in specific branches. This events are pull_request, pull_request_target and push',
+    date: new Date('2023-07-29'),
+  },
+  {
     title: 'Added FS counter & local storage persistence',
     description:
       'A new feature switch counter and local storage persistence have been added.',
