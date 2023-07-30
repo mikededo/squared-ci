@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import type { Trigger } from '@/domain/trigger';
 import { isTypeCustomization } from '@/domain/trigger';
@@ -14,7 +14,7 @@ type Props = {
   trigger: Trigger | null;
 };
 
-export const TypeRenderer: React.FC<Props> = ({ trigger }) => {
+export const TypeRenderer: React.FC<Props> = memo(({ trigger }) => {
   const { toggleTypeTriggerProp, getTriggerTypes } = useWorkflowTriggersStore();
 
   const handleOnTypesToggle =
@@ -43,4 +43,5 @@ export const TypeRenderer: React.FC<Props> = ({ trigger }) => {
       <None />
     )
   ) : null;
-};
+});
+TypeRenderer.displayName = 'TypeRenderer';

@@ -25,7 +25,7 @@ export const Features: React.FC = () => (
       <Feature
         feature="fsDarkTheme"
         title="Dark theme"
-        description='Enables the dark theme. This will display a button to toggle the dark theme. As of now, you need to add the class="dark" to the <html> element!'
+        description="Enables the dark theme mode, by enabling the toggler."
       />
     </ul>
   </Page>

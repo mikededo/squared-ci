@@ -39,8 +39,8 @@ export const Button: React.FC<Props> = ({
   >
     <span
       className={classNames(
-        'uppercase text-white text-sm font-semibold',
-        variant === 'text' ? 'text-current dark:text-white' : ''
+        'uppercase text-sm font-semibold',
+        variant === 'text' ? 'text-current dark:text-white' : 'text-white'
       )}
     >
       {children}
