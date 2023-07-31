@@ -188,6 +188,11 @@ export const workflowTriggersStore: StateCreator<
       ),
     });
   },
+  getComplexTriggerPaths: (trigger) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
+    return customization?.get('paths') ?? new Set();
+  },
   toggleComplexTriggerTag: (trigger, tags) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);

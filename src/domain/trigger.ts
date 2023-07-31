@@ -136,6 +136,10 @@ export const isComplexCustomization = (
     triggerType === 'types-branches-paths'
   );
 };
+export const isComplexPathCustomization = (
+  trigger: Trigger
+): trigger is ComplexPathCustomizationKeys =>
+  TriggerCustomization[trigger] === 'types-branches-paths';
 export const isTypeCustomization = (
   trigger: Trigger
 ): trigger is

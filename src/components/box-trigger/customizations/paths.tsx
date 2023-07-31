@@ -1,43 +1,43 @@
 import React from 'react';
 
-import type { ComplexBranchesCustomizationKeys } from '@/domain/trigger';
+import type { ComplexPathCustomizationKeys } from '@/domain/trigger';
 import { useAdvancedInput } from '@/hooks';
 import { Chip, ChipWrapper, Input, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 type Props = {
-  trigger: ComplexBranchesCustomizationKeys;
+  trigger: ComplexPathCustomizationKeys;
 };
 
-export const Branches: React.FC<Props> = ({ trigger }) => {
-  const { toggleComplexTriggerBranch, getComplexTriggerBranches } =
+export const Paths: React.FC<Props> = ({ trigger }) => {
+  const { toggleComplexTriggerPath, getComplexTriggerPaths } =
     useWorkflowTriggersStore();
 
-  const branches = getComplexTriggerBranches(trigger);
+  const paths = getComplexTriggerPaths(trigger);
 
   const methods = useAdvancedInput('', {
-    tabCount: [0, branches.size],
+    tabCount: [0, paths.size],
     onEnterPress: (value, { onResetInput }) => {
-      toggleComplexTriggerBranch(trigger, value);
+      toggleComplexTriggerPath(trigger, value);
       onResetInput();
     },
   });
 
-  const handleOnRemoveBranch = (branch: string) => () => {
-    toggleComplexTriggerBranch(trigger, branch);
+  const handleOnRemovePath = (branch: string) => () => {
+    toggleComplexTriggerPath(trigger, branch);
   };
 
   return (
     <VCol variant="md">
       {/* TODO: Extract into specific component in SD */}
-      <p className="font-mono italic text-xs text-gray-400">Branches</p>
-      {branches.size > 0 ? (
+      <p className="font-mono italic text-xs text-gray-400">Paths</p>
+      {paths.size > 0 ? (
         <ChipWrapper variant="left">
-          {[...branches].map((branch) => (
+          {[...paths].map((branch) => (
             <Chip
               key={branch}
               text={branch}
-              onClick={handleOnRemoveBranch(branch)}
+              onClick={handleOnRemovePath(branch)}
               active
             />
           ))}

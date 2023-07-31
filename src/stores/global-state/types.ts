@@ -67,6 +67,7 @@ type WorkflowTriggersActions = {
     ComplexBranchesCustomizationKeys,
     Set<string>
   >;
+  getComplexTriggerPaths: Single<ComplexPathCustomizationKeys, Set<string>>;
   toggleTypeTrigger: Single<
     TypesCustomizationKeys | CustomTypesCustomizationKeys
   >;
