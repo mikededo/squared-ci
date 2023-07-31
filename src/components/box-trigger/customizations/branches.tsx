@@ -1,7 +1,7 @@
-import { atom, useAtom } from 'jotai';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import type { ComplexBranchesCustomizationKeys } from '@/domain/trigger';
+import { useAdvancedInput } from '@/hooks';
 import { Chip, ChipWrapper, Input, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
@@ -10,29 +10,28 @@ type Props = {
 };
 
 export const Branches: React.FC<Props> = ({ trigger }) => {
-  const [inputValue, setInputValue] = useAtom(useMemo(() => atom(''), []));
   const { toggleComplexTriggerBranch, getComplexTriggerBranches } =
     useWorkflowTriggersStore();
 
-  const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.currentTarget.value);
-  };
+  const branches = getComplexTriggerBranches(trigger);
 
-  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') {
-      return;
-    }
-
-    e.preventDefault();
-    toggleComplexTriggerBranch(trigger, inputValue);
-    setInputValue('');
-  };
+  const methods = useAdvancedInput('', {
+    tabCount: [0, branches.size],
+    onEnterPress: (value, { onResetInput }) => {
+      toggleComplexTriggerBranch(trigger, value);
+      onResetInput();
+    },
+    onTabPress(_, count, helpers) {
+      helpers.onResetInput([...branches][count]);
+    },
+    onShiftTabPress(_, count, helpers) {
+      helpers.onResetInput([...branches][count]);
+    },
+  });
 
   const handleOnRemoveBranch = (branch: string) => () => {
     toggleComplexTriggerBranch(trigger, branch);
   };
-
-  const branches = getComplexTriggerBranches(trigger);
 
   return (
     <VCol variant="md">
@@ -50,12 +49,7 @@ export const Branches: React.FC<Props> = ({ trigger }) => {
           ))}
         </ChipWrapper>
       ) : null}
-      <Input
-        value={inputValue}
-        placeholder="Type branch name"
-        onKeyDown={onKeyPress}
-        onChange={handleOnInputChange}
-      />
+      <Input placeholder="Type branch name" {...methods} />
     </VCol>
   );
 };
