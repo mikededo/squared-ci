@@ -210,6 +210,11 @@ export const workflowTriggersStore: StateCreator<
       ),
     });
   },
+  getComplexTriggerTags: (trigger) => {
+    const { complexCustomization } = get();
+    const customization = complexCustomization.get(trigger);
+    return customization?.get('tags') ?? new Set();
+  },
   toggleCronTrigger: (trigger) => {
     const { triggers, cronCustomization } = get();
     const exists = triggers.has(trigger);

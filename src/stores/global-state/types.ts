@@ -1,7 +1,7 @@
 import type { OriginPosition, Position } from '@/domain/shared';
 import type {
   ComplexBranchesCustomizationKeys,
-  ComplexPathCustomizationKeys,
+  ComplexPathsCustomizationKeys,
   ComplexTagsCustomizationKeys,
   ComplexTypesCustomizationKeys,
   Cron,
@@ -67,7 +67,8 @@ type WorkflowTriggersActions = {
     ComplexBranchesCustomizationKeys,
     Set<string>
   >;
-  getComplexTriggerPaths: Single<ComplexPathCustomizationKeys, Set<string>>;
+  getComplexTriggerPaths: Single<ComplexPathsCustomizationKeys, Set<string>>;
+  getComplexTriggerTags: Single<ComplexTagsCustomizationKeys, Set<string>>;
   toggleTypeTrigger: Single<
     TypesCustomizationKeys | CustomTypesCustomizationKeys
   >;
@@ -79,7 +80,7 @@ type WorkflowTriggersActions = {
   >;
   toggleComplexTrigger: Single<ComplexTypesCustomizationKeys>;
   toggleComplexTriggerBranch: Double<ComplexBranchesCustomizationKeys, string>;
-  toggleComplexTriggerPath: Double<ComplexPathCustomizationKeys, string>;
+  toggleComplexTriggerPath: Double<ComplexPathsCustomizationKeys, string>;
   toggleComplexTriggerTag: Double<ComplexTagsCustomizationKeys, string>;
   toggleCronTrigger: Single<CronCustomizationKeys>;
 };

@@ -99,7 +99,7 @@ export type ComplexTypesCustomizationKeys = CustomizationKeys<
 export type ComplexBranchesCustomizationKeys = CustomizationKeys<
   'types-branches-paths' | 'types-branches-tags'
 >;
-export type ComplexPathCustomizationKeys =
+export type ComplexPathsCustomizationKeys =
   CustomizationKeys<'types-branches-paths'>;
 export type ComplexTagsCustomizationKeys =
   CustomizationKeys<'types-branches-tags'>;
@@ -138,8 +138,12 @@ export const isComplexCustomization = (
 };
 export const isComplexPathCustomization = (
   trigger: Trigger
-): trigger is ComplexPathCustomizationKeys =>
+): trigger is ComplexPathsCustomizationKeys =>
   TriggerCustomization[trigger] === 'types-branches-paths';
+export const isComplexTagCustomization = (
+  trigger: Trigger
+): trigger is ComplexTagsCustomizationKeys =>
+  TriggerCustomization[trigger] === 'types-branches-tags';
 export const isTypeCustomization = (
   trigger: Trigger
 ): trigger is

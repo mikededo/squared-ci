@@ -1,12 +1,12 @@
 import React from 'react';
 
-import type { ComplexPathCustomizationKeys } from '@/domain/trigger';
+import type { ComplexPathsCustomizationKeys } from '@/domain/trigger';
 import { useAdvancedInput } from '@/hooks';
 import { Chip, ChipWrapper, Input, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 type Props = {
-  trigger: ComplexPathCustomizationKeys;
+  trigger: ComplexPathsCustomizationKeys;
 };
 
 export const Paths: React.FC<Props> = ({ trigger }) => {
@@ -23,8 +23,8 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
     },
   });
 
-  const handleOnRemovePath = (branch: string) => () => {
-    toggleComplexTriggerPath(trigger, branch);
+  const handleOnRemovePath = (path: string) => () => {
+    toggleComplexTriggerPath(trigger, path);
   };
 
   return (
@@ -33,17 +33,17 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
       <p className="font-mono italic text-xs text-gray-400">Paths</p>
       {paths.size > 0 ? (
         <ChipWrapper variant="left">
-          {[...paths].map((branch) => (
+          {[...paths].map((path) => (
             <Chip
-              key={branch}
-              text={branch}
-              onClick={handleOnRemovePath(branch)}
+              key={path}
+              text={path}
+              onClick={handleOnRemovePath(path)}
               active
             />
           ))}
         </ChipWrapper>
       ) : null}
-      <Input placeholder="Type branch name" {...methods} />
+      <Input placeholder="Type path name" {...methods} />
     </VCol>
   );
 };
