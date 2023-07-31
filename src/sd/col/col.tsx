@@ -19,13 +19,16 @@ const VColVariants: Record<Variant, string> = {
   xl: 'gap-y-4',
 };
 
-type Props = { variant?: Variant };
+type Props = { variant?: Variant; className?: string };
 
 export const VCol: React.FC<PropsWithChildren<Props>> = ({
   children,
   variant = 'sm',
+  className,
 }) => (
-  <div className={classNames('flex flex-col', VColVariants[variant])}>
+  <div
+    className={classNames('flex flex-col', VColVariants[variant], className)}
+  >
     {children}
   </div>
 );
@@ -33,8 +36,11 @@ export const VCol: React.FC<PropsWithChildren<Props>> = ({
 export const HCol: React.FC<PropsWithChildren<Props>> = ({
   children,
   variant = 'sm',
+  className,
 }) => (
-  <div className={classNames('flex flex-col', HColVariants[variant])}>
+  <div
+    className={classNames('flex flex-col', HColVariants[variant], className)}
+  >
     {children}
   </div>
 );

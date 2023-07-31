@@ -70,6 +70,15 @@ export const News: React.FC = () => {
     <Dialog>
       <div className="flex flex-col justify-between h-full w-full">
         <h2 className="text-2xl font-semibold mb-6 p-5 pb-0">News</h2>
+        <div className="self-start gap-4 p-2 rounded-lg text-center mx-5 mb-5 bg-slate-200 dark:bg-slate-700 text-sm">
+          <strong className="font-semibold inline-block">
+            Coming soon:&nbsp;
+          </strong>
+          <span>
+            coping the generated code to the clipboard, improved drag
+            experience, fixed global drag and more! Thanks for coming!
+          </span>
+        </div>
         <div className="self-start flex-1 flex flex-col gap-4 px-5 mb-5 w-full">
           {NewsList.map(({ title, description, date }) => (
             <New

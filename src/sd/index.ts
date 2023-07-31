@@ -6,6 +6,7 @@ export * from './dot';
 export * from './draggable';
 export * from './icon-button';
 export * from './input';
+export * from './row';
 export * from './toggle';
 export * from './typography';
 export * from './visualiser';

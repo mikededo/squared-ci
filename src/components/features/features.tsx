@@ -27,6 +27,11 @@ export const Features: React.FC = () => (
         title="Dark theme"
         description="Enables the dark theme mode, by enabling the toggler."
       />
+      <Feature
+        feature="fsCopyAction"
+        title="Copy action"
+        description="Copies the generated action code to the clipboard. Currently only shows the button."
+      />
     </ul>
   </Page>
 );

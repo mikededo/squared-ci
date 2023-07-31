@@ -11,7 +11,7 @@ type DefaultProps = Omit<
 >;
 type InternalProps = {
   variant?: Variant;
-  children: string;
+  children: React.ReactNode;
 };
 type Props = DefaultProps & InternalProps;
 
@@ -27,14 +27,16 @@ export const Button: React.FC<Props> = ({
   className,
   children,
   variant = 'primary',
+  disabled,
   ...props
 }) => (
   <button
     className={classNames(
-      'py-2 px-4 rounded-full transition-colors',
-      Variants[variant],
+      'py-2 px-4 rounded-full transition-colors disabled:bg-slate-400 dark:disabled:bg-slate-500 disabled:cursor-not-allowed',
+      !disabled ? Variants[variant] : '',
       className
     )}
+    disabled={disabled}
     {...props}
   >
     <span

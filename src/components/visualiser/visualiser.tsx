@@ -1,15 +1,20 @@
 import React from 'react';
 
-import { Header, Main, Page } from './layout';
+import { VCol } from '@/sd';
+
+import { Footer, Header, Main, Page } from './layout';
 import { WorkflowBasics, WorkflowJobs, WorkflowTriggers } from './sections';
 
 export const Visualiser: React.FC = () => (
   <Page>
-    <Header />
-    <Main>
-      <WorkflowBasics />
-      <WorkflowTriggers />
-      <WorkflowJobs />
-    </Main>
+    <VCol className="h-full">
+      <Header />
+      <Main>
+        <WorkflowBasics />
+        <WorkflowTriggers />
+        <WorkflowJobs />
+      </Main>
+      <Footer />
+    </VCol>
   </Page>
 );

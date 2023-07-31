@@ -6,7 +6,7 @@ import { VisualiserItems } from '@/sd';
 const { Comment, Line } = VisualiserItems;
 
 export const Main: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className="relative w-full mt-2">
+  <div className="relative w-full mt-2 h-full">
     <Line>
       <Comment>
         # Want to see changes? Start updating the &quot;Workflow basics&quot;
