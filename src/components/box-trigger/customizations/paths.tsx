@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ComplexPathsCustomizationKeys } from '@/domain/trigger';
 import { useAdvancedInput } from '@/hooks';
-import { Chip, ChipWrapper, Input, VCol } from '@/sd';
+import { Chip, ChipWrapper, Input, Label, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 type Props = {
@@ -29,8 +29,7 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
 
   return (
     <VCol variant="md">
-      {/* TODO: Extract into specific component in SD */}
-      <p className="font-mono italic text-xs text-gray-400">Paths</p>
+      <Label>Paths</Label>
       {paths.size > 0 ? (
         <ChipWrapper variant="left">
           {[...paths].map((path) => (

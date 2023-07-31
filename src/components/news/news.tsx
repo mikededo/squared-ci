@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added path and tags customization',
+    description:
+      'Alongside the branches customization, it is possible to configure paths and tags as triggers for specific events.',
+    date: new Date('2023-07-31'),
+  },
+  {
     title: 'Added branches customization',
     description:
       'Added the possibility of adding branches to the triggers that can be triggered by filtering the events that happen in specific branches. This events are pull_request, pull_request_target and push',

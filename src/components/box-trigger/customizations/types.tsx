@@ -28,7 +28,7 @@ export const Types: React.FC<Props> = ({ trigger, selected, onTypeToggle }) => {
       {withTitle ? (
         <p className="font-mono italic text-xs text-gray-400">Types</p>
       ) : null}
-      <ChipWrapper>
+      <ChipWrapper variant="left">
         {types.map((type) => (
           <Chip
             key={type}
