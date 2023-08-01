@@ -29,7 +29,7 @@ export const Page: RequiredChildrenFC = ({ children }) => {
           <BeakerIcon
             className={classNames(
               'transition-all cursor-pointer',
-              opened ? 'fill-indigo-500' : 'fill-current'
+              opened ? 'fill-amber-500' : 'fill-current'
             )}
           />
         </div>

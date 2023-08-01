@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '@/sd';
+import { Button, VCol } from '@/sd';
 
 import { Dialog } from './dialog';
 import type { NewItem } from './new';
@@ -68,9 +68,9 @@ export const News: React.FC = () => {
 
   return !opened ? null : (
     <Dialog>
-      <div className="flex flex-col justify-between h-full w-full">
-        <h2 className="text-2xl font-semibold mb-6 p-5 pb-0">News</h2>
-        <div className="self-start gap-4 p-2 rounded-lg text-center mx-5 mb-5 bg-slate-200 dark:bg-slate-700 text-sm">
+      <VCol variant="xl" className=" h-full w-full">
+        <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
+        <div className="self-start gap-4 p-2 rounded-lg text-center mx-5 bg-slate-200 dark:bg-slate-700 text-sm">
           <strong className="font-semibold inline-block">
             Coming soon:&nbsp;
           </strong>
@@ -79,7 +79,7 @@ export const News: React.FC = () => {
             experience, fixed global drag and more! Thanks for coming!
           </span>
         </div>
-        <div className="self-start flex-1 flex flex-col gap-4 px-5 mb-5 w-full">
+        <div className="self-start flex-1 flex flex-col gap-4 px-5 w-full overflow-y-auto">
           {NewsList.map(({ title, description, date }) => (
             <New
               key={title}
@@ -95,7 +95,7 @@ export const News: React.FC = () => {
           </Button>
           <Button onClick={onToggleStatus}>Understood</Button>
         </div>
-      </div>
+      </VCol>
     </Dialog>
   );
 };
