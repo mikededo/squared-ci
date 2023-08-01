@@ -10,7 +10,6 @@ import { VisibleGroup } from './visible-group';
 type Props = {
   innerRef?: React.RefObject<HTMLDivElement>;
   selected: Set<Trigger>;
-  onExpand: (onDraggableExpand: () => void) => () => void;
   onPositionChange: () => void;
   onTriggerChange: (trigger: Trigger) => void;
 };
@@ -18,7 +17,6 @@ type Props = {
 export const BoxTriggerSelector: React.FC<Props> = ({
   innerRef,
   selected,
-  onExpand,
   onPositionChange,
   onTriggerChange,
 }) => (
@@ -28,11 +26,11 @@ export const BoxTriggerSelector: React.FC<Props> = ({
       initialX={Positions.BoxTriggerX}
       initialY={Positions.BoxTriggerY}
       onPositionChange={onPositionChange}
-      visible={({ ref, onExpand: onDraggableExpand }) => (
+      visible={({ ref, onExpand }) => (
         <VisibleGroup
           expandableRef={ref}
           selected={selected}
-          onExpand={onExpand(onDraggableExpand)}
+          onExpand={onExpand}
           onTriggerChange={onTriggerChange}
         />
       )}

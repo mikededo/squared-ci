@@ -1,9 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { atom, useAtom } from 'jotai';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import { Positions } from '@/config';
 import type { InitialPosition } from '@/domain/shared';
 import { type Trigger } from '@/domain/trigger';
-import { useViewport } from '@/hooks';
+import { useSizeObserver, useViewport } from '@/hooks';
 import type { DotPosition } from '@/sd';
 import { Dot, Draggable, DraggableTitle, DraggableWrapper } from '@/sd';
 import { useHorizontalDestination } from '@/stores';
@@ -16,18 +17,20 @@ type Props = {
 };
 
 type ConnectorPosition = { dotPosition: DotPosition | null } & InitialPosition;
+const InitialConnectorPosition: ConnectorPosition = {
+  initialX: Positions.BoxTriggerPropsX,
+  initialY: Positions.BoxTriggerPropsY,
+  dotPosition: 'left',
+};
 
 export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
   const ref = useRef<HTMLDivElement>(null);
   const screen = useViewport();
   const { addDestination, onDestinationChange } = useHorizontalDestination();
 
-  const [{ initialX, initialY, dotPosition }, setInitialPosition] =
-    useState<ConnectorPosition>({
-      initialX: Positions.BoxTriggerPropsX,
-      initialY: Positions.BoxTriggerPropsY,
-      dotPosition: 'left',
-    });
+  const [{ initialX, initialY, dotPosition }, setInitialPosition] = useAtom(
+    useMemo(() => atom<ConnectorPosition>(InitialConnectorPosition), [])
+  );
 
   const handleOnNotifyListeners = () => {
     if (!trigger || !ref.current) {
@@ -42,28 +45,28 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
     });
   };
 
+  // The useSizeObserver is used in order to detect when the chip wrapper
+  // increases the size of the component, which should also notify the listeners
+  // in case the height has increased. Othewise, until the component is dragged,
+  // the connector will be misplaced
+  useSizeObserver({ element: ref.current, onUpdate: handleOnNotifyListeners });
+
   useEffect(() => {
     if (!trigger || !ref.current) {
       return;
     }
 
-    const { x, y, width, height } = ref.current.getBoundingClientRect();
-
     const initialPosition = addDestination({
       trigger,
       screen,
-      initialRect: { x, y, width, height },
+      // Only the wanted fields will be used, others will be ignored
+      initialRect: ref.current.getBoundingClientRect(),
     });
     if (initialPosition) {
       setInitialPosition(initialPosition);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref]);
-
-  useLayoutEffect(() => {
-    handleOnNotifyListeners();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <DraggableWrapper>

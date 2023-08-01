@@ -22,7 +22,6 @@ export const useSizeObserver = <T extends HTMLElement = HTMLDivElement>(
     }
 
     return () => {
-      console.log('unobserve');
       if (element) {
         observer.unobserve(element);
       }

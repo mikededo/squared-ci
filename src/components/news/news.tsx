@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Fixed issues with connectors',
+    description:
+      'Due to improper updates, the connector of boxes was not properly being updated. There are still some features to be fixed.',
+    date: new Date('2023-08-01'),
+  },
+  {
     title: 'Added path and tags customization',
     description:
       'Alongside the branches customization, it is possible to configure paths and tags as triggers for specific events.',
@@ -54,12 +60,6 @@ const NewsList: NewItem[] = [
     description:
       'An initial implementation of global drag has been added to the application.',
     date: new Date('2023-07-19'),
-  },
-  {
-    title: 'Deprecate TBD customization type',
-    description:
-      'The TBD customization type has been deprecated in favor of a new approach.',
-    date: new Date('2023-07-12'),
   },
 ];
 

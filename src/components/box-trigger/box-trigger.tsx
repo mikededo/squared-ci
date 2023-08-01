@@ -56,11 +56,6 @@ export const BoxTrigger = () => {
     handleOnParentChange();
   };
 
-  const handleOnExpand = (onExpand: () => void) => () => {
-    onExpand();
-    handleOnParentChange();
-  };
-
   useLayoutEffect(() => {
     if (!ref.current) {
       return;
@@ -85,7 +80,6 @@ export const BoxTrigger = () => {
       <BoxTriggerSelector
         innerRef={ref}
         selected={triggers}
-        onExpand={handleOnExpand}
         onPositionChange={handleOnParentChange}
         onTriggerChange={handleOnTriggerChange}
       />

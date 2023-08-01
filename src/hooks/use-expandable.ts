@@ -19,7 +19,6 @@ export const useExpandable = <
   const invisibleRef = useRef<J>(null);
 
   const [expanded, setExpanded] = useAtom(useMemo(() => atom(false), []));
-  const [count, setCount] = useAtom(useMemo(() => atom(0), []));
   const [height, setHeight] = useAtom(
     useMemo(() => atom(elementHeight(visibleRef.current)), [])
   );
@@ -40,7 +39,6 @@ export const useExpandable = <
 
   const handleOnExpandToggle = () => {
     setExpanded(!expanded);
-    setCount(count + 1);
   };
 
   useEffect(() => {
