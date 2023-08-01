@@ -41,6 +41,7 @@ export const featureSwitchesStore: StateCreator<
 > = (set, get) => ({
   fsGlobalDrag: LS.get('featureSwitches')?.fsGlobalDrag ?? false,
   fsDarkTheme: LS.get('featureSwitches')?.fsDarkTheme ?? false,
+  fsCopyAction: LS.get('featureSwitches')?.fsCopyAction ?? false,
   activeFSCount: Object.values(LS.get('featureSwitches') ?? {}).reduce(
     (count, active) => count + +active,
     0
