@@ -43,6 +43,7 @@ module.exports = {
     ],
     'import/prefer-default-export': 0,
     'import/newline-after-import': ['error', { count: 1 }],
+    'import/no-duplicates': ['error', { considerQueryString: true }],
     'no-empty-function': [
       'error',
       {

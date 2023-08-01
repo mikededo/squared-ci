@@ -22,7 +22,7 @@ type Props = {
   invisible?: RenderFn;
   innerRef?: React.LegacyRef<HTMLElement>;
   onPositionChange?: (position: Position) => void;
-} & InitialPosition;
+} & InitialPosition & { id?: string };
 
 export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   active,

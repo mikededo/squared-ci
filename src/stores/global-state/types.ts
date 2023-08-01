@@ -8,9 +8,8 @@ import type {
   CronCustomizationKeys,
   CustomTypesCustomizationKeys,
   NoneCustomizationKeys,
-  TypesCustomizationKeys,
-} from '@/domain/trigger';
-import type { Trigger } from '@/domain/trigger';
+  Trigger,
+ TypesCustomizationKeys } from '@/domain/trigger';
 
 import type { FeatureSwitchesStore } from './feature-switches';
 

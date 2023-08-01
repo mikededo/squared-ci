@@ -1,8 +1,7 @@
 import React from 'react';
 
 import type { WithExpandableRef } from '@/hooks';
-import { DraggableWrapper } from '@/sd';
-import { Divider, Input } from '@/sd';
+import { Divider, DraggableWrapper, Input } from '@/sd';
 import { useWorkflowBasicsStore } from '@/stores';
 
 type Props = { isDragging: boolean; onInputClick?: () => void };

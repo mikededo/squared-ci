@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 
-import type { Trigger} from '@/domain/trigger';
-import { isComplexTagCustomization } from '@/domain/trigger';
-import { isComplexPathCustomization } from '@/domain/trigger';
-import { isTypeCustomization } from '@/domain/trigger';
-import { isComplexCustomization } from '@/domain/trigger';
-import { VCol } from '@/sd';
+import type { Trigger } from '@/domain/trigger';
+import {
+  isComplexCustomization,
+  isComplexPathCustomization,
+  isComplexTagCustomization,
+ isTypeCustomization } from '@/domain/trigger';
+import { DraggableWrapper, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 import { Branches } from './branches';
@@ -27,29 +28,35 @@ export const TypeRenderer: React.FC<Props> = memo(({ trigger }) => {
       toggleTypeTriggerProp(trigger, type);
     };
 
-  return trigger ? (
-    isComplexCustomization(trigger) ? (
-      <VCol variant="lg">
-        <Types
-          trigger={trigger}
-          selected={[...getTriggerTypes(trigger)]}
-          onTypeToggle={handleOnTypesToggle(trigger)}
-        />
-        <Branches trigger={trigger} />
-        {isComplexPathCustomization(trigger) ? (
-          <Paths trigger={trigger} />
-        ) : null}
-        {isComplexTagCustomization(trigger) ? <Tags trigger={trigger} /> : null}
-      </VCol>
-    ) : isTypeCustomization(trigger) ? (
-      <Types
-        trigger={trigger}
-        selected={[...getTriggerTypes(trigger)]}
-        onTypeToggle={handleOnTypesToggle(trigger)}
-      />
-    ) : (
-      <None />
-    )
-  ) : null;
+  return (
+    <DraggableWrapper>
+      {trigger ? (
+        isComplexCustomization(trigger) ? (
+          <VCol variant="lg">
+            <Types
+              trigger={trigger}
+              selected={[...getTriggerTypes(trigger)]}
+              onTypeToggle={handleOnTypesToggle(trigger)}
+            />
+            <Branches trigger={trigger} />
+            {isComplexPathCustomization(trigger) ? (
+              <Paths trigger={trigger} />
+            ) : null}
+            {isComplexTagCustomization(trigger) ? (
+              <Tags trigger={trigger} />
+            ) : null}
+          </VCol>
+        ) : isTypeCustomization(trigger) ? (
+          <Types
+            trigger={trigger}
+            selected={[...getTriggerTypes(trigger)]}
+            onTypeToggle={handleOnTypesToggle(trigger)}
+          />
+        ) : (
+          <None />
+        )
+      ) : null}
+    </DraggableWrapper>
+  );
 });
 TypeRenderer.displayName = 'TypeRenderer';

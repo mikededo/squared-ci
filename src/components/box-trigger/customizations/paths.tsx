@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ComplexPathsCustomizationKeys } from '@/domain/trigger';
 import { useAdvancedInput } from '@/hooks';
-import { Chip, ChipWrapper, Input, Label, VCol } from '@/sd';
+import { Chip, ChipWrapper, DraggableWrapper, Input, Label, VCol } from '@/sd';
 import { useWorkflowTriggersStore } from '@/stores';
 
 type Props = {
@@ -29,20 +29,22 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
 
   return (
     <VCol variant="md">
-      <Label>Paths</Label>
-      {paths.size > 0 ? (
-        <ChipWrapper variant="left">
-          {[...paths].map((path) => (
-            <Chip
-              key={path}
-              text={path}
-              onClick={handleOnRemovePath(path)}
-              active
-            />
-          ))}
-        </ChipWrapper>
-      ) : null}
-      <Input placeholder="Type path name" {...methods} />
+      <DraggableWrapper>
+        <Label>Paths</Label>
+        {paths.size > 0 ? (
+          <ChipWrapper variant="left">
+            {[...paths].map((path) => (
+              <Chip
+                key={path}
+                text={path}
+                onClick={handleOnRemovePath(path)}
+                active
+              />
+            ))}
+          </ChipWrapper>
+        ) : null}
+        <Input placeholder="Type path name" {...methods} />
+      </DraggableWrapper>
     </VCol>
   );
 };

@@ -78,9 +78,7 @@ export const BoxTriggerProps: React.FC<Props> = ({ trigger }) => {
             title={trigger ? `${trigger} props` : 'No trigger selected'}
           />
           <div className="px-3 pb-3">
-            <DraggableWrapper>
-              <TypeRenderer trigger={trigger} />
-            </DraggableWrapper>
+            <TypeRenderer trigger={trigger} />
           </div>
         </DraggableWrapper>
         {dotPosition ? <Dot active position={dotPosition} /> : null}

@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
+import type { DataDraggable } from '@/sd';
+
 type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const HColVariants: Record<Variant, string> = {
@@ -19,15 +21,17 @@ const VColVariants: Record<Variant, string> = {
   xl: 'gap-y-4',
 };
 
-type Props = { variant?: Variant; className?: string };
+type Props = { variant?: Variant; className?: string } & DataDraggable;
 
 export const VCol: React.FC<PropsWithChildren<Props>> = ({
   children,
   variant = 'sm',
   className,
+  ...props
 }) => (
   <div
     className={classNames('flex flex-col', VColVariants[variant], className)}
+    {...props}
   >
     {children}
   </div>
@@ -37,9 +41,11 @@ export const HCol: React.FC<PropsWithChildren<Props>> = ({
   children,
   variant = 'sm',
   className,
+  ...props
 }) => (
   <div
     className={classNames('flex flex-col', HColVariants[variant], className)}
+    {...props}
   >
     {children}
   </div>

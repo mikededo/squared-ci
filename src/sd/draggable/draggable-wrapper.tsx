@@ -4,6 +4,8 @@ type Props = { children: React.ReactNode };
 
 const DataDraggableName = 'data-draggable';
 
+export type DataDraggable = { 'data-draggable'?: boolean };
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const isEventFromDataDraggable = (e: React.MouseEvent) =>
   e.target instanceof Element && e.target.getAttribute(DataDraggableName);
