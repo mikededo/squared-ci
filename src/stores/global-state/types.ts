@@ -92,9 +92,15 @@ export type WorkflowPermissionsState = {
   permissions: {
     [K in Permissions]: Record<PermissionStatus, boolean>;
   };
+  readAll: boolean;
+  writeAll: boolean;
+  disableAll: boolean;
 };
 export type WorkflowPermissionsActions = {
   togglePermission: Double<Permissions, PermissionStatus>;
+  toggleReadAll: Empty;
+  toggleWriteAll: Empty;
+  toggleDisableAll: Empty;
 };
 export type WorkflowPermissionsStore = WorkflowPermissionsState &
   WorkflowPermissionsActions;

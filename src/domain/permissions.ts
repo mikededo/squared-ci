@@ -13,6 +13,7 @@ export type Permissions =
   | 'security-events'
   | 'statuses';
 export type PermissionStatus = 'none' | 'read' | 'write';
+export type ExtraPermissionStatuses = 'read-all' | 'write-all' | '{}';
 
 export const PermissionsList: Permissions[] = [
   'actions',

@@ -1,15 +1,31 @@
 import React, { useRef } from 'react';
 
 import { Positions } from '@/config';
-import { PermissionsList } from '@/domain/permissions';
-import { Draggable, DraggableTitle, DraggableWrapper, VCol } from '@/sd';
-import { useFeatureSwitch } from '@/stores';
+import type { Permissions } from '@/domain/permissions';
+import {
+  Draggable,
+  DraggableTitle,
+  DraggableWrapper,
+  Toggle,
+  VCol,
+} from '@/sd';
+import { useFeatureSwitch, useWorkflowPermissions } from '@/stores';
 
 import { Permission } from './box-permission';
 
 export const BoxPermissions: React.FC = () => {
-  const { fsWorkflowPermissions } = useFeatureSwitch('fsWorkflowPermissions');
   const innerRef = useRef<HTMLDivElement>(null);
+  const { fsWorkflowPermissions } = useFeatureSwitch('fsWorkflowPermissions');
+  const {
+    permissions,
+    disableAll,
+    readAll,
+    writeAll,
+    toggleDisableAll,
+    toggleWriteAll,
+    toggleReadAll,
+    togglePermission,
+  } = useWorkflowPermissions();
 
   return fsWorkflowPermissions ? (
     <DraggableWrapper>
@@ -26,8 +42,31 @@ export const BoxPermissions: React.FC = () => {
         )}
         invisible={({ ref }) => (
           <VCol ref={ref} className="relative px-3 pb-3">
-            {PermissionsList.map((permission) => (
-              <Permission key={permission} permission={permission} />
+            <Toggle
+              text="Read all"
+              value={readAll}
+              onClick={toggleReadAll}
+              condensed
+            />
+            <Toggle
+              text="Write all"
+              value={writeAll}
+              onClick={toggleWriteAll}
+              condensed
+            />
+            <Toggle
+              text="Disable all"
+              value={disableAll}
+              onClick={toggleDisableAll}
+              condensed
+            />
+            {Object.entries(permissions).map(([permission, statuses]) => (
+              <Permission
+                key={permission}
+                permission={permission as Permissions}
+                statuses={statuses}
+                onClick={togglePermission}
+              />
             ))}
           </VCol>
         )}

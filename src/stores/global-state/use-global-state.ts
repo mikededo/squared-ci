@@ -92,7 +92,24 @@ export const useWorkflowTriggersStore = () =>
   );
 
 export const useWorkflowPermissions = () =>
-  globalStore(({ permissions, togglePermission }) => ({
-    permissions,
-    togglePermission,
-  }));
+  globalStore(
+    ({
+      permissions,
+      writeAll,
+      readAll,
+      disableAll,
+      togglePermission,
+      toggleDisableAll,
+      toggleWriteAll,
+      toggleReadAll,
+    }) => ({
+      permissions,
+      writeAll,
+      readAll,
+      disableAll,
+      togglePermission,
+      toggleDisableAll,
+      toggleWriteAll,
+      toggleReadAll,
+    })
+  );
