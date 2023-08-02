@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added workflow permissions',
+    description:
+      'Added the possibility of adding permissions to the workflow. Currently changes are not represented in the visualiser. Enable the FS.',
+    date: new Date('2023-08-02'),
+  },
+  {
     title: 'Fixed issues with connectors',
     description:
       'Due to improper updates, the connector of boxes was not properly being updated. There are still some features to be fixed.',
