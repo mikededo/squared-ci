@@ -3,13 +3,15 @@ import React, { useRef } from 'react';
 import { Positions } from '@/config';
 import { PermissionsList } from '@/domain/permissions';
 import { Draggable, DraggableTitle, DraggableWrapper, VCol } from '@/sd';
+import { useFeatureSwitch } from '@/stores';
 
 import { Permission } from './box-permission';
 
 export const BoxPermissions: React.FC = () => {
+  const { fsWorkflowPermissions } = useFeatureSwitch('fsWorkflowPermissions');
   const innerRef = useRef<HTMLDivElement>(null);
 
-  return (
+  return fsWorkflowPermissions ? (
     <DraggableWrapper>
       <Draggable
         innerRef={innerRef}
@@ -31,5 +33,5 @@ export const BoxPermissions: React.FC = () => {
         )}
       />
     </DraggableWrapper>
-  );
+  ) : null;
 };

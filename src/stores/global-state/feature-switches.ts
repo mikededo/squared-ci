@@ -38,21 +38,26 @@ export const featureSwitchesStore: StateCreator<
   [],
   [],
   FeatureSwitchesStore
-> = (set, get) => ({
-  fsGlobalDrag: LS.get('featureSwitches')?.fsGlobalDrag ?? false,
-  fsDarkTheme: LS.get('featureSwitches')?.fsDarkTheme ?? false,
-  fsCopyAction: LS.get('featureSwitches')?.fsCopyAction ?? false,
-  activeFSCount: Object.values(LS.get('featureSwitches') ?? {}).reduce(
-    (count, active) => count + +active,
-    0
-  ),
-  toggleFS: (key) => {
-    const state = get();
-    const value = !state[key];
-    set({
-      [key]: value,
-      activeFSCount: state.activeFSCount + (value ? 1 : -1),
-    });
-    saveFSStateToLocalStorage(key, state);
-  },
-});
+> = (set, get) => {
+  const LSFeatureSwitches = LS.get('featureSwitches');
+
+  return {
+    fsGlobalDrag: LSFeatureSwitches?.fsGlobalDrag ?? false,
+    fsDarkTheme: LSFeatureSwitches?.fsDarkTheme ?? false,
+    fsCopyAction: LSFeatureSwitches?.fsCopyAction ?? false,
+    fsWorkflowPermissions: LSFeatureSwitches?.fsWorkflowPermissions ?? false,
+    activeFSCount: Object.values(LSFeatureSwitches ?? {}).reduce(
+      (count, active) => count + +active,
+      0
+    ),
+    toggleFS: (key) => {
+      const state = get();
+      const value = !state[key];
+      set({
+        [key]: value,
+        activeFSCount: state.activeFSCount + (value ? 1 : -1),
+      });
+      saveFSStateToLocalStorage(key, state);
+    },
+  };
+};

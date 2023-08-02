@@ -5,6 +5,30 @@ import { Divider } from '@/sd';
 import { Feature } from './feature';
 import { Page } from './page';
 
+const FeatureList: Parameters<typeof Feature>[0][] = [
+  {
+    feature: 'fsGlobalDrag',
+    title: 'Global drag',
+    description: 'Background dragging, moving all items',
+  },
+  {
+    feature: 'fsDarkTheme',
+    title: 'Dark theme',
+    description: 'Enables the dark theme mode, by enabling the toggler.',
+  },
+  {
+    feature: 'fsCopyAction',
+    title: 'Copy action',
+    description:
+      'Copies the generated action code to the clipboard. Currently only shows the button.',
+  },
+  {
+    feature: 'fsWorkflowPermissions',
+    title: 'Workflow permissions',
+    description: 'Enables the workflow permissions box.',
+  },
+];
+
 export const Features: React.FC = () => (
   <Page>
     <p className="font-semibold">Experiments</p>
@@ -17,21 +41,9 @@ export const Features: React.FC = () => (
     </p>
     <Divider className="mt-2 mb-3" />
     <ul className="flex flex-col gap-1 ">
-      <Feature
-        feature="fsGlobalDrag"
-        title="Global drag"
-        description="Background dragging, moving all items"
-      />
-      <Feature
-        feature="fsDarkTheme"
-        title="Dark theme"
-        description="Enables the dark theme mode, by enabling the toggler."
-      />
-      <Feature
-        feature="fsCopyAction"
-        title="Copy action"
-        description="Copies the generated action code to the clipboard. Currently only shows the button."
-      />
+      {FeatureList.map((props) => (
+        <Feature key={props.feature} {...props} />
+      ))}
     </ul>
   </Page>
 );
