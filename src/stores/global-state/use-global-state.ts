@@ -6,6 +6,7 @@ import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
 import type { Empty, GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
+import { worfklowPermissionsStore } from './workflow-permissions';
 import { workflowTriggersStore } from './workflow-triggers';
 
 const globalStore = create<GlobalStore>()((...args) => ({
@@ -13,6 +14,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...globalDragStore(...args),
   ...workflowBasicsStore(...args),
   ...workflowTriggersStore(...args),
+  ...worfklowPermissionsStore(...args),
 }));
 
 export const useFeatureSwitch = <FS extends FeatureSwitches>(
@@ -88,3 +90,9 @@ export const useWorkflowTriggersStore = () =>
       toggleCronTrigger,
     })
   );
+
+export const useWorkflowPermissions = () =>
+  globalStore(({ permissions, togglePermission }) => ({
+    permissions,
+    togglePermission,
+  }));

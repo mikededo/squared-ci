@@ -1,3 +1,4 @@
+import type { PermissionStatus, Permissions } from '@/domain/permissions';
 import type { OriginPosition, Position } from '@/domain/shared';
 import type {
   ComplexBranchesCustomizationKeys,
@@ -9,7 +10,8 @@ import type {
   CustomTypesCustomizationKeys,
   NoneCustomizationKeys,
   Trigger,
- TypesCustomizationKeys } from '@/domain/trigger';
+  TypesCustomizationKeys,
+} from '@/domain/trigger';
 
 import type { FeatureSwitchesStore } from './feature-switches';
 
@@ -86,7 +88,19 @@ type WorkflowTriggersActions = {
 export type WorkflowTriggersStore = WorkflowTriggersState &
   WorkflowTriggersActions;
 
+export type WorkflowPermissionsState = {
+  permissions: {
+    [K in Permissions]: Record<PermissionStatus, boolean>;
+  };
+};
+export type WorkflowPermissionsActions = {
+  togglePermission: Double<Permissions, PermissionStatus>;
+};
+export type WorkflowPermissionsStore = WorkflowPermissionsState &
+  WorkflowPermissionsActions;
+
 export type GlobalStore = FeatureSwitchesStore &
   GlobalDragStore &
   WorkflowBasicsStore &
-  WorkflowTriggersStore;
+  WorkflowTriggersStore &
+  WorkflowPermissionsStore;
