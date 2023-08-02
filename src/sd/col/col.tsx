@@ -23,30 +23,26 @@ const VColVariants: Record<Variant, string> = {
 
 type Props = { variant?: Variant; className?: string } & DataDraggable;
 
-export const VCol: React.FC<PropsWithChildren<Props>> = ({
-  children,
-  variant = 'sm',
-  className,
-  ...props
-}) => (
-  <div
-    className={classNames('flex flex-col', VColVariants[variant], className)}
-    {...props}
-  >
-    {children}
-  </div>
+export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
+  ({ children, variant = 'sm', className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={classNames('flex flex-col', VColVariants[variant], className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
 );
 
-export const HCol: React.FC<PropsWithChildren<Props>> = ({
-  children,
-  variant = 'sm',
-  className,
-  ...props
-}) => (
-  <div
-    className={classNames('flex flex-col', HColVariants[variant], className)}
-    {...props}
-  >
-    {children}
-  </div>
+export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
+  ({ children, variant = 'sm', className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={classNames('flex flex-row', HColVariants[variant], className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
 );

@@ -51,6 +51,7 @@ module.exports = {
       },
     ],
     'no-unused-vars': 'off',
+    'react/display-name': 0,
     'react/function-component-definition': [
       2,
       {
@@ -58,13 +59,13 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-    'react-refresh/only-export-components': 'warn',
     'react/jsx-filename-extension': [0],
     'react/jsx-props-no-spreading': [0],
     'react/prop-types': [0],
     'react/react-in-jsx-scope': 2,
     'react/require-default-props': [0],
     'react/self-closing-comp': ['error', { component: true, html: true }],
+    'react-refresh/only-export-components': 'warn',
     'sort-imports': ['error', { ignoreDeclarationSort: true }],
   },
   settings: {

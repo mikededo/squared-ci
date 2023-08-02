@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import {
   BoxName,
+  BoxPermissions,
   BoxTrigger,
   Features,
   GlobalDrag,
@@ -21,6 +22,7 @@ const Root = () => (
     <GlobalDrag>
       <BoxName />
       <BoxTrigger />
+      <BoxPermissions />
     </GlobalDrag>
     <Menu />
     <Features />
