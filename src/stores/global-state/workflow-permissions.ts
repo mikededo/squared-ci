@@ -26,33 +26,46 @@ export const worfklowPermissionsStore: StateCreator<
   readAll: false,
   writeAll: false,
   disableAll: false,
+  totalPermissionsEnabled: 0,
   togglePermission: (permission, status) => {
-    const permissionState = get().permissions[permission];
+    const { permissions, totalPermissionsEnabled } = get();
+    const permissionState = permissions[permission];
     // Disable all if none is enabled
     if (status === 'none' && !permissionState.none) {
       set({
         permissions: {
-          ...get().permissions,
+          ...permissions,
           [permission]: { none: true, read: false, write: false },
         },
+        readAll: false,
+        disableAll: false,
+        writeAll: false,
+        totalPermissionsEnabled: get().totalPermissionsEnabled + 1,
       });
     }
 
+    const isOneAlreadyEnabled = Object.values(permissionState).some(
+      (value) => value
+    );
     set({
       permissions: {
-        ...get().permissions,
+        ...permissions,
         [permission]: { [status]: !permissionState[status] },
       },
       readAll: false,
       disableAll: false,
       writeAll: false,
+      totalPermissionsEnabled:
+        totalPermissionsEnabled +
+        (!permissionState[status] ? (isOneAlreadyEnabled ? 0 : 1) : -1),
     });
   },
   toggleReadAll: () => {
     const { readAll, permissions } = get();
+    const permissionList = Object.keys(permissions);
 
     set({
-      permissions: Object.keys(permissions).reduce(
+      permissions: permissionList.reduce(
         (permissions, permission) => ({
           ...permissions,
           [permission]: { none: false, read: !readAll, write: false },
@@ -62,13 +75,15 @@ export const worfklowPermissionsStore: StateCreator<
       readAll: !readAll,
       disableAll: false,
       writeAll: false,
+      totalPermissionsEnabled: !readAll ? permissionList.length : 0,
     });
   },
   toggleWriteAll: () => {
     const { writeAll, permissions } = get();
+    const permissionList = Object.keys(permissions);
 
     set({
-      permissions: Object.keys(permissions).reduce(
+      permissions: permissionList.reduce(
         (permissions, permission) => ({
           ...permissions,
           [permission]: { none: false, read: false, write: !writeAll },
@@ -78,13 +93,15 @@ export const worfklowPermissionsStore: StateCreator<
       writeAll: !writeAll,
       disableAll: false,
       readAll: false,
+      totalPermissionsEnabled: !writeAll ? permissionList.length : 0,
     });
   },
   toggleDisableAll: () => {
     const { disableAll, permissions } = get();
+    const permissionList = Object.keys(permissions);
 
     set({
-      permissions: Object.keys(permissions).reduce(
+      permissions: permissionList.reduce(
         (permissions, permission) => ({
           ...permissions,
           [permission]: { none: !disableAll, read: false, write: false },
@@ -94,6 +111,7 @@ export const worfklowPermissionsStore: StateCreator<
       disableAll: !disableAll,
       readAll: false,
       writeAll: false,
+      totalPermissionsEnabled: !disableAll ? permissionList.length : 0,
     });
   },
 });

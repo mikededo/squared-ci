@@ -15,8 +15,13 @@ const GlobalPermission: React.FC<GlobalPermissionProps> = ({ permission }) => (
 );
 
 export const WorkflowPermissions: React.FC = () => {
-  const { permissions, disableAll, writeAll, readAll } =
-    useWorkflowPermissions();
+  const {
+    permissions,
+    disableAll,
+    writeAll,
+    readAll,
+    totalPermissionsEnabled,
+  } = useWorkflowPermissions();
 
   if (disableAll) {
     return <GlobalPermission permission="{}" />;
@@ -28,14 +33,12 @@ export const WorkflowPermissions: React.FC = () => {
     return <GlobalPermission permission="read-all" />;
   }
 
-  const permissionsList = Object.entries(permissions);
-
-  return permissionsList.length > 0 ? (
+  return totalPermissionsEnabled > 0 ? (
     <>
       <Line>
         <Keyword>permissions</Keyword>:
       </Line>
-      {permissionsList.map(([key, { none, read, write }]) =>
+      {Object.entries(permissions).map(([key, { none, read, write }]) =>
         read || write || none ? (
           <Tabbed key={key} tabs={1}>
             <Keyword>{key}</Keyword>: {read ? 'read' : write ? 'write' : 'none'}

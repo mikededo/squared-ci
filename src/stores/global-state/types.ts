@@ -89,6 +89,7 @@ export type WorkflowTriggersStore = WorkflowTriggersState &
   WorkflowTriggersActions;
 
 export type WorkflowPermissionsState = {
+  totalPermissionsEnabled: number;
   permissions: {
     [K in Permissions]: Record<PermissionStatus, boolean>;
   };
