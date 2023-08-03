@@ -43,6 +43,9 @@ export const worfklowPermissionsStore: StateCreator<
         ...get().permissions,
         [permission]: { [status]: !permissionState[status] },
       },
+      readAll: false,
+      disableAll: false,
+      writeAll: false,
     });
   },
   toggleReadAll: () => {
