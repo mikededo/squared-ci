@@ -11,7 +11,7 @@ const NewsList: NewItem[] = [
   {
     title: 'Added workflow permissions',
     description:
-      'Added the possibility of adding permissions to the workflow. Currently changes are not represented in the visualiser. Enable the FS.',
+      'Added the possibility of adding permissions to the workflow. Enable it in the FS panel.',
     date: new Date('2023-08-02'),
   },
   {

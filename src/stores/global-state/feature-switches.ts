@@ -16,7 +16,12 @@ export type FeatureSwitchesStore = FeatureSwitchesState &
   ExtraFeatureSwitchesState &
   FeatureSwitchesActions;
 
-const FSKeys = new Set<FeatureSwitches>(['fsGlobalDrag', 'fsDarkTheme']);
+const FSKeys = new Set<FeatureSwitches>([
+  'fsGlobalDrag',
+  'fsDarkTheme',
+  'fsCopyAction',
+  'fsWorkflowPermissions',
+]);
 const saveFSStateToLocalStorage = (
   updated: FeatureSwitches,
   state: FeatureSwitchesState
