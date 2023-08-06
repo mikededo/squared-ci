@@ -23,10 +23,15 @@ const RowJustify: Record<Justify, string> = {
   evenly: 'justify-evenly',
 };
 
-type Props = { variant?: Variant; justify?: Justify } & DataDraggable;
+type Props = {
+  variant?: Variant;
+  justify?: Justify;
+  className?: string;
+} & DataDraggable;
 
 export const Row: React.FC<PropsWithChildren<Props>> = ({
   children,
+  className,
   justify = 'start',
   variant = 'sm',
 }) => (
@@ -34,7 +39,8 @@ export const Row: React.FC<PropsWithChildren<Props>> = ({
     className={classNames(
       'flex flex-row',
       RowVariants[variant],
-      RowJustify[justify]
+      RowJustify[justify],
+      className
     )}
   >
     {children}

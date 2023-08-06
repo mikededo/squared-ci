@@ -9,10 +9,10 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
-    title: 'Added workflow permissions',
+    title: 'Added optional sections',
     description:
-      'Added the possibility of adding permissions to the workflow. Enable it in the FS panel.',
-    date: new Date('2023-08-02'),
+      'The permissions FS has been moved to a feature now! The other optional sections (env, defaults and concurrency) will be able soon. Now, a new menu option has been added that displays a pop up to toggle/untoggle the optional sections.',
+    date: new Date('2023-08-06'),
   },
   {
     title: 'Fixed issues with connectors',

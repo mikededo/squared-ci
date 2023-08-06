@@ -1,10 +1,12 @@
 import type { FeatureSwitches } from './feature-switches';
+import type { OptionalSections } from './optional-sections';
 import type { Maybe } from './shared';
 
 export type ThemeModes = 'light' | 'dark';
 
 export type LocalStorageData = {
   featureSwitches: Record<FeatureSwitches, boolean>;
+  optionalSections: Record<OptionalSections, boolean>;
   themeMode: ThemeModes;
   showNews: boolean;
 };

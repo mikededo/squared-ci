@@ -14,6 +14,7 @@ import type {
 } from '@/domain/trigger';
 
 import type { FeatureSwitchesStore } from './feature-switches';
+import type { OptionalSectionsStore } from './optional-sections';
 
 export type Empty<R = void> = () => R;
 export type Single<T, R = void> = (arg0: T) => R;
@@ -107,6 +108,7 @@ export type WorkflowPermissionsStore = WorkflowPermissionsState &
   WorkflowPermissionsActions;
 
 export type GlobalStore = FeatureSwitchesStore &
+  OptionalSectionsStore &
   GlobalDragStore &
   WorkflowBasicsStore &
   WorkflowTriggersStore &

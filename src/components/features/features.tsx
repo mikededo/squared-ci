@@ -22,11 +22,6 @@ const FeatureList: Parameters<typeof Feature>[0][] = [
     description:
       'Copies the generated action code to the clipboard. Currently only shows the button.',
   },
-  {
-    feature: 'fsWorkflowPermissions',
-    title: 'Workflow permissions',
-    description: 'Enables the workflow permissions box.',
-  },
 ];
 
 export const Features: React.FC = () => (

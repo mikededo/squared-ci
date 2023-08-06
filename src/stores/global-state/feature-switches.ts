@@ -20,7 +20,6 @@ const FSKeys = new Set<FeatureSwitches>([
   'fsGlobalDrag',
   'fsDarkTheme',
   'fsCopyAction',
-  'fsWorkflowPermissions',
 ]);
 const saveFSStateToLocalStorage = (
   updated: FeatureSwitches,
@@ -50,7 +49,6 @@ export const featureSwitchesStore: StateCreator<
     fsGlobalDrag: LSFeatureSwitches?.fsGlobalDrag ?? false,
     fsDarkTheme: LSFeatureSwitches?.fsDarkTheme ?? false,
     fsCopyAction: LSFeatureSwitches?.fsCopyAction ?? false,
-    fsWorkflowPermissions: LSFeatureSwitches?.fsWorkflowPermissions ?? false,
     activeFSCount: Object.values(LSFeatureSwitches ?? {}).reduce(
       (count, active) => count + +active,
       0

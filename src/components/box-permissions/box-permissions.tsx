@@ -9,13 +9,13 @@ import {
   Toggle,
   VCol,
 } from '@/sd';
-import { useFeatureSwitch, useWorkflowPermissions } from '@/stores';
+import { useOptionalSection, useWorkflowPermissions } from '@/stores';
 
 import { Permission } from './box-permission';
 
 export const BoxPermissions: React.FC = () => {
   const innerRef = useRef<HTMLDivElement>(null);
-  const { fsWorkflowPermissions } = useFeatureSwitch('fsWorkflowPermissions');
+  const { osPermissions } = useOptionalSection('osPermissions');
   const {
     permissions,
     disableAll,
@@ -27,7 +27,7 @@ export const BoxPermissions: React.FC = () => {
     togglePermission,
   } = useWorkflowPermissions();
 
-  return fsWorkflowPermissions ? (
+  return osPermissions ? (
     <DraggableWrapper>
       <Draggable
         innerRef={innerRef}

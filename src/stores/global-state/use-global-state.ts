@@ -1,9 +1,11 @@
 import { create } from 'zustand';
 
 import type { FeatureSwitches } from '@/domain/feature-switches';
+import type { OptionalSections } from '@/domain/optional-sections';
 
 import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
+import { optionalSectionsStore } from './optional-sections';
 import type { Empty, GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
 import { worfklowPermissionsStore } from './workflow-permissions';
@@ -11,6 +13,7 @@ import { workflowTriggersStore } from './workflow-triggers';
 
 const globalStore = create<GlobalStore>()((...args) => ({
   ...featureSwitchesStore(...args),
+  ...optionalSectionsStore(...args),
   ...globalDragStore(...args),
   ...workflowBasicsStore(...args),
   ...workflowTriggersStore(...args),
@@ -31,6 +34,19 @@ export const useFeatureSwitch = <FS extends FeatureSwitches>(
   );
 export const useActiveFSCount = () =>
   globalStore(({ activeFSCount }) => activeFSCount);
+
+export const useOptionalSection = <OS extends OptionalSections>(
+  os: OS
+): { [key in OS]: boolean } & { toggleOS: Empty } =>
+  globalStore(
+    ({ toggleOS, ...state }) =>
+      ({
+        [os]: state[os],
+        toggleOS: () => {
+          toggleOS(os);
+        },
+      } as never)
+  );
 
 export const useGlobalDragNotifier = () =>
   globalStore(({ isDragging, onDragStart, onDragEnd, onDragChange }) => ({

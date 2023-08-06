@@ -3,11 +3,11 @@ import React from 'react';
 
 type Props = {
   text: string;
-  value: boolean;
-  disabled?: boolean;
-  onClick: () => void;
   condensed?: boolean;
-};
+} & (
+  | { disabled?: boolean; value: boolean; onClick: () => void }
+  | { disabled: true; value?: never; onClick?: never }
+);
 
 export const Toggle: React.FC<Props> = ({
   text,
@@ -35,7 +35,7 @@ export const Toggle: React.FC<Props> = ({
             ? 'after:translate-x-full after:border-white bg-amber-500 dark:border-gray-600'
             : 'bg-gray-200 dark:bg-gray-700',
           disabled
-            ? 'bg-gray-300 dark:bg-gray-500 cursor-not-allowed'
+            ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed'
             : 'cursor-pointer',
           condensed
             ? 'w-[30px] h-4 after:h-3 after:w-3 after:left-[3px]'
