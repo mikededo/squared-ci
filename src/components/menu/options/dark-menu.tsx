@@ -26,6 +26,7 @@ export const DarkThemeMenuOption: React.FC = () => {
       selected={mode === 'dark'}
       disabled={!fsDarkTheme}
       onClick={handleOnClick}
+      tooltip="Toggle dark mode"
     >
       <MoonIcon />
     </IconButton>

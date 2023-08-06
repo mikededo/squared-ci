@@ -2,12 +2,20 @@ import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-export const IconButton: React.FC<
+import { Tooltip } from '@/sd';
+
+type Props = {
+  selected?: boolean;
+  tooltip?: string;
+};
+
+const IconButtonBase: React.FC<
   PropsWithChildren<
-    { selected?: boolean } & React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >
+    Props &
+      React.DetailedHTMLProps<
+        React.ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+      >
   >
 > = ({ children, selected, className, ...props }) => (
   <button
@@ -36,3 +44,23 @@ export const IconButton: React.FC<
     )}
   </button>
 );
+
+export const IconButton: React.FC<
+  PropsWithChildren<
+    Props &
+      React.DetailedHTMLProps<
+        React.ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+      >
+  >
+> = ({ tooltip, ...props }) => {
+  if (!tooltip) {
+    return <IconButtonBase {...props} />;
+  }
+
+  return (
+    <Tooltip text={tooltip}>
+      <IconButtonBase {...props} />
+    </Tooltip>
+  );
+};

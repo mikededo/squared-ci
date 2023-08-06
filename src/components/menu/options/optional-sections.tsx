@@ -14,7 +14,12 @@ export const OptionalSectionsMenuOption: React.FC = () => {
 
   return (
     <>
-      <IconButton className="!p-2" selected={opened} onClick={onToggleStatus}>
+      <IconButton
+        tooltip="Show optional sections"
+        className="!p-2"
+        selected={opened}
+        onClick={onToggleStatus}
+      >
         <KeyIcon />
       </IconButton>
       <OptionalSections show={opened} />

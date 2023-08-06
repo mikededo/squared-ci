@@ -8,5 +8,6 @@ export * from './icon-button';
 export * from './input';
 export * from './row';
 export * from './toggle';
+export * from './tooltip';
 export * from './typography';
 export * from './visualiser';
