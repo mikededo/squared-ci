@@ -61,6 +61,7 @@ module.exports = {
     ],
     'react/jsx-filename-extension': [0],
     'react/jsx-props-no-spreading': [0],
+    'react/jsx-curly-brace-presence': ['error', 'never'],
     'react/prop-types': [0],
     'react/react-in-jsx-scope': 2,
     'react/require-default-props': [0],

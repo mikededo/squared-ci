@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { DataDraggable } from '@/sd';
 
@@ -27,7 +27,7 @@ export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
   ({ children, variant = 'sm', className, ...props }, ref) => (
     <div
       ref={ref}
-      className={classNames('flex flex-col', VColVariants[variant], className)}
+      className={twMerge('flex flex-col', VColVariants[variant], className)}
       {...props}
     >
       {children}
@@ -39,7 +39,7 @@ export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
   ({ children, variant = 'sm', className, ...props }, ref) => (
     <div
       ref={ref}
-      className={classNames('flex flex-row', HColVariants[variant], className)}
+      className={twMerge('flex flex-row', HColVariants[variant], className)}
       {...props}
     >
       {children}

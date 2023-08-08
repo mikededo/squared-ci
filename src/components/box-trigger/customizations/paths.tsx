@@ -30,7 +30,7 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
   return (
     <VCol variant="md">
       <DraggableWrapper>
-        <Label>Paths</Label>
+        <Label className="w-[280px]">Paths</Label>
         {paths.size > 0 ? (
           <ChipWrapper variant="left">
             {[...paths].map((path) => (

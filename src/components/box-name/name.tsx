@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import type { ExpandableToggler, WithExpandableRef } from '@/hooks';
@@ -18,7 +17,7 @@ export const Name: React.FC<
 
   return (
     <DraggableWrapper>
-      <div ref={expandableRef} className={classNames('transition-shadow')}>
+      <div ref={expandableRef} className="transition-shadow">
         <DraggableTitle title="Workflow basics" onExpand={onExpand} />
         <DraggableWrapper>
           <div className="px-3 pb-3 pt-1.5">

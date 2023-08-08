@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { RequiredChildrenFC } from '@/domain/shared';
 
@@ -13,7 +13,7 @@ export const Meta: RequiredChildrenFC<Props> = ({
   className,
   ...props
 }) => (
-  <p className={classNames('text-sm text-gray-400', className)} {...props}>
+  <p className={twMerge('text-sm text-gray-400', className)} {...props}>
     {children}
   </p>
 );
@@ -24,7 +24,7 @@ export const Label: RequiredChildrenFC<Props> = ({
   ...props
 }) => (
   <p
-    className={classNames('font-mono italic text-xs text-gray-400', className)}
+    className={twMerge('font-mono italic text-xs text-gray-400', className)}
     {...props}
   >
     {children}

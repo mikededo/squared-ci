@@ -30,7 +30,7 @@ export const Branches: React.FC<Props> = ({ trigger }) => {
   return (
     <VCol variant="md">
       <DraggableWrapper>
-        <Label>Branches</Label>
+        <Label className="w-[280px]">Branches</Label>
         {branches.size > 0 ? (
           <ChipWrapper variant="left">
             {[...branches].map((branch) => (

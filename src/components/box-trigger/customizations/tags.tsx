@@ -29,7 +29,7 @@ export const Tags: React.FC<Props> = ({ trigger }) => {
 
   return (
     <VCol variant="md">
-      <Label>Tags</Label>
+      <Label className="w-[280px]">Tags</Label>
       {tags.size > 0 ? (
         <ChipWrapper variant="left">
           {[...tags].map((tag) => (

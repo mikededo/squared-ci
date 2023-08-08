@@ -11,9 +11,7 @@ type Props = {
 export const OptionalSections: React.FC<Props> = ({ show = false }) => (
   <AppearTransition as={React.Fragment} show={show}>
     <div
-      className={
-        'absolute transition-all top-14 w-[300px] min-h-[140px] bg-white dark:bg-slate-800 px-3 py-2 border border-slate-200 dark:border-slate-400 rounded-lg -translate-x-1/4'
-      }
+      className="absolute transition-all top-14 w-[300px] min-h-[140px] bg-white dark:bg-slate-800 px-3 py-2 border border-slate-200 dark:border-slate-400 rounded-lg -translate-x-1/4"
     >
       <VCol variant="md">
         <VCol variant="xs">

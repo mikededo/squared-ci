@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type Variant = 'primary' | 'secondary' | 'text';
 type DefaultProps = Omit<
@@ -31,18 +31,18 @@ export const Button: React.FC<Props> = ({
   ...props
 }) => (
   <button
-    className={classNames(
+    className={twMerge(
       'py-2 px-4 rounded-full transition-colors disabled:bg-slate-400 dark:disabled:bg-slate-500 disabled:cursor-not-allowed',
-      !disabled ? Variants[variant] : '',
+      !disabled && [Variants[variant]],
       className
     )}
     disabled={disabled}
     {...props}
   >
     <span
-      className={classNames(
-        'uppercase text-sm font-semibold',
-        variant === 'text' ? 'text-current dark:text-white' : 'text-white'
+      className={twMerge(
+        'uppercase text-sm font-semibold text-white',
+        variant !== 'text' && 'text-current dark:text-white'
       )}
     >
       {children}

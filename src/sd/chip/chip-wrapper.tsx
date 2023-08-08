@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { RequiredChildrenFC } from '@/domain/shared';
 
@@ -19,7 +19,7 @@ export const ChipWrapper: RequiredChildrenFC<Props> = ({
   variant = 'center',
 }) => (
   <div
-    className={classNames(
+    className={twMerge(
       'flex flex-wrap gap-1 mx-auto w-[280px]',
       JustifyVariants[variant]
     )}

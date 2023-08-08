@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { DataDraggable } from '@/sd';
 
@@ -36,7 +36,7 @@ export const Row: React.FC<PropsWithChildren<Props>> = ({
   variant = 'sm',
 }) => (
   <div
-    className={classNames(
+    className={twMerge(
       'flex flex-row',
       RowVariants[variant],
       RowJustify[justify],

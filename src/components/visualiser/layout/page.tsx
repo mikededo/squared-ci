@@ -1,8 +1,8 @@
 import { ChevronLeftIcon } from '@primer/octicons-react';
-import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export const Page: React.FC<PropsWithChildren> = ({ children }) => {
   const [opened, setOpened] = useAtom(useMemo(() => atom(false), []));
@@ -13,9 +13,9 @@ export const Page: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <article
-      className={classNames(
-        'fixed transition-all top-4 bottom-4 w-[600px] bg-white dark:bg-slate-800 px-4 pt-2 pb-4 border border-slate-200 dark:border-slate-400 rounded-lg',
-        opened ? 'right-4' : '-right-[600px]'
+      className={twMerge(
+        'fixed transition-all top-4 bottom-4 w-[600px] bg-white dark:bg-slate-800 px-4 pt-2 pb-4 border border-slate-200 dark:border-slate-400 rounded-lg -right-[600px]',
+        opened && 'right-4'
       )}
     >
       <div
@@ -24,9 +24,9 @@ export const Page: React.FC<PropsWithChildren> = ({ children }) => {
       >
         <div className="hover:bg-slate-50 active:bg-slate-200 dark:hover:bg-slate-700 dark:active:bg-slate-600 rounded-full w-8 h-8 flex justify-center items-center transition-colors">
           <ChevronLeftIcon
-            className={classNames(
-              'transition-transform delay-150 cursor-pointer',
-              opened ? 'rotate-180' : 'rotate-0'
+            className={twMerge(
+              'transition-transform delay-150 cursor-pointer rotate-0',
+              opened && 'rotate-180'
             )}
           />
         </div>

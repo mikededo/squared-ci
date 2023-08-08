@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { RequiredChildrenFC } from '@/domain/shared';
 import { useFeatureSwitch, useGlobalDragNotifier } from '@/stores';
@@ -19,21 +19,16 @@ export const GlobalDrag: RequiredChildrenFC = ({ children }) => {
     }
   };
 
-  const cursor = !fsGlobalDrag
-    ? 'cursor-default'
-    : isDragging
-    ? 'cursor-grabbing'
-    : 'cursor-grab';
-
   return (
     <div
       id="frame"
       onMouseMove={move}
       onMouseDown={handleOnDragStart}
       onMouseUp={end}
-      className={classNames(
-        'h-screen w-screen relative overflow-hidden',
-        cursor
+      className={twMerge(
+        'h-screen w-screen relative overflow-hidden cursor-grab',
+        isDragging && 'cursor-grabbing',
+        !fsGlobalDrag && 'cursor-default'
       )}
     >
       {children}

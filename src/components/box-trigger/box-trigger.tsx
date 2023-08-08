@@ -24,7 +24,6 @@ export const BoxTrigger = () => {
       </svg>
       <BoxTriggerSelector
         innerRef={ref}
-        selected={triggers}
         onPositionChange={onParentChange}
         onTriggerChange={onTriggerChange}
       />

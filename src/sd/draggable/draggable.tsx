@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import React, { useCallback, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { InitialPosition, Position } from '@/domain/shared';
 import { useDraggable, useExpandable } from '@/hooks';
@@ -104,12 +104,11 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
     <DraggableWrapper>
       <article
         ref={innerRef}
-        className={classNames(
-          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-[shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400 dark:bg-slate-800 dark:border-slate-400 dark:shadow-none',
-          isDragging
-            ? 'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400'
-            : 'border-slate-200',
-          active ? 'border-indigo-200' : 'border-slate-200'
+        className={twMerge(
+          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-[shadow,_border] hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] group border hover:border-indigo-400 dark:bg-slate-800 dark:border-slate-400 dark:shadow-none border-slate-200',
+          isDragging &&
+            'hover:shadow-[0_4px_6px_0_rgb(0_0_0_/_0.05)] border-indigo-400',
+          active && 'border-indigo-200'
         )}
         style={styles}
         onMouseDown={handleOnDragStart}

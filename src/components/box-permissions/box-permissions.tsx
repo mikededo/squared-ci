@@ -13,9 +13,10 @@ import { useOptionalSection, useWorkflowPermissions } from '@/stores';
 
 import { Permission } from './box-permission';
 
-export const BoxPermissions: React.FC = () => {
-  const innerRef = useRef<HTMLDivElement>(null);
-  const { osPermissions } = useOptionalSection('osPermissions');
+// The content needs to be in a separated content as the visible and
+// invisible render functions of Draggable are memoized and the component
+// would not re-render on workflow permissions change
+export const PermissionsContent = React.forwardRef<HTMLDivElement>((_, ref) => {
   const {
     permissions,
     disableAll,
@@ -26,6 +27,42 @@ export const BoxPermissions: React.FC = () => {
     toggleReadAll,
     togglePermission,
   } = useWorkflowPermissions();
+
+  return (
+    <VCol ref={ref} className="relative px-3 pb-3">
+      <Toggle
+        text="Read all"
+        value={readAll}
+        onClick={toggleReadAll}
+        condensed
+      />
+      <Toggle
+        text="Write all"
+        value={writeAll}
+        onClick={toggleWriteAll}
+        condensed
+      />
+      <Toggle
+        text="Disable all"
+        value={disableAll}
+        onClick={toggleDisableAll}
+        condensed
+      />
+      {Object.entries(permissions).map(([permission, statuses]) => (
+        <Permission
+          key={permission}
+          permission={permission as Permissions}
+          statuses={statuses}
+          onClick={togglePermission}
+        />
+      ))}
+    </VCol>
+  );
+});
+
+export const BoxPermissions: React.FC = () => {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const { osPermissions } = useOptionalSection('osPermissions');
 
   return osPermissions ? (
     <DraggableWrapper>
@@ -40,36 +77,7 @@ export const BoxPermissions: React.FC = () => {
             </div>
           </DraggableWrapper>
         )}
-        invisible={({ ref }) => (
-          <VCol ref={ref} className="relative px-3 pb-3">
-            <Toggle
-              text="Read all"
-              value={readAll}
-              onClick={toggleReadAll}
-              condensed
-            />
-            <Toggle
-              text="Write all"
-              value={writeAll}
-              onClick={toggleWriteAll}
-              condensed
-            />
-            <Toggle
-              text="Disable all"
-              value={disableAll}
-              onClick={toggleDisableAll}
-              condensed
-            />
-            {Object.entries(permissions).map(([permission, statuses]) => (
-              <Permission
-                key={permission}
-                permission={permission as Permissions}
-                statuses={statuses}
-                onClick={togglePermission}
-              />
-            ))}
-          </VCol>
-        )}
+        invisible={({ ref }) => <PermissionsContent ref={ref} />}
       />
     </DraggableWrapper>
   ) : null;

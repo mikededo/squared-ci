@@ -1,7 +1,7 @@
 import { BeakerIcon } from '@primer/octicons-react';
-import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import type { RequiredChildrenFC } from '@/domain/shared';
 import { useActiveFSCount } from '@/stores';
@@ -16,9 +16,9 @@ export const Page: RequiredChildrenFC = ({ children }) => {
 
   return (
     <article
-      className={classNames(
-        'fixed transition-all top-4 min-h-[240px] w-[400px] bg-white dark:bg-slate-800 px-4 pt-2 pb-4 border border-slate-200 dark:border-slate-400 rounded-lg',
-        opened ? 'left-4' : '-left-[400px]'
+      className={twMerge(
+        'fixed transition-all top-4 min-h-[240px] w-[400px] bg-white dark:bg-slate-800 px-4 pt-2 pb-4 border border-slate-200 dark:border-slate-400 rounded-lg -left-[400px]',
+        opened && 'left-4'
       )}
     >
       <div
@@ -27,22 +27,22 @@ export const Page: RequiredChildrenFC = ({ children }) => {
       >
         <div className="hover:bg-slate-50 active:bg-slate-200 dark:hover:bg-slate-700 dark:active:bg-slate-600 dark:border-slate-400 rounded-full w-8 h-8 flex justify-center items-center transition-colors">
           <BeakerIcon
-            className={classNames(
-              'transition-all cursor-pointer',
-              opened ? 'fill-amber-500' : 'fill-current'
+            className={twMerge(
+              'transition-all cursor-pointer fill-current',
+              opened && 'fill-amber-500'
             )}
           />
         </div>
         <div
-          className={classNames(
-            'absolute bg-orange-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center animate-ping',
-            activeFSCount > 0 ? 'opacity-50' : 'opacity-0'
+          className={twMerge(
+            'absolute bg-orange-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center animate-ping opacity-0',
+            activeFSCount > 0 && 'opacity-50'
           )}
         />
         <div
-          className={classNames(
-            'absolute bg-amber-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center',
-            activeFSCount > 0 ? 'scale-100' : 'scale-0'
+          className={twMerge(
+            'absolute bg-amber-500 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center scale-0',
+            activeFSCount > 0 && 'scale-100'
           )}
         />
       </div>
