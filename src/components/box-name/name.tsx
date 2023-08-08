@@ -17,7 +17,7 @@ export const Name: React.FC<
 
   return (
     <DraggableWrapper>
-      <div ref={expandableRef} className="transition-shadow">
+      <div ref={expandableRef}>
         <DraggableTitle title="Workflow basics" onExpand={onExpand} />
         <DraggableWrapper>
           <div className="px-3 pb-3 pt-1.5">
