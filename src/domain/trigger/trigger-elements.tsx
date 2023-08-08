@@ -12,36 +12,47 @@ import {
   DiffRemovedIcon,
   EyeIcon,
   GitMergeIcon,
+  GitPullRequestIcon,
   GoalIcon,
   IdBadgeIcon,
   InboxIcon,
+  IssueOpenedIcon,
   MegaphoneIcon,
   MilestoneIcon,
   NoteIcon,
   PackageDependentsIcon,
+  PackageIcon,
   ProjectIcon,
   PulseIcon,
+  RepoForkedIcon,
   RepoIcon,
+  RepoPushIcon,
   RocketIcon,
   SmileyIcon,
   TagIcon,
   TelescopeIcon,
+  ZapIcon,
 } from '@primer/octicons-react';
 import React from 'react';
 
-import type { Trigger } from '@/domain/trigger';
-import { IconButton } from '@/sd';
+import type { Trigger } from './trigger';
 
-type IconGroupProps = {
-  selected: Set<Trigger>;
-  onIconClick: (trigger: Trigger) => void;
-};
-
-type TriggerItem = {
+export type TriggerItem = {
   key: Trigger;
   icon: React.ReactNode;
 };
-const Triggers: TriggerItem[] = [
+
+export const VisibleTriggers: TriggerItem[] = [
+  { key: 'pull_request', icon: <GitPullRequestIcon /> },
+  { key: 'workflow_dispatch', icon: <ZapIcon /> },
+  { key: 'push', icon: <RepoPushIcon /> },
+  { key: 'issues', icon: <IssueOpenedIcon /> },
+  { key: 'issue_comment', icon: <CommentIcon /> },
+  { key: 'fork', icon: <RepoForkedIcon /> },
+  { key: 'release', icon: <PackageIcon /> },
+];
+
+export const InvisibleTriggers: TriggerItem[] = [
   { key: 'check_run', icon: <CodescanCheckmarkIcon /> },
   { key: 'check_suite', icon: <ChecklistIcon /> },
   { key: 'create', icon: <DiffAddedIcon /> },
@@ -71,26 +82,3 @@ const Triggers: TriggerItem[] = [
   { key: 'workflow_call', icon: <MegaphoneIcon /> },
   { key: 'workflow_run', icon: <IdBadgeIcon /> },
 ];
-
-export const InvisibleTriggers: React.FC<IconGroupProps> = ({
-  selected,
-  onIconClick,
-}) => {
-  const handleOnClick = (trigger: Trigger) => () => {
-    onIconClick(trigger);
-  };
-
-  return (
-    <div className="grid grid-cols-4 grid-flow-row-dense gap-1 justify-between">
-      {Triggers.map(({ key, icon }) => (
-        <IconButton
-          key={key}
-          selected={selected.has(key)}
-          onClick={handleOnClick(key)}
-        >
-          {icon}
-        </IconButton>
-      ))}
-    </div>
-  );
-};

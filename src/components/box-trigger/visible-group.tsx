@@ -1,10 +1,11 @@
 import React from 'react';
 
 import type { Trigger } from '@/domain/trigger';
+import { VisibleTriggers } from '@/domain/trigger';
 import type { ExpandableToggler, WithExpandableRef } from '@/hooks';
 import { DraggableTitle, DraggableWrapper } from '@/sd';
 
-import { VisibleTriggers } from './visible-triggers';
+import { TriggerGroup } from './trigger-group';
 
 type Props = {
   selected: Set<Trigger>;
@@ -23,7 +24,8 @@ export const VisibleGroup: React.FC<
             <p className="text-xs italic font-mono text-gray-400 dark:text-slate-200 max-w-[210px]">
               {selected.size > 0 ? [...selected].join(', ') : 'Select dispatch'}
             </p>
-            <VisibleTriggers
+            <TriggerGroup
+              triggers={VisibleTriggers}
               selected={selected}
               onIconClick={onTriggerChange}
             />

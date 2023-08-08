@@ -9,5 +9,6 @@ export * from './input';
 export * from './row';
 export * from './toggle';
 export * from './tooltip';
+export * from './transitions';
 export * from './typography';
 export * from './visualiser';

@@ -1,7 +1,6 @@
-import { Transition } from '@headlessui/react';
 import React from 'react';
 
-import { Label, VCol } from '@/sd';
+import { AppearTransition, Label, VCol } from '@/sd';
 
 import { OptionalSection } from './optional-section';
 
@@ -9,17 +8,8 @@ type Props = {
   show?: boolean;
 };
 
-export const OptionalSections: React.FC<Props> = ({ show }) => (
-  <Transition
-    as={React.Fragment}
-    show={show}
-    enter="transition-opacity duration-150"
-    enterFrom="opacity-0"
-    enterTo="opacity-100"
-    leave="transition-opacity duration-150"
-    leaveFrom="opacity-100"
-    leaveTo="opacity-0"
-  >
+export const OptionalSections: React.FC<Props> = ({ show = false }) => (
+  <AppearTransition as={React.Fragment} show={show}>
     <div
       className={
         'absolute transition-all top-14 w-[300px] min-h-[140px] bg-white dark:bg-slate-800 px-3 py-2 border border-slate-200 dark:border-slate-400 rounded-lg -translate-x-1/4'
@@ -50,5 +40,5 @@ export const OptionalSections: React.FC<Props> = ({ show }) => (
         </VCol>
       </VCol>
     </div>
-  </Transition>
+  </AppearTransition>
 );

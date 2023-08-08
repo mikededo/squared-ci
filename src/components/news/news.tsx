@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Tooltips are here! 🎉',
+    description:
+      'By popular demand, now you can hover over the icons to see what mean.',
+    date: new Date('2023-08-08'),
+  },
+  {
     title: 'Added optional sections',
     description:
       'The permissions FS has been moved to a feature now! The other optional sections (env, defaults and concurrency) will be able soon. Now, a new menu option has been added that displays a pop up to toggle/untoggle the optional sections.',

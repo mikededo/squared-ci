@@ -1,14 +1,54 @@
-import React from 'react';
+import { atom, useAtom } from 'jotai';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
-import type { RequiredChildrenFC } from '@/domain/shared';
+import { AppearTransition } from '@/sd';
 
-type Props = { text: string };
+type Props = {
+  children: React.ReactElement;
+  text: string;
+};
 
-export const Tooltip: RequiredChildrenFC<Props> = ({ text, children }) => (
-  <div className="group relative flex">
-    {children}
-    <span className="absolute top-10 scale-0 transition-transform -translate-x-1/3 rounded bg-slate-700 dark:bg-slate-600 py-1 px-2 text-xs text-white group-hover:scale-100 whitespace-nowrap">
-      {text}
-    </span>
-  </div>
-);
+export const Tooltip: React.FC<Props> = ({ children, text }) => {
+  const childRef = useRef<HTMLElement>(null);
+  const [showTooltip, setShowTooltip] = useAtom(useMemo(() => atom(false), []));
+
+  useEffect(() => {
+    if (!childRef.current) {
+      throw new Error('Tooltip child must forward the ref.');
+    }
+  }, []);
+
+  const handleOnMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleOnMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const rect = childRef.current?.getBoundingClientRect();
+  const x = (rect?.x ?? 0) + (rect?.width ?? 0) / 2;
+  const y = (rect?.y ?? 0) + (rect?.height ?? 0);
+
+  return (
+    <>
+      {React.cloneElement(children, {
+        ref: childRef,
+        onMouseEnter: handleOnMouseEnter,
+        onMouseLeave: handleOnMouseLeave,
+      })}
+      {createPortal(
+        <AppearTransition show={showTooltip}>
+          <div
+            className="fixed z-10 px-2 py-1 text-xs text-white -translate-x-1/2 translate-y-2 rounded-md bg-slate-700 dark:bg-slate-700 dark:border-slate-500 dark:border whitespace-nowrap pointer-events-none"
+            style={{ top: y, left: x }}
+          >
+            <span className="w-full">{text}</span>
+          </div>
+        </AppearTransition>,
+        document.body
+      )}
+    </>
+  );
+};

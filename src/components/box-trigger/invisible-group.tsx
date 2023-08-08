@@ -1,10 +1,11 @@
 import React from 'react';
 
 import type { Trigger } from '@/domain/trigger';
+import { InvisibleTriggers } from '@/domain/trigger';
 import type { WithExpandableRef } from '@/hooks';
 import { Divider, DraggableWrapper } from '@/sd';
 
-import { InvisibleTriggers } from './invisible-triggers';
+import { TriggerGroup } from './trigger-group';
 
 type Props = {
   selected: Set<Trigger>;
@@ -21,7 +22,11 @@ export const InvisibleGroup: React.FC<
     >
       <DraggableWrapper>
         <Divider />
-        <InvisibleTriggers selected={selected} onIconClick={onTriggerChange} />
+        <TriggerGroup
+          triggers={InvisibleTriggers}
+          selected={selected}
+          onIconClick={onTriggerChange}
+        />
       </DraggableWrapper>
     </div>
   </DraggableWrapper>
