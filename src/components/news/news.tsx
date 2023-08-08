@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Performance improvements on drag',
+    description:
+      'The drag feature has been improved. Smooth, fast and able to drag without stuttering',
+    date: new Date('2023-08-08'),
+  },
+  {
     title: 'Tooltips are here! 🎉',
     description:
       'By popular demand, now you can hover over the icons to see what mean.',

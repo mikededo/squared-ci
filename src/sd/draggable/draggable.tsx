@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import type { InitialPosition, Position } from '@/domain/shared';
 import { useDraggable, useExpandable } from '@/hooks';
@@ -22,6 +22,7 @@ type Props = {
   invisible?: RenderFn;
   innerRef?: React.LegacyRef<HTMLElement>;
   onPositionChange?: (position: Position) => void;
+  skipChildrenMemoization?: boolean;
 } & InitialPosition & { id?: string };
 
 export const Draggable: React.FC<PropsWithChildren<Props>> = ({
@@ -32,6 +33,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   visible,
   invisible,
   children,
+  skipChildrenMemoization,
   onPositionChange,
 }) => {
   const { visibleRef, invisibleRef, height, onExpandToggle } = useExpandable<
@@ -43,6 +45,38 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   );
   const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');
   const { x, y } = useGlobalDragListener();
+
+  // Memoize the render functions to avoid re-renderson every drag
+  const memoizedVisible = React.useMemo(
+    () =>
+      !visible
+        ? null
+        : visible({
+            ref: visibleRef,
+            dragging: isDragging,
+            onExpand: onExpandToggle,
+          }),
+    // isDragging is the only dependency that matters in this case
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isDragging]
+  );
+  const memoizedInvisible = React.useMemo(
+    () =>
+      !invisible
+        ? null
+        : invisible({
+            ref: invisibleRef,
+            dragging: isDragging,
+            onExpand: onExpandToggle,
+          }),
+    // isDragging is the only dependency that matters in this case
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isDragging]
+  );
+  // Children do not have any dependency with the dragging state
+  // therefore it should only be rendered once
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedChildren = React.useMemo(() => children, []);
 
   const handleOnDragStart = (e: React.MouseEvent<HTMLElement>) => {
     if (isEventFromDataDraggable(e)) {
@@ -56,6 +90,16 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
     cursor: isDragging ? 'grabbing' : 'grab',
   };
 
+  const onDragListener = useCallback(onDrag, [onDrag]);
+
+  useEffect(() => {
+    document.addEventListener('mousemove', onDragListener);
+
+    return () => {
+      document.removeEventListener('mousemove', onDragListener);
+    };
+  }, [onDragListener]);
+
   return (
     <DraggableWrapper>
       <article
@@ -68,7 +112,6 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           active ? 'border-indigo-200' : 'border-slate-200'
         )}
         style={styles}
-        onMouseMove={onDrag}
         onMouseDown={handleOnDragStart}
         onMouseUp={onDragEnd}
         data-draggable={true}
@@ -77,22 +120,10 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           className="flex flex-col overflow-hidden transition-[max-height]"
           style={{ maxHeight: visible ? height : undefined }}
         >
-          {visible
-            ? visible({
-                ref: visibleRef,
-                dragging: isDragging,
-                onExpand: onExpandToggle,
-              })
-            : null}
-          {invisible
-            ? invisible({
-                ref: invisibleRef,
-                dragging: isDragging,
-                onExpand: onExpandToggle,
-              })
-            : null}
+          {memoizedVisible}
+          {memoizedInvisible}
         </div>
-        {children}
+        {skipChildrenMemoization ? children : memoizedChildren}
       </article>
     </DraggableWrapper>
   );

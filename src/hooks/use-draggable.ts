@@ -30,7 +30,9 @@ export const useDraggable = ({
     setState({ dragging: true, ox: e.clientX - left, oy: e.clientY - top });
   };
 
-  const handleOnDrag: React.MouseEventHandler<HTMLElement> = (e) => {
+  const handleOnDrag = (
+    e: MouseEvent | React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     if (!e || !state.dragging) {
       return;
     }

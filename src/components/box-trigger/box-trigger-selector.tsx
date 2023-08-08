@@ -41,6 +41,7 @@ export const BoxTriggerSelector: React.FC<Props> = ({
           onTriggerChange={onTriggerChange}
         />
       )}
+      skipChildrenMemoization
     >
       <Dot active={selected.size > 0} position="left" />
       <Dot active={selected.size > 0} position="right" />
