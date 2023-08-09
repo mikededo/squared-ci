@@ -15,6 +15,10 @@ export type LocalStorageKeys = keyof LocalStorageData;
 const get = <Key extends LocalStorageKeys>(
   lsKey: Key
 ): Maybe<LocalStorageData[Key]> => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   const value = window.localStorage.getItem(lsKey);
   if (value === null || value === undefined) {
     return value;
@@ -27,6 +31,10 @@ const set = <Key extends LocalStorageKeys>(
   lsKey: Key,
   lsData: LocalStorageData[Key]
 ): void => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   window.localStorage.setItem(lsKey, JSON.stringify(lsData));
 };
 

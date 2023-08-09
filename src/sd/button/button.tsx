@@ -42,7 +42,7 @@ export const Button: React.FC<Props> = ({
     <span
       className={twMerge(
         'uppercase text-sm font-semibold text-white',
-        variant !== 'text' && 'text-current dark:text-white'
+        variant === 'text' && 'text-current dark:text-white'
       )}
     >
       {children}

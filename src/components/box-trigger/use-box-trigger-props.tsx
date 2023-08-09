@@ -10,7 +10,6 @@ import { useHorizontalDestination } from '@/stores';
 
 type ConnectorPosition = { dotPosition: DotPosition | null } & InitialPosition;
 
-// eslint-disable-next-line react-refresh/only-export-components
 const InitialConnectorPosition: ConnectorPosition = {
   initialX: Positions.BoxTriggerPropsX,
   initialY: Positions.BoxTriggerPropsY,

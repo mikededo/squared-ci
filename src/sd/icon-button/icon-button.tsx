@@ -18,7 +18,7 @@ const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
       {...props}
       ref={ref}
       className={twMerge(
-        'rounded-md group px-4 py-3 border flex items-center justify-center max-w-fit hover:bg-gray-50 active:bg-gray-100 transition-all disabled:bg-slate-100 disabled:border-slate-300 disabled:cursor-not-allowed border-slate-300 dark:hover:bg-slate-700 dark:border-slate-600',
+        'rounded-md group px-4 py-3 border flex items-center justify-center max-w-fit hover:bg-gray-50 active:bg-gray-100 transition-all disabled:bg-slate-100 disabled:border-slate-300 disabled:cursor-not-allowed disabled:dark:bg-slate-600 disabled:dark:border-slate-400 border-slate-300 dark:hover:bg-slate-700 dark:border-slate-600',
         selected &&
           'border-indigo-400 bg-indigo-50 dark:border-slate-300 dark:bg-slate-600 dark:hover:bg-slate-500',
         className
@@ -29,7 +29,7 @@ const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
           ? React.cloneElement(child, {
               ...child.props,
               className: twMerge(
-                'transition-colors group-disabled:fill-slate-400 fill-[#555] dark:fill-slate-300',
+                'transition-colors group-disabled:fill-slate-400 dark:group-disabled:fill-slate-300 fill-[#555] dark:fill-slate-300',
                 selected && 'fill-indigo-500 dark:fill-indigo-50',
                 child.props?.className
               ),
