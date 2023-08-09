@@ -22,9 +22,15 @@ type Props = {
   invisible?: RenderFn;
   innerRef?: React.LegacyRef<HTMLElement>;
   onPositionChange?: (position: Position) => void;
-  skipChildrenMemoization?: boolean;
 } & InitialPosition & { id?: string };
 
+/**
+ * A draggable component that should be used as a wrapper for any component.
+ * The draggable will only work if the component has the `data-draggable`
+ * attribute. Since the @param invisible and @param visible are render
+ * functions, they will be called every time the component is rendered,
+ * therefore, the result is memoized to avoid unnecessary re-renders.
+ */
 export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   active,
   initialX,
@@ -33,7 +39,6 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   visible,
   invisible,
   children,
-  skipChildrenMemoization,
   onPositionChange,
 }) => {
   const { visibleRef, invisibleRef, height, onExpandToggle } = useExpandable<
@@ -46,7 +51,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
   const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');
   const { x, y } = useGlobalDragListener();
 
-  // Memoize the render functions to avoid re-renderson every drag
+  // Memoize the render functions' result to avoid re-renderson every drag
   const memoizedVisible = React.useMemo(
     () =>
       !visible
@@ -121,7 +126,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           {memoizedVisible}
           {memoizedInvisible}
         </div>
-        {skipChildrenMemoization ? children : memoizedChildren}
+        {memoizedChildren}
       </article>
     </DraggableWrapper>
   );
