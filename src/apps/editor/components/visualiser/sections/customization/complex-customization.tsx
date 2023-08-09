@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
+import { Keyword, List, Tabbed } from '@/aero';
 import type { ComplexTypesCustomizationKeys } from '@/editor/domain/trigger';
-
-const { Keyword, List, Tabbed } = VisualiserItems;
 
 type ComplexTypeCustomizationTriggerProps = {
   text: ComplexTypesCustomizationKeys;

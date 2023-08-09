@@ -26,6 +26,7 @@ export {
   isComplexCustomization,
   isComplexPathCustomization,
   isComplexTagCustomization,
+  isTypeCustomization,
   BaseTriggerTypes,
   PullRequestTypes,
 } from './trigger';

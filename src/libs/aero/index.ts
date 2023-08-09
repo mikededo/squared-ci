@@ -3,7 +3,13 @@ export { Chip, ChipWrapper } from './chip';
 export { HCol, VCol } from './col';
 export { Divider } from './divider';
 export { Dot } from './dot';
-export { Draggable, DraggableTitle, DraggableWrapper } from './draggable';
+export type { DotPosition } from './dot';
+export {
+  Draggable,
+  DraggableTitle,
+  DraggableWrapper,
+  isEventFromDataDraggable,
+} from './draggable';
 export type { DataDraggable } from './draggable';
 export { IconButton } from './icon-button';
 export { Input } from './input';

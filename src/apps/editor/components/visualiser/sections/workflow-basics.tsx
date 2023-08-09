@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
+import { Comment, Keyword, Line } from '@/aero';
 import { useWorkflowBasicsStore } from '@/editor/stores';
-
-const { Comment, Keyword, Line } = VisualiserItems;
 
 export const WorkflowBasics: React.FC = () => {
   const { name, runName } = useWorkflowBasicsStore();

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
-
-const { Comment, Keyword, Line, Tabbed } = VisualiserItems;
+import { Comment, Keyword, Line, Tabbed } from '@/aero';
 
 export const WorkflowJobs: React.FC = () => (
   <>

@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
+import { Keyword, Tabbed } from '@/aero';
 import type { NoneCustomizationKeys } from '@/editor/domain/trigger';
-
-const { Keyword, Tabbed } = VisualiserItems;
 
 type Props = { text: NoneCustomizationKeys };
 

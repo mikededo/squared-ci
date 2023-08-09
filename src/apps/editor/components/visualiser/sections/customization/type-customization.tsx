@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
+import { Keyword, List, Tabbed } from '@/aero';
 import type {
   CustomTypesCustomizationKeys,
   TypesCustomizationKeys,
 } from '@/editor/domain/trigger';
-
-const { Keyword, List, Tabbed } = VisualiserItems;
 
 type TypeCustomizationTriggerProps = {
   text: TypesCustomizationKeys | CustomTypesCustomizationKeys;

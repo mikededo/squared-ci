@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { VisualiserItems } from '@/aero';
+import { Comment, Keyword, Line } from '@/aero';
 import { useWorkflowTriggersStore } from '@/editor/stores';
 
 import {
@@ -8,8 +8,6 @@ import {
   ComplexTypeCustomizationTrigger,
   TypeCustomizationTrigger,
 } from './customization';
-
-const { Comment, Keyword, Line } = VisualiserItems;
 
 export const WorkflowTriggers: React.FC = () => {
   const {
