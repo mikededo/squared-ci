@@ -21,9 +21,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/editor/*": ["./src/apps/editor/*"],
+      "@/landing/*": ["./src/apps/landing/*"],
+      "@/aero": ["./src/libs/aero/index.ts"]
     },
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,

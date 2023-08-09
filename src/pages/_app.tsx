@@ -3,6 +3,8 @@ import React from 'react';
 
 import './globals.css';
 
-export default function ({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const _App: React.FC<AppProps> = ({ Component, pageProps }) => (
+  <Component {...pageProps} />
+);
+
+export default _App;

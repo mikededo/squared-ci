@@ -66,21 +66,28 @@
   },
   "overrides": [
     {
-      "files": ["src/pages/**.tsx"],
+      "files": ["src/pages/**/*.tsx"],
       "rules": {
         "import/prefer-default-export": "error",
         "import/no-default-export": 0,
         "import/no-anonymous-default-export": 0,
         "react/function-component-definition": [
           2,
-          { "unnamedComponents": "function-expression" }
+          {
+            "namedComponents": "arrow-function",
+            "unnamedComponents": "function-expression"
+          }
         ]
       }
     }
   ],
   "settings": {
     "import/resolver": {
-      "typescript": { "@/": "./src" },
+      "typescript": {
+        "@/editor/": "./src/apps/editor",
+        "@/landing/": "./src/apps/landing",
+        "@/aero": "./src/libs/aero/index.ts"
+      },
       "node": {
         "extensions": [".ts", ".tsx"],
         "moduleDirectory": ["src", "node_modules"]
