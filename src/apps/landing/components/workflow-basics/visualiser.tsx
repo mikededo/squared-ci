@@ -44,7 +44,6 @@ export const Visualiser: React.FC<Props> = ({
       </Line>
       <VCol>
         <Line>
-          {/* TODO: Show the arrow on input focus and on type */}
           <Keyword>name</Keyword>
           <VisualiserValue
             value={jobName}
@@ -53,7 +52,6 @@ export const Visualiser: React.FC<Props> = ({
           />
         </Line>
         <Line>
-          {/* TODO: Show the arrow on input focus and on type */}
           <Keyword>run-name</Keyword>
           <VisualiserValue
             value={runName}

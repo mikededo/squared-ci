@@ -3,11 +3,11 @@ import React from 'react';
 import { Grid } from '@/aero';
 import {
   Footer,
-  Header,
   LiveChanges,
+  MainHeader,
   Nav,
   PreviewHeader,
-} from '@/landing/sections';
+} from '@/landing/components';
 
 export const Content: React.FC = () => (
   <>
@@ -17,7 +17,7 @@ export const Content: React.FC = () => (
       id="main"
     >
       <Grid container className="w-full md:max-w-[90%]">
-        <Header />
+        <MainHeader />
         <PreviewHeader />
         <LiveChanges />
       </Grid>

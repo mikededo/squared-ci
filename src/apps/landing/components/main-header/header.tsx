@@ -6,7 +6,7 @@ import { BorderedBox } from '@/landing/components';
 
 import { HeaderLink } from './header-link';
 
-export const Header: React.FC = () => (
+export const MainHeader: React.FC = () => (
   <>
     <Grid item columns={10} offset={1}>
       <Banner
