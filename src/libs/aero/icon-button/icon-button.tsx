@@ -18,10 +18,9 @@ const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
       {...props}
       ref={ref}
       className={twMerge(
-        'rounded-md group px-4 py-3 border flex items-center justify-center max-w-fit hover:bg-gray-50 active:bg-gray-100 transition-all disabled:bg-slate-100 disabled:border-slate-300 disabled:cursor-not-allowed disabled:dark:bg-slate-600 disabled:dark:border-slate-400 border-slate-300 dark:hover:bg-slate-700 dark:border-slate-600',
-        selected &&
-          'border-indigo-400 bg-indigo-50 dark:border-slate-300 dark:bg-slate-600 dark:hover:bg-slate-500',
-        className,
+        'rounded-md px-4 py-3 flex items-center justify-center max-w-fit transition-all hover:bg-secondary/90 border disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted fill-foreground disabled:fill-foreground/20',
+        selected && 'border-extra bg-extra/30 hover:bg-extra/50',
+        className
       )}
     >
       {React.Children.map(children, (child) =>
@@ -29,15 +28,15 @@ const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
           ? React.cloneElement(child, {
               ...child.props,
               className: twMerge(
-                'transition-colors group-disabled:fill-slate-400 dark:group-disabled:fill-slate-300 fill-[#555] dark:fill-slate-300',
-                selected && 'fill-indigo-500 dark:fill-indigo-50',
-                child.props?.className,
+                'transition-colors',
+                selected && 'fill-extra',
+                child.props?.className
               ),
             })
-          : null,
+          : null
       )}
     </button>
-  ),
+  )
 );
 
 export const IconButton: React.FC<Props> = ({ tooltip, ...props }) => {

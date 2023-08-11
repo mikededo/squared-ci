@@ -22,9 +22,8 @@ export const PermissionButton: React.FC<Props> = ({
     <button
       name={status}
       className={twMerge(
-        'text-xs font-mono px-2 rounded-md flex items-center justify-center transition-all dark:hover:bg-slate-500 dark:active:bg-slate-400 cursor-pointer bg-transparent text-current hover:bg-gray-100 active:bg-gray-200',
-        active &&
-          'bg-indigo-500 hover:bg-indigo-400 active:bg-indigo-600 dark:bg-slate-600 text-white',
+        'text-xs font-mono px-2 rounded transition-all text-foreground border border-transparent hover:bg-muted',
+        active && 'bg-extra hover:bg-extra/80 text-extra-foreground'
       )}
       onClick={handleOnClick}
     >

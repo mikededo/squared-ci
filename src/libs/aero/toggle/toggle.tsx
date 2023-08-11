@@ -1,6 +1,8 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { Row } from '../row';
+
 type Props = {
   text: string;
   condensed?: boolean;
@@ -16,7 +18,7 @@ export const Toggle: React.FC<Props> = ({
   condensed,
   onClick,
 }) => (
-  <label className="flex justify-between items-center">
+  <Row as="label" justify="between" align="center">
     <p className="text-sm">{text}</p>
     <div className="relative">
       <input
@@ -30,13 +32,12 @@ export const Toggle: React.FC<Props> = ({
       />
       <div
         className={twMerge(
-          "peer rounded-full transition-all after:content-[''] after:absolute after:top-[2px] after:border-gray-300 after:border after:rounded-full after:transition-all after:bg-white bg-gray-200 dark:bg-gray-700 cursor-pointer w-11 h-6 after:h-5 after:w-5 after:left-[2px]",
-          disabled && 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed',
-          value &&
-            'after:translate-x-full after:border-white bg-amber-500 dark:bg-amber-500 dark:border-gray-600',
+          "peer rounded-full border transition-all after:content-[''] after:absolute after:top-[2px] after:border after:rounded-full after:transition-all after:bg-white bg-muted cursor-pointer w-11 h-6 after:h-5 after:w-5 after:left-[2px]",
+          disabled && 'opacity-95 border-transparent cursor-not-allowed',
+          value && 'after:translate-x-full bg-secondary',
           condensed && 'w-[30px] h-4 after:h-3 after:w-3 after:left-[3px]'
         )}
       />
     </div>
-  </label>
+  </Row>
 );

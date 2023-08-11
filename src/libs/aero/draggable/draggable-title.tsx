@@ -18,7 +18,7 @@ export const DraggableTitle: React.FC<Props> = ({ title, onExpand }) => (
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
-          className="rounded-full transition-colors hover:bg-gray-100 dark:stroke-slate-300 dark:hover:bg-slate-600 stroke-slate-600 hover:cursor-pointer h-6"
+          className="rounded-full transition-colors hover:bg-muted stroke-muted-foreground hover:cursor-pointer h-6"
           onClickCapture={onExpand}
         >
           <path

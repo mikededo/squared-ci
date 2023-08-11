@@ -28,7 +28,7 @@ export const Feature: React.FC<Props> = ({
         onClick={toggleFS}
       />
       {description ? (
-        <p className="font-light text-sm text-gray-400 dark:text-slate-200 max-w-[320px]">
+        <p className="font-light text-sm text-muted-foreground max-w-[320px]">
           {description}
         </p>
       ) : null}

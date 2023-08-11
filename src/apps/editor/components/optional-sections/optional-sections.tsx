@@ -10,7 +10,7 @@ type Props = {
 
 export const OptionalSections: React.FC<Props> = ({ show = false }) => (
   <AppearTransition as={React.Fragment} show={show}>
-    <div className="absolute transition-all top-14 w-[300px] min-h-[140px] bg-white dark:bg-slate-800 px-3 py-2 border border-slate-200 dark:border-slate-400 rounded-lg -translate-x-1/4">
+    <div className="absolute transition-all top-14 w-[300px] min-h-[140px] bg-card px-3 py-2 border rounded-lg -translate-x-1/4">
       <VCol variant="md">
         <VCol variant="xs">
           <p className="font-semibold">Enabled sections</p>
@@ -20,7 +20,7 @@ export const OptionalSections: React.FC<Props> = ({ show = false }) => (
             through this menu.
           </Label>
         </VCol>
-        <VCol>
+        <VCol className="w-full" align="between">
           <OptionalSection text="Permissions" section="osPermissions" />
           <OptionalSection text="Env (coming soon)" section="osEnv" disabled />
           <OptionalSection

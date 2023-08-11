@@ -1,4 +1,5 @@
 export { Button } from './button';
+export { Banner } from './banner';
 export { Chip, ChipWrapper } from './chip';
 export { HCol, VCol } from './col';
 export { Divider } from './divider';
@@ -11,6 +12,7 @@ export {
   isEventFromDataDraggable,
 } from './draggable';
 export type { DataDraggable } from './draggable';
+export { Grid } from './grid';
 export { IconButton } from './icon-button';
 export { Input } from './input';
 export { Row } from './row';

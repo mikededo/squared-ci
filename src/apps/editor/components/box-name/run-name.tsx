@@ -9,7 +9,6 @@ type Props = { isDragging: boolean; onInputClick?: () => void };
 export const RunName: React.FC<WithExpandableRef<HTMLDivElement> & Props> = ({
   expandableRef,
   isDragging,
-  onInputClick,
 }) => {
   const { runName, onChangeRunName } = useWorkflowBasicsStore();
 
@@ -34,8 +33,6 @@ export const RunName: React.FC<WithExpandableRef<HTMLDivElement> & Props> = ({
           value={runName}
           disabled={isDragging}
           onChange={handleOnChangeRunName}
-          onFocus={onInputClick}
-          onBlur={onInputClick}
         />
       </div>
     </DraggableWrapper>

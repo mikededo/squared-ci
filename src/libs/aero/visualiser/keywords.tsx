@@ -2,6 +2,8 @@ import React from 'react';
 
 import type { RequiredChildrenFC } from '@/editor/domain/shared';
 
+// TODO: Extract colors into css variables, exclusively for the visualiser
+
 export const Line: RequiredChildrenFC = ({ children }) => (
   <p className="font-mono text-sm text-sky-900 dark:text-sky-200">{children}</p>
 );
@@ -11,7 +13,7 @@ export const Keyword: RequiredChildrenFC = ({ children }) => (
 );
 
 export const Comment: RequiredChildrenFC = ({ children }) => (
-  <span className="text-gray-500 dark:text-slate-400">{children}</span>
+  <span className="text-muted-foreground">{children}</span>
 );
 
 export const Tabbed: RequiredChildrenFC<{ tabs: number }> = ({

@@ -41,13 +41,13 @@ export const Tooltip: React.FC<Props> = ({ children, text }) => {
       {createPortal(
         <AppearTransition show={showTooltip}>
           <div
-            className="fixed z-10 px-2 py-1 text-xs text-white -translate-x-1/2 translate-y-2 rounded-md bg-slate-700 dark:bg-slate-700 dark:border-slate-500 dark:border whitespace-nowrap pointer-events-none"
+            className="fixed z-10 px-2 py-1 text-xs text-white -translate-x-1/2 translate-y-2 rounded-sm bg-tooltip text-tooltip-foreground whitespace-nowrap pointer-events-none"
             style={{ top: y, left: x }}
           >
             <span className="w-full">{text}</span>
           </div>
         </AppearTransition>,
-        document.body,
+        document.body
       )}
     </>
   );

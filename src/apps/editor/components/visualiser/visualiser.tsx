@@ -2,7 +2,7 @@ import React from 'react';
 
 import { VCol } from '@/aero';
 
-import { Footer, Header, Main, Page } from './layout';
+import { Content, Footer, Header, Main } from './layout';
 import {
   WorkflowBasics,
   WorkflowJobs,
@@ -11,7 +11,7 @@ import {
 } from './sections';
 
 export const Visualiser: React.FC = () => (
-  <Page>
+  <Content>
     <VCol className="h-full">
       <Header />
       <Main>
@@ -22,5 +22,5 @@ export const Visualiser: React.FC = () => (
       </Main>
       <Footer />
     </VCol>
-  </Page>
+  </Content>
 );

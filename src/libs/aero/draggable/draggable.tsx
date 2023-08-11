@@ -17,7 +17,6 @@ type RenderFn = ({
   onExpand,
 }: RenderProps<HTMLDivElement>) => React.ReactElement;
 type Props = {
-  active?: boolean;
   visible?: RenderFn;
   invisible?: RenderFn;
   innerRef?: React.LegacyRef<HTMLElement>;
@@ -32,7 +31,6 @@ type Props = {
  * therefore, the result is memoized to avoid unnecessary re-renders.
  */
 export const Draggable: React.FC<PropsWithChildren<Props>> = ({
-  active,
   initialX,
   initialY,
   innerRef,
@@ -46,7 +44,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
     HTMLDivElement
   >();
   const { isDragging, position, onDrag, onDragStart, onDragEnd } = useDraggable(
-    { x: initialX, y: initialY, onDrag: onPositionChange },
+    { x: initialX, y: initialY, onDrag: onPositionChange }
   );
   const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');
   const { x, y } = useGlobalDragListener();
@@ -63,7 +61,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           }),
     // isDragging is the only dependency that matters in this case
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDragging],
+    [isDragging]
   );
   const memoizedInvisible = React.useMemo(
     () =>
@@ -76,7 +74,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           }),
     // isDragging is the only dependency that matters in this case
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDragging],
+    [isDragging]
   );
   // Children do not have any dependency with the dragging state
   // therefore it should only be rendered once
@@ -110,9 +108,8 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
       <article
         ref={innerRef}
         className={twMerge(
-          'rounded-lg bg-white min-w-[240px] max-w-fit absolute transition-colors group border hover:border-indigo-400 dark:bg-slate-800 dark:border-slate-400 border-slate-200',
-          isDragging && 'border-indigo-400',
-          active && 'border-indigo-200',
+          'rounded-lg min-w-[240px] max-w-fit absolute transition-colors group border hover:border-extra bg-card',
+          isDragging && 'border-extra'
         )}
         style={styles}
         onMouseDown={handleOnDragStart}

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Divider } from '@/aero';
 
+import { Container } from './container';
 import { Feature } from './feature';
-import { Page } from './page';
 
 const FeatureList: Parameters<typeof Feature>[0][] = [
   {
@@ -25,13 +25,13 @@ const FeatureList: Parameters<typeof Feature>[0][] = [
 ];
 
 export const Features: React.FC = () => (
-  <Page>
+  <Container>
     <p className="font-semibold">Experiments</p>
-    <p className="font-light text-sm text-gray-400 dark:text-slate-200">
+    <p className="font-light text-sm text-muted-foreground">
       You can activate these experiments in order to test beta or unfinished
       features.
     </p>
-    <p className="font-light text-sm text-gray-400 dark:text-slate-200 italic">
+    <p className="font-light text-sm text-muted-foreground">
       Use them at your own risk!
     </p>
     <Divider className="mt-2 mb-3" />
@@ -40,5 +40,5 @@ export const Features: React.FC = () => (
         <Feature key={props.feature} {...props} />
       ))}
     </ul>
-  </Page>
+  </Container>
 );

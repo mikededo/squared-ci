@@ -1,21 +1,21 @@
 import React from 'react';
 
-import { VCol } from '@/aero';
+import { Grid, Meta, VCol } from '@/aero';
+import { BorderedBox } from '@/landing/components';
 
 export const PreviewHeader: React.FC = () => (
-  <div className="grid grid-cols-4">
-    <div className="border-b border-dashed border-gray-300" />
-    <VCol
-      className="text-center border-x border-b border-dashed border-gray-300 col-span-2 col-start-2"
-      align="center"
-    >
-      <h2 className="font-semibold text-2xl py-3">
-        Squared <span className="text-indigo-500">CI</span> features
-      </h2>
-      <p className="border-t border-dashed border-gray-300 p-2 text-sm text-slate-500 w-full">
-        Preview some of the most loved features of Squared CI
-      </p>
-    </VCol>
-    <div className="border-b border-dashed border-gray-300" />
-  </div>
+  <Grid item container columns={12}>
+    <BorderedBox columns={1} sm={3} bottom right />
+    <BorderedBox bottom columns={10} sm={6}>
+      <VCol className="text-center" align="center">
+        <h2 className="font-semibold text-2xl py-3">
+          Squared <span className="text-indigo-500">CI</span> features
+        </h2>
+        <BorderedBox top className="py-2 px-3">
+          <Meta>Preview some of the most loved features of Squared CI</Meta>
+        </BorderedBox>
+      </VCol>
+    </BorderedBox>
+    <BorderedBox columns={1} sm={3} bottom left />
+  </Grid>
 );

@@ -20,7 +20,7 @@ export const BoxTriggerConnector: React.FC<Props> = ({ trigger }) => {
   return (
     <path
       key={trigger}
-      className="z-index-10 stroke-[4px] transition-[stroke] stroke-indigo-500"
+      className="z-index-10 stroke-[4px] transition-[stroke] stroke-extra"
       d={listeners[trigger as Trigger]}
     />
   );

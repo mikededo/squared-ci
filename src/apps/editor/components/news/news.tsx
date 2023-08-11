@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppearTransition, Button, VCol } from '@/aero';
+import { AppearTransition, Banner, Button, Row, VCol } from '@/aero';
 
 import { Dialog } from './dialog';
 import type { NewItem } from './new';
@@ -87,17 +87,15 @@ export const News: React.FC = () => {
   return (
     <AppearTransition show={opened}>
       <Dialog>
-        <VCol variant="xl" className=" h-full w-full">
+        <VCol variant="xl" className="h-full w-full">
           <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
-          <div className="self-start gap-4 p-2 rounded-lg text-center mx-5 bg-slate-200 dark:bg-slate-700 text-sm">
-            <strong className="font-semibold inline-block">
-              Coming soon:&nbsp;
-            </strong>
+          <Banner main="Coming soon:">
             <span>
+              {' '}
               coping the generated code to the clipboard, improved drag
               experience, fixed global drag and more! Thanks for coming!
             </span>
-          </div>
+          </Banner>
           <div className="self-start flex-1 flex flex-col gap-4 px-5 w-full overflow-y-auto">
             {NewsList.map(({ title, description, date }) => (
               <New
@@ -108,12 +106,12 @@ export const News: React.FC = () => {
               />
             ))}
           </div>
-          <div className="flex justify-end p-5 pt-0 gap-2">
+          <Row className="p-5 pt-0 gap-2 self-end">
             <Button onClick={onHideNews} variant="text">
               Don&apos;t show again
             </Button>
             <Button onClick={onToggleStatus}>Understood</Button>
-          </div>
+          </Row>
         </VCol>
       </Dialog>
     </AppearTransition>

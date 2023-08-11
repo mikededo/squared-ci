@@ -29,7 +29,7 @@ export const PermissionsContent = React.forwardRef<HTMLDivElement>((_, ref) => {
   } = useWorkflowPermissions();
 
   return (
-    <VCol ref={ref} className="relative px-3 pb-3">
+    <VCol ref={ref} className="relative px-3 pb-3" align="between">
       <Toggle
         text="Read all"
         value={readAll}
