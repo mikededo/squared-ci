@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added support for environment variables',
+    description:
+      'Now you can add environment variables to your workflow, which can be enabled through the optional sections menu',
+    date: new Date('2023-08-11'),
+  },
+  {
     title: 'Performance improvements on drag',
     description:
       'The drag feature has been improved. Smooth, fast and able to drag without stuttering',
@@ -89,7 +95,7 @@ export const News: React.FC = () => {
       <Dialog>
         <VCol variant="xl" className="h-full w-full">
           <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
-          <Banner main="Coming soon:">
+          <Banner main="Coming soon:" className="mx-5">
             <span>
               {' '}
               coping the generated code to the clipboard, improved drag

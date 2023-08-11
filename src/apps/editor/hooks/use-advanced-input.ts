@@ -12,12 +12,12 @@ type SideEffects = {
   onTabPress?: (
     value: string,
     count: number,
-    helpers: SideEffectHelpers
+    helpers: SideEffectHelpers,
   ) => void;
   onShiftTabPress?: (
     value: string,
     count: number,
-    helpers: SideEffectHelpers
+    helpers: SideEffectHelpers,
   ) => void;
 };
 
@@ -28,7 +28,7 @@ export const useAdvancedInput = (
     onEnterPress,
     onTabPress,
     onShiftTabPress,
-  }: SideEffects & Options
+  }: SideEffects & Options,
 ) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [value, setValue] = useAtom(useMemo(() => atom(initialValue), []));

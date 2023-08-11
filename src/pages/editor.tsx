@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 
 import {
+  BoxEnv,
   BoxName,
   BoxPermissions,
   BoxTrigger,
@@ -33,6 +34,7 @@ const Editor: React.FC = () => {
         <BoxName />
         <BoxTrigger />
         <BoxPermissions />
+        <BoxEnv />
       </GlobalDrag>
       <Menu />
       <Features />

@@ -8,6 +8,7 @@ import { globalDragStore } from './global-drag';
 import { optionalSectionsStore } from './optional-sections';
 import type { Empty, GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
+import { workflowEnvStore } from './workflow-env';
 import { worfklowPermissionsStore } from './workflow-permissions';
 import { workflowTriggersStore } from './workflow-triggers';
 
@@ -18,6 +19,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...workflowBasicsStore(...args),
   ...workflowTriggersStore(...args),
   ...worfklowPermissionsStore(...args),
+  ...workflowEnvStore(...args),
 }));
 
 export const useFeatureSwitch = <FS extends FeatureSwitches>(
@@ -131,3 +133,10 @@ export const useWorkflowPermissions = () =>
       toggleReadAll,
     }),
   );
+
+export const useWorkflowEnv = () =>
+  globalStore(({ variables, addVariable, deleteVariable }) => ({
+    variables,
+    addVariable,
+    deleteVariable,
+  }));
