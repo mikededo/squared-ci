@@ -43,11 +43,11 @@ export const Grid = React.forwardRef<HTMLDivElement, Props>(
     const classes = twMerge(
       container && containerClasses,
       ColumnSpanClasses[columns ?? 12],
-      offset && ColumnOffsetClasses[offset],
       sm && SmColumnSpanClasses[sm],
       md && MdColumnSpanClasses[md],
       lg && LgColumnSpanClasses[lg],
       xl && XlColumnSpanClasses[xl],
+      offset && ColumnOffsetClasses[offset],
       className,
     );
 

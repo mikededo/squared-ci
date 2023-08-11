@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { Grid } from '@/aero';
-import { Header, LiveChanges, Nav, PreviewHeader } from '@/landing/sections';
+import {
+  Footer,
+  Header,
+  LiveChanges,
+  Nav,
+  PreviewHeader,
+} from '@/landing/sections';
 
 export const Content: React.FC = () => (
   <>
@@ -16,5 +22,6 @@ export const Content: React.FC = () => (
         <LiveChanges />
       </Grid>
     </main>
+    <Footer />
   </>
 );
