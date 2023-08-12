@@ -1,14 +1,41 @@
 {
   "extends": ["config:base", ":semanticCommits"],
-  "commitMessage": "chore: update dependencies",
-  "commitBody": "Updated dependencies:\n\n{{#each packageRules}}{{#each updated}}{{depName}}@{{newVersion}}\n{{/each}}{{/each}}",
+  "assignees": ["mikededo"],
+  "labels": ["renovate"],
+  "commitMessage": "chore: update {{{groupName}}}",
+  "commitBody": "Updated dependencies ({{{groupSlug}}}):\n\n{{#each packageRules}}{{#each updated}}{{depName}}@{{newVersion}}\n{{/each}}{{/each}}",
   "packageRules": [
     {
-      "updateTypes": ["patch"],
-      "depTypeList": ["dependencies"]
+      "groupName": "patch dev dependencies",
+      "groupSlug": "patch-dev-dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     },
     {
-      "depTypeList": ["devDependencies"]
+      "groupName": "patch dependencies",
+      "groupSlug": "patch-dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": false
+    },
+    {
+      "groupName": "dev dependencies",
+      "groupSlug": "dev-dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
+    },
+    {
+      "groupName": "dependencies",
+      "groupSlug": "dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
     }
   ],
   "ignoreDeps": [],
