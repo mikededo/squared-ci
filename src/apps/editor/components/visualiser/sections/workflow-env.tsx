@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { List } from '@/aero';
+import { Keyword, List, Tabbed } from '@/aero';
 import { useWorkflowEnv } from '@/editor/stores';
 
 export const WorkflowEnv: React.FC = () => {
@@ -10,10 +10,17 @@ export const WorkflowEnv: React.FC = () => {
     return null;
   }
 
-  const parsedVariables = [...variables].map((variable) =>
-    variable.replace('=', ': '),
-  );
+  const parsedVariables = [...variables].map((variable) => {
+    const [name, value] = variable.split('=');
+
+    return (
+      <Tabbed tabs={2} key={variable}>
+        <Keyword>{name}</Keyword>: {value}
+      </Tabbed>
+    );
+  });
+
   return (
-    <List group="env" items={[...parsedVariables]} tabFactor={0} asBulletList />
+    <List group="env" items={parsedVariables} tabFactor={0} asBulletList />
   );
 };

@@ -5,19 +5,23 @@ import { Keyword, Tabbed } from './keywords';
 type ListProps = {
   tabFactor: number;
   group: string;
-  items: string[];
+  items: string[] | React.ReactElement[];
   asBulletList?: boolean;
 };
 
 const InLineList: React.FC<Pick<ListProps, 'items'>> = ({ items }) => (
   <>
     [
-    {items.map((item, index, { length }) => (
-      <React.Fragment key={item}>
-        {item}
-        {index === length - 1 ? '' : ', '}
-      </React.Fragment>
-    ))}
+    {items.map((item, index, { length }) =>
+      typeof item === 'string' ? (
+        <React.Fragment key={item}>
+          {item}
+          {index === length - 1 ? '' : ', '}
+        </React.Fragment>
+      ) : (
+        <>{item}</>
+      ),
+    )}
     ]
   </>
 );
@@ -27,11 +31,15 @@ const BulletList: React.FC<Pick<ListProps, 'items' | 'tabFactor'>> = ({
   tabFactor,
 }) => (
   <>
-    {items.map((item) => (
-      <Tabbed key={item} tabs={tabFactor * 2 + 2}>
-        <span className="text-[#333] dark:text-slate-300">-</span> {item}
-      </Tabbed>
-    ))}
+    {items.map((item) =>
+      typeof item === 'string' ? (
+        <Tabbed key={item} tabs={tabFactor * 2 + 2}>
+          <span className="text-[#333] dark:text-slate-300">-</span> {item}
+        </Tabbed>
+      ) : (
+        <>{item}</>
+      ),
+    )}
   </>
 );
 

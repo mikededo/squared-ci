@@ -34,8 +34,8 @@ export const Toggle: React.FC<Props> = ({
         className={twMerge(
           "peer rounded-full border transition-all after:content-[''] after:absolute after:top-[2px] after:border after:rounded-full after:transition-all after:bg-white bg-muted cursor-pointer w-11 h-6 after:h-5 after:w-5 after:left-[2px]",
           disabled && 'opacity-95 border-transparent cursor-not-allowed',
-          value && 'after:translate-x-full bg-secondary',
-          condensed && 'w-[30px] h-4 after:h-3 after:w-3 after:left-[3px]'
+          value && 'after:translate-x-full dark:bg-secondary bg-primary',
+          condensed && 'w-[30px] h-4 after:h-3 after:w-3 after:left-[3px]',
         )}
       />
     </div>

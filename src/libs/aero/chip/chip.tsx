@@ -18,7 +18,7 @@ export const Chip: React.FC<Props> = ({ text, active, onClick }) => (
   >
     <p
       className={twMerge(
-        'text-sm leading-4 text-secondary-foreground line-clamp-1',
+        'text-sm leading-4 text-secondary-foreground line-clamp-1 ',
         active && 'text-extra-foreground',
       )}
     >
