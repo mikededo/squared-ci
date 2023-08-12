@@ -1,0 +1,20 @@
+{
+  "extends": ["config:base", ":semanticCommits"],
+  "commitMessage": "chore: update dependencies",
+  "commitBody": "Updated dependencies:\n\n{{#each packageRules}}{{#each updated}}{{depName}}@{{newVersion}}\n{{/each}}{{/each}}",
+  "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "depTypeList": ["dependencies"]
+    },
+    {
+      "depTypeList": ["devDependencies"]
+    }
+  ],
+  "ignoreDeps": [],
+  "ignorePaths": [],
+  "schedule": [],
+  "rangeStrategy": "widen",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 3
+}
