@@ -48,7 +48,7 @@ export const optionalSectionsStore: StateCreator<
     osPermissions: LSOptionalSections?.osPermissions ?? false,
     osEnv: LSOptionalSections?.osEnv ?? false,
     osDefaults: LSOptionalSections?.osDefaults ?? false,
-    osConcurrency: LSOptionalSections?.osDefaults ?? false,
+    osConcurrency: LSOptionalSections?.osConcurrency ?? false,
     toggleOS: (key) => {
       const state = get();
       const value = !state[key];
