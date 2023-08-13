@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Dialog: RequiredChildrenFC<Props> = ({ show, children, blur }) => (
-  <AppearTransition show={show}>
+  <AppearTransition show={!!show}>
     <div
       className={twMerge(
         'fixed bg-gray-700/30 inset-0 z-40 overflow-auto',
