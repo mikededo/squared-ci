@@ -2,7 +2,8 @@ import { MoonIcon } from '@primer/octicons-react';
 import React, { useEffect } from 'react';
 
 import { IconButton } from '@/aero';
-import { useFeatureSwitch, useThemeMode } from '@/editor/stores';
+import { useThemeMode } from '@/chain';
+import { useFeatureSwitch } from '@/editor/stores';
 
 export const DarkThemeMenuOption: React.FC = () => {
   const { fsDarkTheme } = useFeatureSwitch('fsDarkTheme');

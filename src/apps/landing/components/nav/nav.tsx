@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Row } from '@/aero';
 
+import { DarkModeToggler } from '../dark-mode';
+
 export const Nav: React.FC = () => (
   <Row
     as="nav"
@@ -17,5 +19,6 @@ export const Nav: React.FC = () => (
     <p className="self-center text-sm uppercase font-semibold">
       🚧 This page is still under construction 🚧
     </p>
+    <DarkModeToggler />
   </Row>
 );
