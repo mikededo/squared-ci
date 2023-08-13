@@ -23,7 +23,8 @@
     "paths": {
       "@/editor/*": ["./src/apps/editor/*"],
       "@/landing/*": ["./src/apps/landing/*"],
-      "@/aero": ["./src/libs/aero/index.ts"]
+      "@/aero": ["./src/libs/aero/index.ts"],
+      "@/pulse": ["./src/libs/pulse/index.ts"]
     },
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,

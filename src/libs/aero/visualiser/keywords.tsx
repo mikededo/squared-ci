@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
+import type { RequiredChildrenFC } from '@/pulse';
 
 // TODO: Extract colors into css variables, exclusively for the visualiser
 

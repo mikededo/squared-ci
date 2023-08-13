@@ -1,6 +1,7 @@
+import type { Maybe } from '@/pulse';
+
 import type { FeatureSwitches } from './feature-switches';
 import type { OptionalSections } from './optional-sections';
-import type { Maybe } from './shared';
 
 export type ThemeModes = 'light' | 'dark';
 
@@ -13,7 +14,7 @@ export type LocalStorageData = {
 export type LocalStorageKeys = keyof LocalStorageData;
 
 const get = <Key extends LocalStorageKeys>(
-  lsKey: Key
+  lsKey: Key,
 ): Maybe<LocalStorageData[Key]> => {
   if (typeof window === 'undefined') {
     return;
@@ -29,7 +30,7 @@ const get = <Key extends LocalStorageKeys>(
 
 const set = <Key extends LocalStorageKeys>(
   lsKey: Key,
-  lsData: LocalStorageData[Key]
+  lsData: LocalStorageData[Key],
 ): void => {
   if (typeof window === 'undefined') {
     return;

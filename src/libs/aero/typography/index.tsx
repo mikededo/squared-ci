@@ -1,7 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
+import type { RequiredChildrenFC } from '@/pulse';
 
 type Props = { className?: string } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLParagraphElement>,

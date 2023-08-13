@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { AppearTransition, Banner, Button, Row, VCol } from '@/aero';
+import { Banner, Button, Dialog, Row, VCol } from '@/aero';
 
-import { Dialog } from './dialog';
 import type { NewItem } from './new';
 import { New } from './new';
 import { useNews } from './use-news';
@@ -97,35 +96,33 @@ export const News: React.FC = () => {
   const { opened, onToggleStatus, onHideNews } = useNews();
 
   return (
-    <AppearTransition show={opened}>
-      <Dialog>
-        <VCol variant="xl" className="h-full w-full">
-          <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
-          <Banner main="Coming soon:" className="mx-5">
-            <span>
-              {' '}
-              coping the generated code to the clipboard, improved drag
-              experience, fixed global drag and more! Thanks for coming!
-            </span>
-          </Banner>
-          <div className="self-start flex-1 flex flex-col gap-4 px-5 w-full overflow-y-auto">
-            {NewsList.map(({ title, description, date }) => (
-              <New
-                key={title}
-                title={title}
-                description={description}
-                date={date}
-              />
-            ))}
-          </div>
-          <Row className="p-5 pt-0 gap-2 self-end">
-            <Button onClick={onHideNews} variant="text">
-              Don&apos;t show again
-            </Button>
-            <Button onClick={onToggleStatus}>Understood</Button>
-          </Row>
-        </VCol>
-      </Dialog>
-    </AppearTransition>
+    <Dialog show={opened} blur>
+      <VCol variant="xl" className="h-full w-full">
+        <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
+        <Banner main="Coming soon:" className="mx-5">
+          <span>
+            {' '}
+            coping the generated code to the clipboard, improved drag
+            experience, fixed global drag and more! Thanks for coming!
+          </span>
+        </Banner>
+        <div className="self-start flex-1 flex flex-col gap-4 px-5 w-full overflow-y-auto">
+          {NewsList.map(({ title, description, date }) => (
+            <New
+              key={title}
+              title={title}
+              description={description}
+              date={date}
+            />
+          ))}
+        </div>
+        <Row className="p-5 pt-0 gap-2 self-end">
+          <Button onClick={onHideNews} variant="text">
+            Don&apos;t show again
+          </Button>
+          <Button onClick={onToggleStatus}>Understood</Button>
+        </Row>
+      </VCol>
+    </Dialog>
   );
 };

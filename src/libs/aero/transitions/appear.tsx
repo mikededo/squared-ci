@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react';
 import React from 'react';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
+import type { RequiredChildrenFC } from '@/pulse';
 
 type Props = {
   show: boolean;

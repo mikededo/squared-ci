@@ -1,7 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
+import type { RequiredChildrenFC } from '@/pulse';
 
 type Variant = 'center' | 'left' | 'right';
 type Props = {
@@ -19,13 +19,12 @@ export const ChipWrapper: RequiredChildrenFC<Props> = ({
   children,
   className,
   variant = 'center',
-  
 }) => (
   <div
     className={twMerge(
       'flex flex-wrap gap-1 mx-auto w-[280px]',
       JustifyVariants[variant],
-        className
+      className,
     )}
   >
     {children}

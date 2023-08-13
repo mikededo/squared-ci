@@ -1,8 +1,8 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
 import { useFeatureSwitch, useGlobalDragNotifier } from '@/editor/stores';
+import type { RequiredChildrenFC } from '@/pulse';
 
 export const GlobalDrag: RequiredChildrenFC = ({ children }) => {
   const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');

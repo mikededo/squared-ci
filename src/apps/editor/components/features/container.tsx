@@ -3,8 +3,8 @@ import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { RequiredChildrenFC } from '@/editor/domain/shared';
 import { useActiveFSCount } from '@/editor/stores';
+import type { RequiredChildrenFC } from '@/pulse';
 
 export const Container: RequiredChildrenFC = ({ children }) => {
   const [opened, setOpened] = useAtom(useMemo(() => atom(false), []));
@@ -18,7 +18,7 @@ export const Container: RequiredChildrenFC = ({ children }) => {
     <article
       className={twMerge(
         'fixed transition-all top-4 min-h-[240px] w-[400px] bg-card px-4 pt-2 pb-4 border rounded-lg -left-[400px]',
-        opened && 'left-4'
+        opened && 'left-4',
       )}
     >
       <div
@@ -29,20 +29,20 @@ export const Container: RequiredChildrenFC = ({ children }) => {
           <BeakerIcon
             className={twMerge(
               'transition-all cursor-pointer fill-current',
-              opened && 'fill-extra'
+              opened && 'fill-extra',
             )}
           />
         </div>
         <div
           className={twMerge(
             'absolute bg-extra/80 rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center animate-ping opacity-0',
-            activeFSCount > 0 && 'opacity-50'
+            activeFSCount > 0 && 'opacity-50',
           )}
         />
         <div
           className={twMerge(
             'absolute bg-extra rounded-full -top-1 -right-1 transition-transform h-3 w-3 origin-center scale-0',
-            activeFSCount > 0 && 'scale-100'
+            activeFSCount > 0 && 'scale-100',
           )}
         />
       </div>
