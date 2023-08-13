@@ -18,7 +18,7 @@ export const Dialog: RequiredChildrenFC<Props> = ({ show, children, blur }) => (
         blur && 'backdrop-blur-sm',
       )}
     />
-    <section className="fixed transition-all top-12 bottom-12 right-1/2 translate-x-1/2 w-[600px] bg-card border rounded-2xl z-50">
+    <section className="fixed transition-all w-full md:border md:rounded-2xl top-0 bottom-0 md:top-12 md:bottom-12 md:right-1/2 md:translate-x-1/2 md:w-[600px] bg-card z-50">
       {children}
     </section>
   </AppearTransition>
