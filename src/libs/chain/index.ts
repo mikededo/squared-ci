@@ -1,1 +1,1 @@
-export { useThemeMode } from './use-theme-mode';
+export { useThemeMode, useThemeModeLoader } from './use-theme-mode';

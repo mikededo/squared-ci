@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 
+import { useThemeModeLoader } from '@/chain';
 import {
   BoxConcurrency,
   BoxEnv,
@@ -15,7 +16,6 @@ import {
   News,
   Visualiser,
 } from '@/editor/components';
-import { useThemeModeLoader } from '@/editor/stores';
 
 const Editor: React.FC = () => {
   const { onLoadMode } = useThemeModeLoader();
