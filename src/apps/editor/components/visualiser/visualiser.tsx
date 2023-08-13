@@ -5,6 +5,7 @@ import { VCol } from '@/aero';
 import { Content, Footer, Header, Main } from './layout';
 import {
   WorkflowBasics,
+  WorkflowConcurrency,
   WorkflowEnv,
   WorkflowJobs,
   WorkflowPermissions,
@@ -20,6 +21,7 @@ export const Visualiser: React.FC = () => (
         <WorkflowTriggers />
         <WorkflowEnv />
         <WorkflowPermissions />
+        <WorkflowConcurrency />
         <WorkflowJobs />
       </Main>
       <Footer />

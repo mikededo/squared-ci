@@ -8,6 +8,7 @@ import { globalDragStore } from './global-drag';
 import { optionalSectionsStore } from './optional-sections';
 import type { Empty, GlobalStore } from './types';
 import { workflowBasicsStore } from './workflow-basics';
+import { workflowConcurrencyStore } from './workflow-concurrency';
 import { workflowEnvStore } from './workflow-env';
 import { worfklowPermissionsStore } from './workflow-permissions';
 import { workflowTriggersStore } from './workflow-triggers';
@@ -20,6 +21,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...workflowTriggersStore(...args),
   ...worfklowPermissionsStore(...args),
   ...workflowEnvStore(...args),
+  ...workflowConcurrencyStore(...args),
 }));
 
 export const useFeatureSwitch = <FS extends FeatureSwitches>(
@@ -140,3 +142,13 @@ export const useWorkflowEnv = () =>
     addVariable,
     deleteVariable,
   }));
+
+export const useWorkflowConcurrency = () =>
+  globalStore(
+    ({ concurrency, toggleCancelInProgress, onChangeMax, onChangeGroup }) => ({
+      concurrency,
+      toggleCancelInProgress,
+      onChangeMax,
+      onChangeGroup,
+    }),
+  );

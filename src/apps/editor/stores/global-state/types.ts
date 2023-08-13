@@ -121,10 +121,28 @@ export type WorkflowEnvActions = {
 };
 export type WorkflowEnvStore = WorkflowEnvState & WorkflowEnvActions;
 
+export type WorkflowConcurrencyState = {
+  concurrency: {
+    cancelInProgress: boolean;
+    group: string;
+    max: number;
+    // TODO: Add matrix
+  };
+};
+export type WorkflowConcurrencyActions = {
+  toggleCancelInProgress: Empty;
+  onChangeGroup: Single<string>;
+  onChangeMax: Single<number>;
+  // TODO: Add matrix
+};
+export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
+  WorkflowConcurrencyActions;
+
 export type GlobalStore = FeatureSwitchesStore &
   OptionalSectionsStore &
   GlobalDragStore &
   WorkflowBasicsStore &
   WorkflowTriggersStore &
   WorkflowPermissionsStore &
-  WorkflowEnvStore;
+  WorkflowEnvStore &
+  WorkflowConcurrencyStore;

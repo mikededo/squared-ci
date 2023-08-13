@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 
 import {
+  BoxConcurrency,
   BoxEnv,
   BoxName,
   BoxPermissions,
@@ -25,16 +26,14 @@ const Editor: React.FC = () => {
   }, []);
 
   return (
-    <main
-      className="overflow-hidden bg-paper bg-paper-size"
-      id="main"
-    >
+    <main className="overflow-hidden bg-paper bg-paper-size" id="main">
       <News />
       <GlobalDrag>
         <BoxName />
         <BoxTrigger />
         <BoxPermissions />
         <BoxEnv />
+        <BoxConcurrency />
       </GlobalDrag>
       <Menu />
       <Features />

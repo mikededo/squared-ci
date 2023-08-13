@@ -6,6 +6,7 @@ type SideEffectHelpers = {
 };
 type Options = {
   tabCount?: [number, number];
+  numOnly?: boolean;
 };
 type SideEffects = {
   onEnterPress?: (value: string, helpers: SideEffectHelpers) => void;
@@ -25,6 +26,7 @@ export const useAdvancedInput = (
   initialValue: string,
   {
     tabCount: [minTabCount, maxTabCount] = [-Infinity, Infinity],
+    numOnly,
     onEnterPress,
     onTabPress,
     onShiftTabPress,
@@ -44,6 +46,11 @@ export const useAdvancedInput = (
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const helpers = { onResetInput };
+
+    if (numOnly && !/^[0-9]+$/.test(e.key) && e.key !== 'Backspace') {
+      e.preventDefault();
+      return;
+    }
 
     if (e.key === 'Enter') {
       e.preventDefault();

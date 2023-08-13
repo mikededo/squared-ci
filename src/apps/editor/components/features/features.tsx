@@ -17,6 +17,11 @@ const FeatureList: Parameters<typeof Feature>[0][] = [
     description: 'Enables the dark theme mode, by enabling the toggler.',
   },
   {
+    feature: 'fsConcurrency',
+    title: 'Concurrency',
+    description: 'Enables the concurrency configuration for the workflow',
+  },
+  {
     feature: 'fsCopyAction',
     title: 'Copy action',
     description:

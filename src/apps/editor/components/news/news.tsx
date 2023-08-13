@@ -9,6 +9,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added support for concurrency',
+    description:
+      'Now you can add concurrency to your workflow. The feature has to be enabled through a feature switch.',
+    date: new Date('2023-08-13'),
+  },
+  {
     title: 'Added support for environment variables',
     description:
       'Now you can add environment variables to your workflow, which can be enabled through the optional sections menu',

@@ -1,3 +1,4 @@
+export { BoxConcurrency } from './box-concurrency';
 export { BoxEnv } from './box-env';
 export { BoxName } from './box-name';
 export { BoxPermissions } from './box-permissions';

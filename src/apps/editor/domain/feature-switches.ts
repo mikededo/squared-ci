@@ -1,1 +1,5 @@
-export type FeatureSwitches = 'fsGlobalDrag' | 'fsDarkTheme' | 'fsCopyAction';
+export type FeatureSwitches =
+  | 'fsGlobalDrag'
+  | 'fsDarkTheme'
+  | 'fsCopyAction'
+  | 'fsConcurrency';
