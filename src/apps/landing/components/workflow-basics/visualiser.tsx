@@ -34,7 +34,7 @@ export const Visualiser: React.FC<Props> = ({
   runName,
   runNameFocused,
 }) => (
-  <BorderedBox columns={12} sm={6} md={8} lg={9} bottom>
+  <BorderedBox columns={12} sm={6} md={8} bottom>
     <VCol className="p-6">
       <Line>
         <Comment>

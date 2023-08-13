@@ -12,11 +12,8 @@ import {
 export const Content: React.FC = () => (
   <>
     <Nav />
-    <main
-      className="flex flex-col items-center mt-6 md:mt-12 md:mx-4"
-      id="main"
-    >
-      <Grid container className="w-full md:max-w-[90%]">
+    <main className="flex flex-col items-center mt-6 md:mt-12" id="main">
+      <Grid container className="w-full">
         <MainHeader />
         <PreviewHeader />
         <LiveChanges />

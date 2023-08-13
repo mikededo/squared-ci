@@ -11,7 +11,7 @@ export const MainHeader: React.FC = () => (
     <Grid item columns={10} offset={1}>
       <Banner
         main="Thanks for passing by!"
-        className="px-6 w-full animate-pulse md:-mt-6 mb-6"
+        className="px-6 w-full animate-pulse mx-auto md:-mt-6 mb-6 max-w-4xl"
       >
         <span>
           {' '}
@@ -31,9 +31,9 @@ export const MainHeader: React.FC = () => (
         </h1>
       </BorderedBox>
     </Grid>
-    <BorderedBox columns={12} x bottom>
+    <BorderedBox columns={12} bottom>
       <VCol className="px-6 py-4" align="center" variant="md">
-        <p className="text-lg text-center">
+        <p className="text-lg text-center max-w-5xl">
           Squared CI is a no-code editor for building Github Actions. It allows
           you to build workflows without having to write any YAML. It also
           provides a visualiser to help you understand your workflows.
