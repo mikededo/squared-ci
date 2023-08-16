@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Banner, Button, Dialog, Row, VCol } from '@/aero';
+import { Banner, Button, Dialog, DialogHeader, Row, VCol } from '@/aero';
 
 import type { NewItem } from './new';
 import { New } from './new';
@@ -98,7 +98,7 @@ export const News: React.FC = () => {
   return (
     <Dialog show={opened} blur>
       <VCol variant="xl" className="h-full w-full">
-        <h2 className="text-2xl font-semibold p-5 pb-0">News</h2>
+        <DialogHeader title="News" />
         <Banner main="Coming soon:" className="mx-5">
           <span>
             {' '}
