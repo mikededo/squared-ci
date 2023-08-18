@@ -1,0 +1,270 @@
+import { atom, useAtom } from 'jotai';
+
+import type { Field } from '@/editor/domain/matrix';
+
+import { useMatrixChanges } from './use-matrix-changes';
+
+type Path = Array<Field['id']>;
+export type UseFieldsResult = {
+  fields: Field[];
+  onAddField: (type: Field['type'], path: Path) => () => void;
+  onFieldUpdate: (
+    id: Field['id'],
+    path: Path,
+    isChild?: boolean,
+  ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemoveField: (id: Field['id'], path: Path) => () => void;
+};
+
+const matrixFields = atom<Field[]>([]);
+
+const createNewField = (type: Field['type'], parent?: Field): Field => {
+  if (type === 'string') {
+    const isInArray = parent?.type === 'array';
+    return {
+      id: Math.random().toString(),
+      value: '',
+      type: 'string',
+      child: isInArray ? undefined : '',
+    };
+  } else {
+    return { id: Math.random().toString(), value: '', type, child: [] };
+  }
+};
+
+export const useFields = (parent?: Field): UseFieldsResult => {
+  const [fields, setFields] = useAtom(matrixFields);
+  const { onChange } = useMatrixChanges();
+
+  // This function breaks immutability, but it simplifies the code update
+  // as there can be infinite levels of nesting
+  const handleOnAddField: UseFieldsResult['onAddField'] =
+    (type, path) => () => {
+      onChange();
+
+      const field = createNewField(type, parent);
+      // Hold a reference to the element to update
+      let currentField = fields.find((field) => field.id === path[0]);
+      // If the path is empty, it means that we are adding a new field to the root
+      if (path.length === 0) {
+        setFields([...fields, field]);
+      }
+
+      if (!currentField) {
+        return;
+      }
+
+      // If the sliced path is empty, it means that we are adding to the
+      // first level, without the need to iterate
+      const restPath = path.slice(1);
+      if (restPath.length === 0 && currentField.type !== 'string') {
+        currentField.child.push(field);
+        setFields([...fields]);
+        return;
+      }
+
+      const shouldUpdate = restPath.every((id, index, { length }) => {
+        if (!currentField) {
+          return false;
+        }
+
+        const { type, child } = currentField;
+        if ((!child && index < length - 1) || type === 'string') {
+          return false;
+        }
+
+        currentField = child.find((field) => field.id === id);
+        if (!currentField) {
+          return false;
+        }
+
+        // If it is the last element, we should update the field
+        if (index === length - 1 && currentField.type !== 'string') {
+          currentField.child.push(field);
+        }
+        return true;
+      });
+
+      if (shouldUpdate) {
+        // By simply changing the reference, we are updating the atom
+        setFields([...fields]);
+      }
+    };
+
+  // This function breaks immutability, but it simplifies the code update
+  // as there can be infinite levels of nesting
+  const handleOnFieldUpdate: UseFieldsResult['onFieldUpdate'] =
+    (id, path, isChild) => (e) => {
+      const value = e.target.value;
+      // If the path is empty, it means that we are adding a new field to the root
+      if (path.length === 0) {
+        const field = fields.find((field) => field.id === id);
+        if (!field) {
+          return;
+        }
+
+        // Check whether the field changing is the child value of a string
+        if (field.type === 'string' && isChild) {
+          field.child = value;
+        } else {
+          field.value = value;
+        }
+
+        setFields([...fields]);
+        return;
+      }
+
+      // Hold a reference to the element to update
+      let currentField = fields.find((field) => field.id === path[0]);
+      if (!currentField) {
+        return;
+      }
+
+      // If the sliced path is empty, it means that we are updating in the
+      // first level, without the need to iterate
+      const restPath = path.slice(1);
+      if (restPath.length === 0 && currentField.type !== 'string') {
+        const field = currentField.child.find((field) => field.id === id);
+        if (!field) {
+          return;
+        }
+
+        if (field.type === 'string' && isChild) {
+          field.child = value;
+        } else {
+          field.value = value;
+        }
+
+        setFields([...fields]);
+        return;
+      }
+
+      const shouldUpdate = restPath.every((parentId, index, { length }) => {
+        if (!currentField) {
+          return false;
+        }
+
+        const { type, child } = currentField;
+        if ((child === undefined && index < length - 1) || type === 'string') {
+          return false;
+        }
+
+        // Search for the new current field
+        currentField = (child as Field[]).find(
+          (field) => field.id === parentId,
+        );
+        if (!currentField) {
+          return false;
+        }
+
+        // If it is the last element, we should update the field
+        if (index === length - 1 && currentField.type === 'string') {
+          if (isChild) {
+            currentField.child = value;
+          }
+          currentField.value = value;
+          return true;
+        }
+
+        if (index === length - 1 && currentField.type !== 'string') {
+          const field = currentField.child.find((field) => field.id === id);
+          if (!field) {
+            return false;
+          }
+
+          if (field.type === 'string' && isChild) {
+            field.child = value;
+          } else {
+            field.value = value;
+          }
+        }
+        return true;
+      });
+
+      if (shouldUpdate) {
+        // By simply changing the reference, we are updating the atom
+        setFields([...fields]);
+      }
+
+      onChange();
+    };
+
+  const handleOnRemoveField: UseFieldsResult['onRemoveField'] =
+    (id, path) => () => {
+      if (path.length === 0) {
+        setFields(fields.filter((field) => field.id !== id));
+        return;
+      }
+
+      // Hold a reference to the element to update
+      let currentField = fields.find((field) => field.id === path[0]);
+      if (!currentField) {
+        return;
+      }
+
+      const restPath = path.slice(1);
+      if (restPath.length === 0) {
+        if (currentField.type === 'string') {
+          currentField.child = '';
+          setFields([...fields]);
+          return;
+        }
+
+        currentField.child = currentField.child.filter(
+          (field) => field.id !== id,
+        );
+        setFields([...fields]);
+        return;
+      }
+
+      const shouldUpdate = restPath.every((parentId, index, { length }) => {
+        if (!currentField) {
+          return false;
+        }
+
+        const { type, child } = currentField;
+        if ((child === undefined && index < length - 1) || type === 'string') {
+          // Dead end
+          return false;
+        }
+
+        // Search for the new current field
+        currentField = (child as Field[]).find(
+          (field) => field.id === parentId,
+        );
+        if (!currentField) {
+          return false;
+        }
+
+        if (index === length - 1 && currentField.type === 'string') {
+          // Dead end
+          return false;
+        }
+
+        // If it is the last element, we should remove the field
+        if (index === length - 1 && currentField.type !== 'string') {
+          const prevChildLength = currentField.child.length;
+          currentField.child = currentField.child.filter(
+            (child) => child.id !== id,
+          );
+
+          return prevChildLength !== currentField.child.length;
+        }
+        return true;
+      });
+
+      if (shouldUpdate) {
+        // By simply changing the reference, we are updating the atom
+        setFields([...fields]);
+      }
+
+      onChange();
+    };
+
+  return {
+    fields,
+    onAddField: handleOnAddField,
+    onFieldUpdate: handleOnFieldUpdate,
+    onRemoveField: handleOnRemoveField,
+  };
+};

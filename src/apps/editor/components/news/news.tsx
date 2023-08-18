@@ -8,6 +8,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Matrix editor (beta)',
+    description:
+      "A first version of the matrix editor has been added. It is still in beta, so it may have some bugs. If you find one, please report it in the issues section (there's no such section, yet!).",
+    date: new Date('2023-08-18'),
+  },
+  {
     title: 'Added support for concurrency',
     description:
       'Now you can add concurrency to your workflow. The feature has to be enabled through a feature switch.',
@@ -106,7 +112,7 @@ export const News: React.FC = () => {
             experience, fixed global drag and more! Thanks for coming!
           </span>
         </Banner>
-        <div className="self-start flex-1 flex flex-col gap-4 px-5 w-full overflow-y-auto">
+        <div className="self-start flex-1 flex flex-col gap-4 w-full overflow-y-auto px-5">
           {NewsList.map(({ title, description, date }) => (
             <New
               key={title}

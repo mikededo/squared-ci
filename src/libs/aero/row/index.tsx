@@ -36,12 +36,14 @@ type Props = {
   justify?: Justify;
   align?: Justify;
   className?: string;
+  style?: React.CSSProperties;
   as?: ElementType;
 } & DataDraggable;
 
 export const Row: React.FC<PropsWithChildren<Props>> = ({
   children,
   className,
+  style,
   justify = 'start',
   align = 'start',
   variant = 'sm',
@@ -53,8 +55,9 @@ export const Row: React.FC<PropsWithChildren<Props>> = ({
       RowVariants[variant],
       RowJustify[justify],
       RowAlign[align],
-      className
+      className,
     )}
+    style={style}
   >
     {children}
   </As>

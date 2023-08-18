@@ -43,6 +43,7 @@ type Props = {
   className?: string;
   justify?: Justify;
   align?: Justify;
+  style?: React.CSSProperties;
 } & DataDraggable;
 
 export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(

@@ -5,6 +5,7 @@ export { BoxPermissions } from './box-permissions';
 export { BoxTrigger } from './box-trigger';
 export { Features } from './features';
 export { GlobalDrag } from './global-drag';
+export { Matrix } from './matrix';
 export { Menu } from './menu';
 export { News } from './news';
 export { OptionalSections } from './optional-sections';

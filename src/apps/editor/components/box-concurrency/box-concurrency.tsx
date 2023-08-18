@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import { ChevronRightIcon } from '@primer/octicons-react';
+import { atom, useAtom } from 'jotai';
+import React, { useMemo, useRef } from 'react';
 
 import {
   Draggable,
@@ -6,15 +8,24 @@ import {
   DraggableWrapper,
   Input,
   Label,
+  Meta,
+  Row,
   Toggle,
   VCol,
 } from '@/aero';
+import { Matrix } from '@/editor/components';
 import { Positions } from '@/editor/config';
-import { useOptionalSection, useWorkflowConcurrency } from '@/editor/stores';
+import {
+  useFeatureSwitch,
+  useOptionalSection,
+  useWorkflowConcurrency,
+} from '@/editor/stores';
 
 import { Max } from './max';
 
 export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
+  const { fsMatrix } = useFeatureSwitch('fsMatrix');
+  const [showDialog, setShowDialog] = useAtom(useMemo(() => atom(false), []));
   const {
     concurrency: { cancelInProgress, group },
     onChangeGroup,
@@ -25,35 +36,59 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
     onChangeGroup(e.target.value);
   };
 
+  const handleOnDialogToggle = () => {
+    setShowDialog((prev) => !prev);
+  };
+
   return (
-    <DraggableWrapper>
-      <VCol
-        ref={ref}
-        variant="md"
-        className="relative px-3 pb-3"
-        align="between"
-      >
-        <DraggableWrapper>
-          <Toggle
-            text="Cancel in progress"
-            value={cancelInProgress}
-            onClick={toggleCancelInProgress}
-          />
-          <VCol variant="md">
-            <Label className="text-muted-foreground">Group</Label>
-            <Input
-              placeholder="workflow-name"
-              value={group}
-              onChange={handleOnChangeGroup}
+    <>
+      <DraggableWrapper>
+        <VCol
+          ref={ref}
+          variant="md"
+          className="relative px-3 pb-3"
+          align="between"
+        >
+          <DraggableWrapper>
+            <Toggle
+              text="Cancel in progress"
+              value={cancelInProgress}
+              onClick={toggleCancelInProgress}
             />
-          </VCol>
-          <Max />
-          <Label className="text-muted-foreground">
-            Matrix (available soon)
-          </Label>
-        </DraggableWrapper>
-      </VCol>
-    </DraggableWrapper>
+            <VCol variant="md">
+              <Label className="text-muted-foreground">Group</Label>
+              <Input
+                placeholder="workflow-name"
+                value={group}
+                onChange={handleOnChangeGroup}
+              />
+            </VCol>
+            <Max />
+            <Label className="text-muted-foreground">
+              Matrix {fsMatrix ? '' : '(coming soon)'}
+            </Label>
+            {fsMatrix ? (
+              <button
+                className="py-1.5 px-2 -mt-0.5 rounded-md border border-input hover:bg-muted transition-colors cursor-pointer text-muted-foreground"
+                onClick={handleOnDialogToggle}
+              >
+                <Row align="center" justify="between">
+                  <Meta>Add matrix</Meta>
+                  <ChevronRightIcon className="" />
+                </Row>
+              </button>
+            ) : null}
+          </DraggableWrapper>
+        </VCol>
+      </DraggableWrapper>
+      {fsMatrix ? (
+        <Matrix
+          title="Create concurrency matrix"
+          show={showDialog}
+          onClose={handleOnDialogToggle}
+        />
+      ) : null}
+    </>
   );
 });
 
