@@ -8,6 +8,11 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Matrix editor undo/redo',
+    description: 'Now you can undo/redo your changes in the matrix editor.',
+    date: new Date('2023-08-18'),
+  },
+  {
     title: 'Matrix editor (beta)',
     description:
       "A first version of the matrix editor has been added. It is still in beta, so it may have some bugs. If you find one, please report it in the issues section (there's no such section, yet!).",

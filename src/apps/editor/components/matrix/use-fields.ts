@@ -1,12 +1,12 @@
 import { atom, useAtom } from 'jotai';
 
 import type { Field } from '@/editor/domain/matrix';
-
-import { useMatrixChanges } from './use-matrix-changes';
+import { useChangesStack } from '@/editor/hooks';
 
 type Path = Array<Field['id']>;
 export type UseFieldsResult = {
   fields: Field[];
+  hasChanges: boolean;
   onAddField: (type: Field['type'], path: Path) => () => void;
   onFieldUpdate: (
     id: Field['id'],
@@ -14,6 +14,7 @@ export type UseFieldsResult = {
     isChild?: boolean,
   ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveField: (id: Field['id'], path: Path) => () => void;
+  onUndo: () => void;
 };
 
 const matrixFields = atom<Field[]>([]);
@@ -34,13 +35,20 @@ const createNewField = (type: Field['type'], parent?: Field): Field => {
 
 export const useFields = (parent?: Field): UseFieldsResult => {
   const [fields, setFields] = useAtom(matrixFields);
-  const { onChange } = useMatrixChanges();
+  const { hasChanges, onChange, onUndo } = useChangesStack<Field[]>();
 
-  // This function breaks immutability, but it simplifies the code update
-  // as there can be infinite levels of nesting
+  /**
+   * Most of the checks that are done throught the code are to avoid
+   * issues with typescript, but they could be skipped, as the code
+   * functions should be called on correct arguments. This is the reason
+   * why the undo-redo stack is being used, even though it could happen
+   * that incorrect changes are recorded.
+   * This function breaks immutability, but it simplifies the code update
+   * as there can be infinite levels of nesting
+   */
   const handleOnAddField: UseFieldsResult['onAddField'] =
     (type, path) => () => {
-      onChange();
+      onChange(fields);
 
       const field = createNewField(type, parent);
       // Hold a reference to the element to update
@@ -91,8 +99,14 @@ export const useFields = (parent?: Field): UseFieldsResult => {
       }
     };
 
-  // This function breaks immutability, but it simplifies the code update
-  // as there can be infinite levels of nesting
+  /**
+   * Most of the checks that are done throught the code are to avoid
+   * issues with typescript, but they could be skipped, as the code
+   * functions should be called on correct arguments.
+   * This function breaks immutability, but it simplifies the code update
+   * as there can be infinite levels of nesting
+   * This function will record the changes to the undo-redo stack
+   */
   const handleOnFieldUpdate: UseFieldsResult['onFieldUpdate'] =
     (id, path, isChild) => (e) => {
       const value = e.target.value;
@@ -185,12 +199,22 @@ export const useFields = (parent?: Field): UseFieldsResult => {
         // By simply changing the reference, we are updating the atom
         setFields([...fields]);
       }
-
-      onChange();
     };
 
+  /**
+   * Most of the checks that are done throught the code are to avoid
+   * issues with typescript, but they could be skipped, as the code
+   * functions should be called on correct arguments. This is the reason
+   * why the undo-redo stack is being used, even though it could happen
+   * that incorrect changes are recorded.
+   * This function breaks immutability, but it simplifies the code update
+   * as there can be infinite levels of nesting.
+   * This function will record the changes to the undo-redo stack
+   */
   const handleOnRemoveField: UseFieldsResult['onRemoveField'] =
     (id, path) => () => {
+      onChange(fields);
+
       if (path.length === 0) {
         setFields(fields.filter((field) => field.id !== id));
         return;
@@ -257,14 +281,22 @@ export const useFields = (parent?: Field): UseFieldsResult => {
         // By simply changing the reference, we are updating the atom
         setFields([...fields]);
       }
-
-      onChange();
     };
+
+  const handleOnUndo = () => {
+    const undone = onUndo();
+    if (!undone) {
+      return;
+    }
+    setFields(undone);
+  };
 
   return {
     fields,
+    hasChanges,
     onAddField: handleOnAddField,
     onFieldUpdate: handleOnFieldUpdate,
     onRemoveField: handleOnRemoveField,
+    onUndo: handleOnUndo,
   };
 };
