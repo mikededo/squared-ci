@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type InputVariant = 'plain' | 'default';
 type InnerProps = {
   variant?: InputVariant;
-  multiline?: boolean;
 };
-export type Props = React.InputHTMLAttributes<HTMLInputElement> &
-  React.InputHTMLAttributes<HTMLTextAreaElement> &
-  InnerProps;
+type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
+  InnerProps & {
+    multiline: true;
+  };
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
+  InnerProps & {
+    multiline?: never;
+  };
+export type Props = TextAreaProps | InputProps;
 
 const Variants: Record<InputVariant, string> = {
   default:
@@ -17,16 +22,13 @@ const Variants: Record<InputVariant, string> = {
     'border-b-2 border-b-transparent focus:border-extra bg-muted outline-none focus:ring-0',
 };
 
-export const Input: React.FC<Props> = ({
-  multiline,
-  variant = 'default',
-  className,
-  ...props
-}) => {
-  const ref = React.useRef<HTMLTextAreaElement>(null);
+export const Input: React.FC<Props> = (props) => {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  const { multiline, variant = 'default', className } = props;
 
   const handleOnInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
-    if (ref.current) {
+    if (ref.current && multiline) {
       ref.current.style.height = 'auto';
       ref.current.style.height = `${ref.current.scrollHeight}px`;
       props?.onInput?.(e);
