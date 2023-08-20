@@ -1,4 +1,5 @@
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import { Input } from './input';
 import type { Props as BaseProps } from './input';
@@ -9,11 +10,19 @@ type Props = BaseProps & {
   onIconClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const IconInput: React.FC<Props> = ({ icon, onIconClick, ...props }) => (
+export const IconInput: React.FC<Props> = ({
+  icon,
+  onIconClick,
+  multiline,
+  ...props
+}) => (
   <Row className="w-full gap-0" align="center">
-    <Input {...props} />
+    <Input {...props} multiline={multiline} />
     <button
-      className="flex items-center justify-center hover:bg-primary/10 transition-colors -ml-8 h-5 w-5 rounded-full cursor-pointer"
+      className={twMerge(
+        'flex items-center justify-center hover:bg-primary/10 transition-colors -ml-8 h-5 w-5 rounded-full cursor-pointer',
+        multiline && 'self-start mt-2',
+      )}
       onClick={onIconClick}
     >
       {icon}
