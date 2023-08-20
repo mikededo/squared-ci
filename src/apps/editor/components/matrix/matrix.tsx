@@ -65,18 +65,20 @@ export const Matrix: React.FC<Props> = ({ title, show, onClose }) => {
             Made a mistake? No worries, you can always undo your changes.
           </Banner>
           <Meta>Matrix properties</Meta>
-          <VCol className="w-full" variant="md">
-            {fields.map((field) => (
-              <FormRenderer
-                key={field.id}
-                field={field}
-                path={[]}
-                onAddField={onAddField}
-                onFieldUpdate={onFieldUpdate}
-                onRemoveField={onRemoveField}
-              />
-            ))}
-          </VCol>
+          {fields.length ? (
+            <VCol className="w-full" variant="md">
+              {fields.map((field) => (
+                <FormRenderer
+                  key={field.id}
+                  field={field}
+                  path={[]}
+                  onAddField={onAddField}
+                  onFieldUpdate={onFieldUpdate}
+                  onRemoveField={onRemoveField}
+                />
+              ))}
+            </VCol>
+          ) : null}
           <AddButtons onAddField={onAddField} path={[]} />
         </VCol>
         <Row className="p-5 pt-0 gap-2 self-end">
@@ -85,6 +87,9 @@ export const Matrix: React.FC<Props> = ({ title, show, onClose }) => {
               Discard
             </Button>
           </AppearTransition>
+          <Button onClick={onClose} variant="text">
+            Cancel
+          </Button>
           <Button onClick={console.log}>Save</Button>
         </Row>
       </VCol>

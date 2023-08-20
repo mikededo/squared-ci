@@ -7,19 +7,23 @@ type Path = Array<Field['id']>;
 export type UseFieldsResult = {
   fields: Field[];
   hasChanges: boolean;
-  onAddField: (type: Field['type'], path: Path) => () => void;
+  onAddField: (type: Field['type'], path: Path, as?: Field['as']) => () => void;
   onFieldUpdate: (
     id: Field['id'],
     path: Path,
     isChild?: boolean,
-  ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  ) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onRemoveField: (id: Field['id'], path: Path) => () => void;
   onUndo: () => void;
 };
 
 const matrixFields = atom<Field[]>([]);
 
-const createNewField = (type: Field['type'], parent?: Field): Field => {
+const createNewField = (
+  type: Field['type'],
+  parent?: Field,
+  as?: Field['as'],
+): Field => {
   if (type === 'string') {
     const isInArray = parent?.type === 'array';
     return {
@@ -27,6 +31,7 @@ const createNewField = (type: Field['type'], parent?: Field): Field => {
       value: '',
       type: 'string',
       child: isInArray ? undefined : '',
+      as: as ?? 'string',
     };
   } else {
     return { id: Math.random().toString(), value: '', type, child: [] };
@@ -47,10 +52,10 @@ export const useFields = (parent?: Field): UseFieldsResult => {
    * as there can be infinite levels of nesting
    */
   const handleOnAddField: UseFieldsResult['onAddField'] =
-    (type, path) => () => {
+    (type, path, as = 'string') => () => {
       onChange(fields);
 
-      const field = createNewField(type, parent);
+      const field = createNewField(type, parent, as);
       // Hold a reference to the element to update
       let currentField = fields.find((field) => field.id === path[0]);
       // If the path is empty, it means that we are adding a new field to the root

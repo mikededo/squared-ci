@@ -28,7 +28,14 @@ export const FormRenderer: React.FC<Props> = ({
   const { type } = field;
 
   if (type === 'string') {
-    const { child, value } = field;
+    const { child, value, as } = field;
+    const childPlaceholder =
+      as === 'number'
+        ? 'Number value'
+        : as === 'boolean'
+        ? 'Boolean value'
+        : 'String value';
+
     return (
       <Row align="center" className={twMerge('w-full', depth > 0 && 'pl-4')}>
         <IconInput
@@ -44,9 +51,10 @@ export const FormRenderer: React.FC<Props> = ({
             <span>: </span>
             <Input
               variant="plain"
-              placeholder="String value"
+              placeholder={childPlaceholder}
               defaultValue={child}
               onBlur={onFieldUpdate(field.id, path, true)}
+              type={as === 'number' ? 'number' : 'string'}
             />
           </>
         ) : null}
@@ -65,6 +73,7 @@ export const FormRenderer: React.FC<Props> = ({
         onBlur={onFieldUpdate(field.id, path)}
         icon={<XIcon className="text-muted-foreground" />}
         onIconClick={onRemoveField(field.id, path)}
+        multiline
       />
       {child.length > 0 ? (
         <VCol variant="md" className="w-full border-l border-dashed">

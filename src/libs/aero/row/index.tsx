@@ -4,10 +4,11 @@ import { twMerge } from 'tailwind-merge';
 
 import type { DataDraggable } from '@/aero';
 
-type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type Variant = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Justify = 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
 
 const RowVariants: Record<Variant, string> = {
+  none: 'gap-x-0',
   xs: 'gap-x-0.5',
   sm: 'gap-x-1',
   md: 'gap-x-2',
