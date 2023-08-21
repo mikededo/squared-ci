@@ -1,3 +1,4 @@
+import type { Field } from '@/editor/domain/matrix';
 import type {
   PermissionStatus,
   Permissions,
@@ -126,14 +127,14 @@ export type WorkflowConcurrencyState = {
     cancelInProgress: boolean;
     group: string;
     max: number;
-    // TODO: Add matrix
+    matrix: Field[];
   };
 };
 export type WorkflowConcurrencyActions = {
   toggleCancelInProgress: Empty;
   onChangeGroup: Single<string>;
   onChangeMax: Single<number>;
-  // TODO: Add matrix
+  onChangeMatrix: Single<Field[]>;
 };
 export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
   WorkflowConcurrencyActions;

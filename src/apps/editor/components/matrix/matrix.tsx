@@ -11,6 +11,7 @@ import {
   Row,
   VCol,
 } from '@/aero';
+import type { Field } from '@/editor/domain/matrix';
 
 import { AddButtons } from './add-buttons';
 import { FormRenderer } from './form-renderer';
@@ -20,11 +21,17 @@ type Props = {
   title: string;
   show?: boolean;
   onClose?: () => void;
-  onConfirm?: () => void; // TODO: implement
-  onDiscard?: () => void; // TODO: implement
+  onDiscard?: () => void;
+  onSave: (fields: Field[]) => void;
 };
 
-export const Matrix: React.FC<Props> = ({ title, show, onClose }) => {
+export const Matrix: React.FC<Props> = ({
+  title,
+  show,
+  onClose,
+  onDiscard,
+  onSave,
+}) => {
   const {
     fields,
     hasChanges,
@@ -42,6 +49,10 @@ export const Matrix: React.FC<Props> = ({ title, show, onClose }) => {
     },
     [onUndo],
   );
+
+  const handleOnSave = () => {
+    onSave(fields);
+  };
 
   useEffect(() => {
     if (show) {
@@ -83,14 +94,14 @@ export const Matrix: React.FC<Props> = ({ title, show, onClose }) => {
         </VCol>
         <Row className="p-5 pt-0 gap-2 self-end">
           <AppearTransition show={hasChanges}>
-            <Button onClick={onClose} variant="danger">
+            <Button onClick={onDiscard} variant="danger">
               Discard
             </Button>
           </AppearTransition>
           <Button onClick={onClose} variant="text">
             Cancel
           </Button>
-          <Button onClick={console.log}>Save</Button>
+          <Button onClick={handleOnSave}>Save</Button>
         </Row>
       </VCol>
     </Dialog>,

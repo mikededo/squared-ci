@@ -8,6 +8,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Matrix visualisation',
+    description:
+      'The changes applied to the concurrency matrix property can now be visualised in the preview.',
+    date: new Date('2023-08-21'),
+  },
+  {
     title: 'Matrix editor undo/redo',
     description: 'Now you can undo/redo your changes in the matrix editor.',
     date: new Date('2023-08-18'),

@@ -11,7 +11,7 @@ type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
   };
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
   InnerProps & {
-    multiline?: never;
+    multiline?: false;
   };
 export type Props = TextAreaProps | InputProps;
 
@@ -41,15 +41,18 @@ export const Input: React.FC<Props> = (props) => {
     className,
   );
 
-  return multiline ? (
-    <textarea
-      {...props}
-      rows={1}
-      ref={ref}
-      className={twMerge(classes, 'resize-none overflow-hidden')}
-      onInput={handleOnInput}
-    />
-  ) : (
-    <input {...props} className={classes} />
-  );
+  if (multiline) {
+    const { multiline: _, ...rest } = props;
+    return (
+      <textarea
+        {...rest}
+        rows={1}
+        ref={ref}
+        className={twMerge(classes, 'resize-none overflow-hidden')}
+        onInput={handleOnInput}
+      />
+    );
+  }
+
+  return <input {...props} className={classes} />;
 };

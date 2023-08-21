@@ -3,12 +3,15 @@ import React from 'react';
 import { Keyword, Line, Tabbed } from '@/aero';
 import { useWorkflowConcurrency } from '@/editor/stores';
 
+import { Matrix } from './matrix';
+
 export const WorkflowConcurrency: React.FC = () => {
   const {
-    concurrency: { cancelInProgress, group, max },
+    concurrency: { cancelInProgress, group, max, matrix },
   } = useWorkflowConcurrency();
 
-  const anyConcurrency = cancelInProgress || group !== '' || max > 0;
+  const anyConcurrency =
+    cancelInProgress || group !== '' || max > 0 || matrix.length > 0;
   if (!anyConcurrency) {
     return null;
   }
@@ -33,6 +36,7 @@ export const WorkflowConcurrency: React.FC = () => {
           <Keyword>max</Keyword>: {max}
         </Tabbed>
       ) : null}
+      {matrix.length > 0 ? <Matrix matrix={matrix} tabs={2} /> : null}
     </>
   );
 };

@@ -12,6 +12,7 @@ export const workflowConcurrencyStore: StateCreator<
     cancelInProgress: false,
     group: '',
     max: 0,
+    matrix: [],
   },
   toggleCancelInProgress: () => {
     const { concurrency } = get();
@@ -29,5 +30,9 @@ export const workflowConcurrencyStore: StateCreator<
   onChangeMax: (max) => {
     const { concurrency } = get();
     set({ concurrency: { ...concurrency, max } });
+  },
+  onChangeMatrix: (matrix) => {
+    const { concurrency } = get();
+    set({ concurrency: { ...concurrency, matrix } });
   },
 });

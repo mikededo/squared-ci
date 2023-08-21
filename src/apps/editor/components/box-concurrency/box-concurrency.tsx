@@ -15,6 +15,7 @@ import {
 } from '@/aero';
 import { Matrix } from '@/editor/components';
 import { Positions } from '@/editor/config';
+import type { Field } from '@/editor/domain/matrix';
 import {
   useFeatureSwitch,
   useOptionalSection,
@@ -29,6 +30,7 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
   const {
     concurrency: { cancelInProgress, group },
     onChangeGroup,
+    onChangeMatrix,
     toggleCancelInProgress,
   } = useWorkflowConcurrency();
 
@@ -38,6 +40,11 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
 
   const handleOnDialogToggle = () => {
     setShowDialog((prev) => !prev);
+  };
+
+  const handleOnSave = (fields: Field[]) => {
+    onChangeMatrix(fields);
+    setShowDialog(false);
   };
 
   return (
@@ -86,6 +93,8 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
           title="Create concurrency matrix"
           show={showDialog}
           onClose={handleOnDialogToggle}
+          onDiscard={handleOnDialogToggle}
+          onSave={handleOnSave}
         />
       ) : null}
     </>

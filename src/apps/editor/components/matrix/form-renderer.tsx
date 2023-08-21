@@ -11,12 +11,20 @@ import type { UseFieldsResult } from './use-fields';
 type Props = {
   field: Field;
   path: string[];
+  arrayChild?: boolean;
   onAddField: UseFieldsResult['onAddField'];
   onFieldUpdate: UseFieldsResult['onFieldUpdate'];
   onRemoveField: UseFieldsResult['onRemoveField'];
 };
 
+const StringPlaceholder: Record<Exclude<Field['as'], undefined>, string> = {
+  number: 'Number value',
+  boolean: 'Boolean value',
+  string: 'String value',
+};
+
 export const FormRenderer: React.FC<Props> = ({
+  arrayChild,
   field,
   path,
   onAddField,
@@ -29,32 +37,29 @@ export const FormRenderer: React.FC<Props> = ({
 
   if (type === 'string') {
     const { child, value, as } = field;
-    const childPlaceholder =
-      as === 'number'
-        ? 'Number value'
-        : as === 'boolean'
-        ? 'Boolean value'
-        : 'String value';
+    const placeholder = StringPlaceholder[as ?? 'string'];
 
     return (
-      <Row align="center" className={twMerge('w-full', depth > 0 && 'pl-4')}>
+      <Row align="start" className={twMerge('w-full', depth > 0 && 'pl-4')}>
         <IconInput
           variant="plain"
-          placeholder="String key"
+          placeholder={placeholder}
           defaultValue={value}
           onBlur={onFieldUpdate(field.id, path)}
           icon={<XIcon className="text-muted-foreground" />}
           onIconClick={onRemoveField(field.id, path)}
+          type={as === 'number' && arrayChild ? 'number' : 'string'}
         />
-        {child !== undefined ? (
+        {child !== undefined && !arrayChild ? (
           <>
-            <span>: </span>
+            <span className="pt-1">:</span>
             <Input
               variant="plain"
-              placeholder={childPlaceholder}
+              placeholder={placeholder}
               defaultValue={child}
               onBlur={onFieldUpdate(field.id, path, true)}
               type={as === 'number' ? 'number' : 'string'}
+              multiline={as === 'string'}
             />
           </>
         ) : null}
@@ -64,16 +69,20 @@ export const FormRenderer: React.FC<Props> = ({
 
   const { child, value } = field;
   const childPath = [...path, field.id];
+  const objectPlaceholder = arrayChild
+    ? 'Disabled for objects inside arrays'
+    : 'Object key';
+
   return (
     <VCol variant="md" className={twMerge('w-full', depth > 0 && 'pl-4')}>
       <IconInput
         variant="plain"
         defaultValue={value}
-        placeholder={`${type === 'array' ? 'Array' : 'Object'} key`}
+        placeholder={type === 'array' ? 'Array key' : objectPlaceholder}
         onBlur={onFieldUpdate(field.id, path)}
         icon={<XIcon className="text-muted-foreground" />}
         onIconClick={onRemoveField(field.id, path)}
-        multiline
+        disabled={arrayChild && type === 'object'}
       />
       {child.length > 0 ? (
         <VCol variant="md" className="w-full border-l border-dashed">
@@ -82,6 +91,7 @@ export const FormRenderer: React.FC<Props> = ({
               key={field.id}
               field={field}
               path={childPath}
+              arrayChild={type === 'array'}
               onAddField={onAddField}
               onFieldUpdate={onFieldUpdate}
               onRemoveField={onRemoveField}

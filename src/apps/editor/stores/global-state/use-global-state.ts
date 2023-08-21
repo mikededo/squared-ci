@@ -145,10 +145,17 @@ export const useWorkflowEnv = () =>
 
 export const useWorkflowConcurrency = () =>
   globalStore(
-    ({ concurrency, toggleCancelInProgress, onChangeMax, onChangeGroup }) => ({
+    ({
       concurrency,
       toggleCancelInProgress,
       onChangeMax,
       onChangeGroup,
+      onChangeMatrix,
+    }) => ({
+      concurrency,
+      toggleCancelInProgress,
+      onChangeMax,
+      onChangeGroup,
+      onChangeMatrix,
     }),
   );

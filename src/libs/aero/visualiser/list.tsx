@@ -4,7 +4,7 @@ import { Keyword, Tabbed } from './keywords';
 
 type ListProps = {
   tabFactor: number;
-  group: string;
+  group?: string;
   items: string[] | React.ReactElement[];
   asBulletList?: boolean;
 };
@@ -50,10 +50,13 @@ export const List: React.FC<ListProps> = ({
   asBulletList = false,
 }) => (
   <>
-    <Tabbed tabs={tabFactor * 2}>
-      <Keyword>{group}</Keyword>:{' '}
-      {!asBulletList ? <InLineList items={items} /> : null}
-    </Tabbed>
+    {group ? (
+      <Tabbed tabs={tabFactor * 2}>
+        <Keyword>{group}: </Keyword>{' '}
+        {!asBulletList ? <InLineList items={items} /> : null}
+      </Tabbed>
+    ) : null}
+    {!group && !asBulletList ? <InLineList items={items} /> : null}
     {asBulletList ? <BulletList tabFactor={tabFactor} items={items} /> : null}
   </>
 );
