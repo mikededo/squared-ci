@@ -2,7 +2,7 @@ import { XIcon } from '@primer/octicons-react';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { IconInput, Input, Row, VCol } from '@/aero';
+import { Input, Row, VCol } from '@/aero';
 import type { Field } from '@/editor/domain/matrix';
 
 import { AddButtons } from './add-buttons';
@@ -41,7 +41,7 @@ export const FormRenderer: React.FC<Props> = ({
 
     return (
       <Row align="start" className={twMerge('w-full', depth > 0 && 'pl-4')}>
-        <IconInput
+        <Input
           variant="plain"
           placeholder={placeholder}
           defaultValue={value}
@@ -75,7 +75,7 @@ export const FormRenderer: React.FC<Props> = ({
 
   return (
     <VCol variant="md" className={twMerge('w-full', depth > 0 && 'pl-4')}>
-      <IconInput
+      <Input
         variant="plain"
         defaultValue={value}
         placeholder={type === 'array' ? 'Array key' : objectPlaceholder}

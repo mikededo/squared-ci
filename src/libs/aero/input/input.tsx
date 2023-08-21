@@ -1,9 +1,15 @@
 import React, { useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import type { RequiredChildrenFC } from '@/pulse';
+
+import { Row } from '../row';
+
 type InputVariant = 'plain' | 'default';
 type InnerProps = {
   variant?: InputVariant;
+  icon?: React.ReactNode;
+  onIconClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
   InnerProps & {
@@ -22,10 +28,28 @@ const Variants: Record<InputVariant, string> = {
     'border-b-2 border-b-transparent focus:border-extra bg-muted outline-none focus:ring-0',
 };
 
+const Wrapper: RequiredChildrenFC<Pick<Props, 'icon'>> = ({
+  icon,
+  children,
+}) =>
+  icon ? (
+    <Row className="w-full" variant="none" align="center">
+      {children}
+    </Row>
+  ) : (
+    <>{children}</>
+  );
+
 export const Input: React.FC<Props> = (props) => {
   const ref = useRef<HTMLTextAreaElement>(null);
 
-  const { multiline, variant = 'default', className } = props;
+  const {
+    multiline,
+    variant = 'default',
+    className,
+    icon,
+    onIconClick,
+  } = props;
 
   const handleOnInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
     if (ref.current && multiline) {
@@ -41,18 +65,44 @@ export const Input: React.FC<Props> = (props) => {
     className,
   );
 
+  const iconButton = icon ? (
+    <button
+      className={twMerge(
+        'flex items-center justify-center hover:bg-primary/10 transition-colors -ml-8 h-5 w-5 rounded-full cursor-pointer',
+        multiline && 'self-start mt-2',
+      )}
+      onClick={onIconClick}
+    >
+      {icon}
+    </button>
+  ) : null;
+
   if (multiline) {
-    const { multiline: _, ...rest } = props;
+    const {
+      multiline: _,
+      icon: _icon,
+      onIconClick: _onIconClick,
+      ...rest
+    } = props;
     return (
-      <textarea
-        {...rest}
-        rows={1}
-        ref={ref}
-        className={twMerge(classes, 'resize-none overflow-hidden')}
-        onInput={handleOnInput}
-      />
+      <Wrapper icon={icon}>
+        <textarea
+          {...rest}
+          rows={1}
+          ref={ref}
+          className={twMerge(classes, 'resize-none overflow-hidden')}
+          onInput={handleOnInput}
+        />
+        {iconButton}
+      </Wrapper>
     );
   }
 
-  return <input {...props} className={classes} />;
+  const { icon: _icon, onIconClick: _onIconClick, ...rest } = props;
+  return (
+    <Wrapper icon={icon}>
+      <input {...rest} className={classes} />
+      {iconButton}
+    </Wrapper>
+  );
 };
