@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { RequiredChildrenFC } from '@/pulse';
@@ -51,13 +51,24 @@ export const Input: React.FC<Props> = (props) => {
     onIconClick,
   } = props;
 
-  const handleOnInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
+  const syncHeight = () => {
     if (ref.current && multiline) {
       ref.current.style.height = 'auto';
       ref.current.style.height = `${ref.current.scrollHeight}px`;
+    }
+  };
+
+  const handleOnInput: React.FormEventHandler<HTMLTextAreaElement> = (e) => {
+    if (multiline) {
+      syncHeight();
       props?.onInput?.(e);
     }
   };
+
+  useLayoutEffect(() => {
+    syncHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const classes = twMerge(
     'font-mono text-sm px-2 py-1.5 w-full transition-all placeholder:text-muted-foreground',
@@ -84,6 +95,7 @@ export const Input: React.FC<Props> = (props) => {
       onIconClick: _onIconClick,
       ...rest
     } = props;
+
     return (
       <Wrapper icon={icon}>
         <textarea
@@ -98,7 +110,12 @@ export const Input: React.FC<Props> = (props) => {
     );
   }
 
-  const { icon: _icon, onIconClick: _onIconClick, ...rest } = props;
+  const {
+    multiline: _,
+    icon: _icon,
+    onIconClick: _onIconClick,
+    ...rest
+  } = props;
   return (
     <Wrapper icon={icon}>
       <input {...rest} className={classes} />

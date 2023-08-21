@@ -18,6 +18,7 @@ import { FormRenderer } from './form-renderer';
 import { useFields } from './use-fields';
 
 type Props = {
+  initialValue?: Field[];
   title: string;
   show?: boolean;
   onClose?: () => void;
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export const Matrix: React.FC<Props> = ({
+  initialValue,
   title,
   show,
   onClose,
@@ -39,7 +41,7 @@ export const Matrix: React.FC<Props> = ({
     onFieldUpdate,
     onRemoveField,
     onUndo,
-  } = useFields();
+  } = useFields(initialValue);
 
   const onCtrlZListener = useCallback(
     (e: KeyboardEvent) => {

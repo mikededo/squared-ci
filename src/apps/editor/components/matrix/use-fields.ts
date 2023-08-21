@@ -1,4 +1,5 @@
 import { atom, useAtom } from 'jotai';
+import { useMemo } from 'react';
 
 import type { Field } from '@/editor/domain/matrix';
 import { useChangesStack } from '@/editor/hooks';
@@ -17,20 +18,16 @@ export type UseFieldsResult = {
   onUndo: () => void;
 };
 
-const matrixFields = atom<Field[]>([]);
+const matrixFields = (initialValue: Field[] = []) =>
+  atom<Field[]>(initialValue);
 
-const createNewField = (
-  type: Field['type'],
-  parent?: Field,
-  as?: Field['as'],
-): Field => {
+const createNewField = (type: Field['type'], as?: Field['as']): Field => {
   if (type === 'string') {
-    const isInArray = parent?.type === 'array';
     return {
       id: Math.random().toString(),
       value: '',
       type: 'string',
-      child: isInArray ? undefined : '',
+      child: '',
       as: as ?? 'string',
     };
   } else {
@@ -38,8 +35,10 @@ const createNewField = (
   }
 };
 
-export const useFields = (parent?: Field): UseFieldsResult => {
-  const [fields, setFields] = useAtom(matrixFields);
+export const useFields = (initialValue?: Field[]): UseFieldsResult => {
+  const [fields, setFields] = useAtom(
+    useMemo(() => matrixFields(initialValue), [initialValue]),
+  );
   const { hasChanges, onChange, onUndo } = useChangesStack<Field[]>();
 
   /**
@@ -52,10 +51,11 @@ export const useFields = (parent?: Field): UseFieldsResult => {
    * as there can be infinite levels of nesting
    */
   const handleOnAddField: UseFieldsResult['onAddField'] =
-    (type, path, as = 'string') => () => {
+    (type, path, as = 'string') =>
+    () => {
       onChange(fields);
 
-      const field = createNewField(type, parent, as);
+      const field = createNewField(type, as);
       // Hold a reference to the element to update
       let currentField = fields.find((field) => field.id === path[0]);
       // If the path is empty, it means that we are adding a new field to the root

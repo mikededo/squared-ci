@@ -43,7 +43,7 @@ export const FormRenderer: React.FC<Props> = ({
       <Row align="start" className={twMerge('w-full', depth > 0 && 'pl-4')}>
         <Input
           variant="plain"
-          placeholder={placeholder}
+          placeholder={!arrayChild ? 'String key' : placeholder}
           defaultValue={value}
           onBlur={onFieldUpdate(field.id, path)}
           icon={<XIcon className="text-muted-foreground" />}
@@ -70,7 +70,7 @@ export const FormRenderer: React.FC<Props> = ({
   const { child, value } = field;
   const childPath = [...path, field.id];
   const objectPlaceholder = arrayChild
-    ? 'Disabled for objects inside arrays'
+    ? 'Object is just decorative'
     : 'Object key';
 
   return (

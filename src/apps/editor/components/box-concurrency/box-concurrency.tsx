@@ -63,12 +63,14 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
               onClick={toggleCancelInProgress}
             />
             <VCol variant="md">
-              <Label className="text-muted-foreground">Group</Label>
-              <Input
-                placeholder="workflow-name"
-                value={group}
-                onChange={handleOnChangeGroup}
-              />
+              <DraggableWrapper>
+                <Label className="text-muted-foreground">Group</Label>
+                <Input
+                  placeholder="workflow-name"
+                  value={group}
+                  onChange={handleOnChangeGroup}
+                />
+              </DraggableWrapper>
             </VCol>
             <Max />
             <Label className="text-muted-foreground">
@@ -80,8 +82,10 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
                 onClick={handleOnDialogToggle}
               >
                 <Row align="center" justify="between">
-                  <Meta>Add matrix</Meta>
-                  <ChevronRightIcon className="" />
+                  <DraggableWrapper>
+                    <Meta className="text-muted-foreground">Add matrix</Meta>
+                    <ChevronRightIcon className="fill-muted-foreground" />
+                  </DraggableWrapper>
                 </Row>
               </button>
             ) : null}
