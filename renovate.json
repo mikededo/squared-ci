@@ -1,8 +1,8 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base", ":semanticCommits"],
   "assignees": ["mikededo"],
   "labels": ["renovate"],
-  "commitMessage": "chore: update {{{groupName}}}",
   "commitBody": "Updated dependencies ({{{groupSlug}}}):\n\n{{#each packageRules}}{{#each updated}}{{depName}}@{{newVersion}}\n{{/each}}{{/each}}",
   "packageRules": [
     {
