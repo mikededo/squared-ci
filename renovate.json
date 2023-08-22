@@ -1,47 +1,36 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommits"],
-  "assignees": ["mikededo"],
+  "extends": ["config:base"],
+  "rebaseStalePrs": true,
+  "semanticCommits": "enabled",
+  "semanticCommitScope": "deps",
+  "rangeStrategy": "update-lockfile",
+  "prConcurrentLimit": 3,
   "labels": ["renovate"],
-  "commitBody": "Updated dependencies ({{{groupSlug}}}):\n\n{{#each packageRules}}{{#each updated}}{{depName}}@{{newVersion}}\n{{/each}}{{/each}}",
+  "assignees": ["mikededo"],
+  "schedule": ["at any time"],
   "packageRules": [
     {
-      "groupName": "patch dev dependencies",
-      "groupSlug": "patch-dev-dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["patch"],
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["patch"],
+      "groupName": "patch updates for dependencies",
       "automerge": true
     },
     {
-      "groupName": "patch dependencies",
-      "groupSlug": "patch-dependencies",
-      "matchDepTypes": ["dependencies"],
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["patch"],
-      "automerge": false
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["minor", "major"],
+      "groupName": "non-patch updates for dependencies"
     },
     {
-      "groupName": "dev dependencies",
-      "groupSlug": "dev-dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "major"],
-      "automerge": false
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["patch"],
+      "groupName": "patch updates for devDependencies",
+      "automerge": true
     },
     {
-      "groupName": "dependencies",
-      "groupSlug": "dependencies",
-      "matchDepTypes": ["dependencies"],
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "major"],
-      "automerge": false
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["minor", "major"],
+      "groupName": "non-patch updates for devDependencies"
     }
-  ],
-  "ignoreDeps": [],
-  "ignorePaths": [],
-  "schedule": [],
-  "rangeStrategy": "widen",
-  "prHourlyLimit": 0,
-  "prConcurrentLimit": 3
+  ]
 }
