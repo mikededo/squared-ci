@@ -544,10 +544,10 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@primer/octicons-react@19.5.0":
-  version "19.5.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-19.5.0.tgz#d02eb99842d6368b9f2d4011ebbd6f8b6dd620e6"
-  integrity sha512-8GZCcoyGz0CYhW+zi0yMsrn2qSBzZp4dbRomesAhtOzJLxKGZMyFd7VSp7mEYCCujMSCj/8faKgzyj7UrL6/3w==
+"@primer/octicons-react@19.6.0":
+  version "19.6.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-19.6.0.tgz#2730aafdabd12fbf7a54a45d82071d6299c47de7"
+  integrity sha512-9uGfpadKUowM2ZhKbFhydgUzpLHzZMeebyCbesRBDvQARdC3zHu0c5mw9iuQ+YXMBcd9fDTfC3E/gJmuPjmbMw==
 
 "@rushstack/eslint-patch@^1.1.3":
   version "1.3.3"
