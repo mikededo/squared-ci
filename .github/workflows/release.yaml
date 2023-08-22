@@ -1,4 +1,7 @@
 name: Release
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   push:
     branches:
@@ -13,8 +16,16 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Lint project
         run: yarn lint
-      - name: Release
-        if: github.event_name != 'pull_request'
+      - name: Generate release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+      # See https://vercel.com/guides/how-can-i-use-github-actions-with-vercel
+      - name: Install Vercel CLI
+        run: npm add --global vercel@latest
+      - name: Pull Vercel environment information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build project artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy project artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
