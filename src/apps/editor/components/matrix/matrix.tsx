@@ -72,19 +72,18 @@ export const Matrix: React.FC<Props> = ({
     <Dialog show={show} blur>
       <VCol className="h-full w-full" variant="lg">
         <DialogHeader title={title} onClose={onClose} />
-        <VCol className="px-5 flex-1 w-full overflow-y-auto" variant="lg">
+        <VCol className="px-5 flex-1 w-full overflow-y-auto" variant="md">
           <Banner main="Tip!" className="w-full">
             {' '}
             Made a mistake? No worries, you can always undo your changes.
           </Banner>
           <Meta>Matrix properties</Meta>
           {fields.length ? (
-            <VCol className="w-full" variant="md">
+            <VCol className="w-full" variant="none">
               {fields.map((field) => (
                 <FormRenderer
                   key={field.id}
                   field={field}
-                  path={[]}
                   onAddField={onAddField}
                   onFieldUpdate={onFieldUpdate}
                   onRemoveField={onRemoveField}

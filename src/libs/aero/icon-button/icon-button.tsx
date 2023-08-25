@@ -4,23 +4,43 @@ import { twMerge } from 'tailwind-merge';
 
 import { Tooltip } from '@/aero';
 
+type Variant = 'default' | 'plain';
 type CustomProps = {
   selected?: boolean;
   tooltip?: string;
+  variant?: Variant;
 };
 type Props = PropsWithChildren<
   CustomProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 >;
 
+const sharedClasses =
+  'disabled:pointer-events-none disabled:cursor-not-allowed';
+
+const Variant: Record<Variant, string> = {
+  default: twMerge(
+    sharedClasses,
+    'rounded-md px-4 py-3 flex items-center justify-center max-w-fit transition-all hover:bg-secondary/90 border fill-foreground disabled:bg-muted disabled:fill-foreground/20',
+  ),
+  plain: twMerge(
+    sharedClasses,
+    'flex items-center justify-center outline-none rounded-full hover:bg-muted transition-colors',
+  ),
+};
+const SelectedVariant: Record<Variant, string> = {
+  default: 'border-extra bg-extra/30 hover:bg-extra/50',
+  plain: '',
+};
+
 const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
-  ({ children, selected, className, ...props }, ref) => (
+  ({ children, selected, className, variant = 'default', ...props }, ref) => (
     <button
       {...props}
       ref={ref}
       className={twMerge(
-        'rounded-md px-4 py-3 flex items-center justify-center max-w-fit transition-all hover:bg-secondary/90 border disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted fill-foreground disabled:fill-foreground/20',
-        selected && 'border-extra bg-extra/30 hover:bg-extra/50',
-        className
+        Variant[variant],
+        selected && SelectedVariant[variant],
+        className,
       )}
     >
       {React.Children.map(children, (child) =>
@@ -30,13 +50,14 @@ const IconButtonBase = React.forwardRef<HTMLButtonElement, Props>(
               className: twMerge(
                 'transition-colors',
                 selected && 'fill-extra',
-                child.props?.className
+                variant === 'plain' && props.disabled && 'fill-muted',
+                child.props?.className,
               ),
             })
-          : null
+          : null,
       )}
     </button>
-  )
+  ),
 );
 
 export const IconButton: React.FC<Props> = ({ tooltip, ...props }) => {

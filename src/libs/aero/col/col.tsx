@@ -4,10 +4,11 @@ import { twMerge } from 'tailwind-merge';
 
 import type { DataDraggable } from '@/aero';
 
-type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
 type Justify = 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
 
 const HColVariants: Record<Variant, string> = {
+  none: 'gap-x-0',
   xs: 'gap-x-0.5',
   sm: 'gap-x-1',
   md: 'gap-x-2',
@@ -15,6 +16,7 @@ const HColVariants: Record<Variant, string> = {
   xl: 'gap-x-4',
 };
 const VColVariants: Record<Variant, string> = {
+  none: 'gap-x-0',
   xs: 'gap-y-0.5',
   sm: 'gap-y-1',
   md: 'gap-y-2',
@@ -56,7 +58,7 @@ export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
       className,
       ...props
     },
-    ref
+    ref,
   ) => (
     <div
       ref={ref}
@@ -65,13 +67,13 @@ export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
         VColVariants[variant],
         ColJustify[justify],
         ColAlign[align],
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </div>
-  )
+  ),
 );
 
 export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
@@ -84,7 +86,7 @@ export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
       className,
       ...props
     },
-    ref
+    ref,
   ) => (
     <div
       ref={ref}
@@ -93,11 +95,11 @@ export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
         HColVariants[variant],
         ColJustify[justify],
         ColAlign[align],
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </div>
-  )
+  ),
 );

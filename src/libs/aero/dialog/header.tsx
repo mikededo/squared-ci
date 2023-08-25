@@ -1,6 +1,7 @@
 import { XIcon } from '@primer/octicons-react';
 import React from 'react';
 
+import { IconButton } from '../icon-button';
 import { Row } from '../row';
 
 type Props = {
@@ -12,12 +13,9 @@ export const DialogHeader: React.FC<Props> = ({ title, onClose }) => (
   <Row align="center" justify="between" className="p-5 pb-0 w-full">
     <h2 className="text-2xl font-semibold">{title}</h2>
     {onClose ? (
-      <button
-        className="outline-none rounded-full hover:bg-muted transition-colors h-8 w-8"
-        onClick={onClose}
-      >
+      <IconButton variant="plain" className="h-8 w-8" onClick={onClose}>
         <XIcon size={24} />
-      </button>
+      </IconButton>
     ) : null}
   </Row>
 );

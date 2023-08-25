@@ -1,8 +1,9 @@
-import { XIcon } from '@primer/octicons-react';
-import React from 'react';
+import { ChevronDownIcon, XIcon } from '@primer/octicons-react';
+import { atom, useAtom } from 'jotai';
+import React, { useMemo, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { Input, Row, VCol } from '@/aero';
+import { IconButton, Input, Row, VCol } from '@/aero';
 import type { Field } from '@/editor/domain/matrix';
 
 import { AddButtons } from './add-buttons';
@@ -10,7 +11,7 @@ import type { UseFieldsResult } from './use-fields';
 
 type Props = {
   field: Field;
-  path: string[];
+  path?: string[];
   arrayChild?: boolean;
   onAddField: UseFieldsResult['onAddField'];
   onFieldUpdate: UseFieldsResult['onFieldUpdate'];
@@ -26,11 +27,14 @@ const StringPlaceholder: Record<Exclude<Field['as'], undefined>, string> = {
 export const FormRenderer: React.FC<Props> = ({
   arrayChild,
   field,
-  path,
+  path = [],
   onAddField,
   onFieldUpdate,
   onRemoveField,
 }) => {
+  const [collapsed, setCollapsed] = useAtom(useMemo(() => atom(false), []));
+  const childRef = useRef<HTMLDivElement>(null);
+
   const depth = path.length;
 
   const { type } = field;
@@ -40,7 +44,14 @@ export const FormRenderer: React.FC<Props> = ({
     const placeholder = StringPlaceholder[as ?? 'string'];
 
     return (
-      <Row align="start" className={twMerge('w-full', depth > 0 && 'pl-4')}>
+      <Row
+        align="start"
+        className={twMerge(
+          'w-full',
+          depth === 0 && 'mb-2',
+          depth > 0 && 'pl-4',
+        )}
+      >
         <Input
           variant="plain"
           placeholder={!arrayChild ? 'String key' : placeholder}
@@ -67,6 +78,10 @@ export const FormRenderer: React.FC<Props> = ({
     );
   }
 
+  const onToggleCollapse = () => {
+    setCollapsed((prev) => !prev);
+  };
+
   const { child, value } = field;
   const childPath = [...path, field.id];
   const objectPlaceholder = arrayChild
@@ -74,32 +89,62 @@ export const FormRenderer: React.FC<Props> = ({
     : 'Object key';
 
   return (
-    <VCol variant="md" className={twMerge('w-full', depth > 0 && 'pl-4')}>
-      <Input
-        variant="plain"
-        defaultValue={value}
-        placeholder={type === 'array' ? 'Array key' : objectPlaceholder}
-        onBlur={onFieldUpdate(field.id, path)}
-        icon={<XIcon className="text-muted-foreground" />}
-        onIconClick={onRemoveField(field.id, path)}
-        disabled={arrayChild && type === 'object'}
-      />
-      {child.length > 0 ? (
-        <VCol variant="md" className="w-full border-l border-dashed">
-          {child.map((field) => (
-            <FormRenderer
-              key={field.id}
-              field={field}
-              path={childPath}
-              arrayChild={type === 'array'}
-              onAddField={onAddField}
-              onFieldUpdate={onFieldUpdate}
-              onRemoveField={onRemoveField}
-            />
-          ))}
-        </VCol>
-      ) : null}
-      <AddButtons onAddField={onAddField} path={childPath} nested />
+    <VCol variant="none" className={twMerge('w-full', depth > 0 && 'pl-2')}>
+      <Row align="center" className="w-full mb-2">
+        <IconButton
+          variant="plain"
+          className="h-6 w-6"
+          disabled={child.length === 0}
+          onClick={onToggleCollapse}
+        >
+          <ChevronDownIcon
+            className={twMerge(
+              'transition-all',
+              !collapsed && 'mt-0.5',
+              collapsed && '-rotate-90 ml-0.5',
+            )}
+          />
+        </IconButton>
+        <Input
+          variant="plain"
+          defaultValue={value}
+          placeholder={type === 'array' ? 'Array key' : objectPlaceholder}
+          onBlur={onFieldUpdate(field.id, path)}
+          icon={<XIcon className="text-muted-foreground" />}
+          onIconClick={onRemoveField(field.id, path)}
+          disabled={arrayChild && type === 'object'}
+        />
+      </Row>
+      <VCol
+        variant="md"
+        className={twMerge(
+          'w-full transition-all overflow-hidden max-h-[999px] ease-in-out duration-250',
+          collapsed && 'max-h-0',
+        )}
+      >
+        {child.length > 0 ? (
+          <div className="w-full pl-7">
+            <VCol
+              ref={childRef}
+              variant="md"
+              className="w-full border-l border-dashed"
+            >
+              {child.map((field) => (
+                <FormRenderer
+                  key={field.id}
+                  field={field}
+                  path={childPath}
+                  arrayChild={type === 'array'}
+                  onAddField={onAddField}
+                  onFieldUpdate={onFieldUpdate}
+                  onRemoveField={onRemoveField}
+                />
+              ))}
+            </VCol>
+          </div>
+        ) : null}
+        <AddButtons onAddField={onAddField} path={childPath} nested />
+      </VCol>
     </VCol>
   );
 };
