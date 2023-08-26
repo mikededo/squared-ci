@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { DraggableTitle, DraggableWrapper } from '@/aero';
+import { ActionsDocs } from '@/editor/config';
 import type { Trigger } from '@/editor/domain/trigger';
 import { VisibleTriggers } from '@/editor/domain/trigger';
 import type { ExpandableToggler, WithExpandableRef } from '@/editor/hooks';
@@ -20,7 +21,11 @@ export const VisibleGroup: React.FC<
   return (
     <DraggableWrapper>
       <div ref={expandableRef}>
-        <DraggableTitle title="Workflow trigger" onExpand={onExpand} />
+        <DraggableTitle
+          title="Workflow trigger"
+          docsHref={ActionsDocs.workflowTriggers}
+          onExpand={onExpand}
+        />
         <DraggableWrapper>
           <div className="px-3 pb-3 flex flex-col gap-1.5">
             <DraggableWrapper>

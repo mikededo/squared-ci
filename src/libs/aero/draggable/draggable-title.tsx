@@ -1,35 +1,41 @@
+import { KebabHorizontalIcon, QuestionIcon } from '@primer/octicons-react';
 import React from 'react';
+
+import { DraggableWrapper, IconButton, Row } from '@/aero';
 
 type Props = {
   title: string;
-  onExpand?: React.MouseEventHandler<SVGSVGElement>;
+  docsHref?: string;
+  onExpand?: React.MouseEventHandler<HTMLButtonElement>;
 };
-import { DraggableWrapper } from '@/aero';
 
 export const DraggableTitle = React.forwardRef<HTMLDivElement, Props>(
-  ({ title, onExpand }, ref) => (
+  ({ title, docsHref, onExpand }, ref) => (
     <DraggableWrapper>
       <div ref={ref} className="flex justify-between w-100 px-3 py-1.5">
         <DraggableWrapper>
           <p className="font-semibold">{title}</p>
-          {onExpand ? (
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="rounded-full transition-colors hover:bg-muted stroke-muted-foreground hover:cursor-pointer h-6"
-              onClickCapture={onExpand}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-              />
-            </svg>
-          ) : null}
+          <Row variant="md" align="center">
+            {docsHref ? (
+              <a
+                href={docsHref}
+                target="_blank"
+                rel="noopener"
+                className="flex"
+              >
+                <QuestionIcon />
+              </a>
+            ) : null}
+            {onExpand ? (
+              <IconButton
+                variant="plain"
+                className="h-6 w-6"
+                onClick={onExpand}
+              >
+                <KebabHorizontalIcon />
+              </IconButton>
+            ) : null}
+          </Row>
         </DraggableWrapper>
       </div>
     </DraggableWrapper>

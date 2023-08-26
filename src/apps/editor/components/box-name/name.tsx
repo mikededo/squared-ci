@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { DraggableTitle, DraggableWrapper, Input } from '@/aero';
+import { ActionsDocs } from '@/editor/config';
 import type { ExpandableToggler, WithExpandableRef } from '@/editor/hooks';
 import { useWorkflowBasicsStore } from '@/editor/stores';
 
@@ -18,7 +19,11 @@ export const Name: React.FC<
   return (
     <DraggableWrapper>
       <div ref={expandableRef}>
-        <DraggableTitle title="Workflow basics" onExpand={onExpand} />
+        <DraggableTitle
+          title="Workflow basics"
+          docsHref={ActionsDocs.workflowBasics}
+          onExpand={onExpand}
+        />
         <DraggableWrapper>
           <div className="px-3 pb-3 pt-1.5">
             <Input

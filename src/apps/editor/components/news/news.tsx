@@ -8,6 +8,11 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Box documentation',
+    description: 'Added references to the GitHub documentation for the different elements of the builder.',
+    date: new Date('2023-08-26')
+  },
+  {
     title: 'Matrix improvements',
     description:
       'Fixed some of the issues with the matrix and added the possibility to collapse the matrix!',
@@ -71,47 +76,6 @@ const NewsList: NewItem[] = [
     description:
       'Alongside the branches customization, it is possible to configure paths and tags as triggers for specific events.',
     date: new Date('2023-07-31'),
-  },
-  {
-    title: 'Added branches customization',
-    description:
-      'Added the possibility of adding branches to the triggers that can be triggered by filtering the events that happen in specific branches. This events are pull_request, pull_request_target and push',
-    date: new Date('2023-07-29'),
-  },
-  {
-    title: 'Added FS counter & local storage persistence',
-    description:
-      'A new feature switch counter and local storage persistence have been added.',
-    date: new Date('2023-07-26'),
-  },
-  {
-    title: 'Added dark theme toggler',
-    description:
-      'A new dark theme toggler feature has been added to the application.',
-    date: new Date('2023-07-26'),
-  },
-  {
-    title: 'Fixed issues with the feature switch hook',
-    description: 'Issues with the feature switch hook have been fixed.',
-    date: new Date('2023-07-25'),
-  },
-  {
-    title: 'Added dark theme',
-    description:
-      'A new dark theme feature has been implemented in the application.',
-    date: new Date('2023-07-25'),
-  },
-  {
-    title: 'Added a feature switch controller',
-    description:
-      'A feature switch controller has been added to the application.',
-    date: new Date('2023-07-22'),
-  },
-  {
-    title: 'Added global drag (non-functional implementation)',
-    description:
-      'An initial implementation of global drag has been added to the application.',
-    date: new Date('2023-07-19'),
   },
 ];
 

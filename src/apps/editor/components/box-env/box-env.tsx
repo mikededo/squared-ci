@@ -10,7 +10,7 @@ import {
   Meta,
   VCol,
 } from '@/aero';
-import { Positions } from '@/editor/config';
+import { ActionsDocs, Positions } from '@/editor/config';
 import { useAdvancedInput } from '@/editor/hooks';
 import { useOptionalSection, useWorkflowEnv } from '@/editor/stores';
 
@@ -75,7 +75,10 @@ export const BoxEnv: React.FC = () => {
         initialY={Positions.BoxEnvY}
       >
         <DraggableWrapper>
-          <DraggableTitle title="Env variables" />
+          <DraggableTitle
+            title="Env variables"
+            docsHref={ActionsDocs.workflowEnv}
+          />
           <div className="px-3 pb-3">
             <BoxEnvContent />
           </div>

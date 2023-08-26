@@ -14,7 +14,7 @@ import {
   VCol,
 } from '@/aero';
 import { Matrix } from '@/editor/components';
-import { Positions } from '@/editor/config';
+import { ActionsDocs, Positions } from '@/editor/config';
 import type { Field } from '@/editor/domain/matrix';
 import {
   useFeatureSwitch,
@@ -118,7 +118,11 @@ export const BoxConcurrency: React.FC = () => {
         visible={({ ref, onExpand }) => (
           <DraggableWrapper>
             <div ref={ref}>
-              <DraggableTitle title="Concurrency" onExpand={onExpand} />
+              <DraggableTitle
+                title="Concurrency"
+                docsHref={ActionsDocs.workflowConcurrency}
+                onExpand={onExpand}
+              />
             </div>
           </DraggableWrapper>
         )}

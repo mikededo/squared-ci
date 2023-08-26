@@ -7,7 +7,7 @@ import {
   Toggle,
   VCol,
 } from '@/aero';
-import { Positions } from '@/editor/config';
+import { ActionsDocs, Positions } from '@/editor/config';
 import type { Permissions } from '@/editor/domain/permissions';
 import { useOptionalSection, useWorkflowPermissions } from '@/editor/stores';
 
@@ -73,7 +73,11 @@ export const BoxPermissions: React.FC = () => {
         visible={({ ref, onExpand }) => (
           <DraggableWrapper>
             <div ref={ref}>
-              <DraggableTitle title="Permissions" onExpand={onExpand} />
+              <DraggableTitle
+                title="Permissions"
+                docsHref={ActionsDocs.workflowPermissions}
+                onExpand={onExpand}
+              />
             </div>
           </DraggableWrapper>
         )}
