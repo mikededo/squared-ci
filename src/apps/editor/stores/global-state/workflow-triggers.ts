@@ -172,7 +172,7 @@ export const workflowTriggersStore: StateCreator<
       ),
     });
   },
-  getComplexTriggerBranches: (trigger, ignore = false) => {
+  getComplexTriggerBranches: (trigger, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
     return (
@@ -201,7 +201,7 @@ export const workflowTriggersStore: StateCreator<
     const customization = complexCustomization.get(trigger);
     return customization?.get('paths') ?? new Set();
   },
-  toggleComplexTriggerTag: (trigger, tags) => {
+  toggleComplexTriggerTag: (trigger, tags, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
     if (!customization) {
@@ -213,15 +213,15 @@ export const workflowTriggersStore: StateCreator<
         complexCustomization,
         customization,
         trigger,
-        'tags',
+        ignore ? 'tags-ignore' : 'tags',
         tags,
       ),
     });
   },
-  getComplexTriggerTags: (trigger) => {
+  getComplexTriggerTags: (trigger, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
-    return customization?.get('tags') ?? new Set();
+    return customization?.get(ignore ? 'tags-ignore' : 'tags') ?? new Set();
   },
   toggleCronTrigger: (trigger) => {
     const { triggers, cronCustomization } = get();

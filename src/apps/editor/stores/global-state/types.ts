@@ -81,7 +81,11 @@ type WorkflowTriggersActions = {
     Set<string>
   >;
   getComplexTriggerPaths: Single<ComplexPathsCustomizationKeys, Set<string>>;
-  getComplexTriggerTags: Single<ComplexTagsCustomizationKeys, Set<string>>;
+  getComplexTriggerTags: Double<
+    ComplexTagsCustomizationKeys,
+    boolean,
+    Set<string>
+  >;
   toggleTypeTrigger: Single<
     TypesCustomizationKeys | CustomTypesCustomizationKeys
   >;
@@ -98,7 +102,11 @@ type WorkflowTriggersActions = {
     boolean
   >;
   toggleComplexTriggerPath: Double<ComplexPathsCustomizationKeys, string>;
-  toggleComplexTriggerTag: Double<ComplexTagsCustomizationKeys, string>;
+  toggleComplexTriggerTag: Triple<
+    ComplexTagsCustomizationKeys,
+    string,
+    boolean
+  >;
   toggleCronTrigger: Single<CronCustomizationKeys>;
 };
 export type WorkflowTriggersStore = WorkflowTriggersState &

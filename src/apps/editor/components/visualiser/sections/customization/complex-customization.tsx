@@ -32,6 +32,7 @@ export const ComplexTypeCustomizationTrigger: React.FC<
     customizations.get('branches-ignore') ?? new Set<string>();
   const paths = customizations.get('paths') ?? new Set<string>();
   const tags = customizations.get('tags') ?? new Set<string>();
+  const ignoredTags = customizations.get('tags-ignore') ?? new Set<string>();
 
   const hasAnyCustomization =
     types.size > 0 || branches.size > 0 || paths.size > 0 || tags.size > 0;
@@ -47,6 +48,7 @@ export const ComplexTypeCustomizationTrigger: React.FC<
       <CustomizationList items={ignoredBranches} group="branches-ignore" />
       <CustomizationList items={paths} group="paths" />
       <CustomizationList items={tags} group="tags" />
+      <CustomizationList items={ignoredTags} group="tags-ignore" />
     </>
   );
 };
