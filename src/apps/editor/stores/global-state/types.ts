@@ -80,7 +80,11 @@ type WorkflowTriggersActions = {
     boolean,
     Set<string>
   >;
-  getComplexTriggerPaths: Single<ComplexPathsCustomizationKeys, Set<string>>;
+  getComplexTriggerPaths: Double<
+    ComplexPathsCustomizationKeys,
+    boolean,
+    Set<string>
+  >;
   getComplexTriggerTags: Double<
     ComplexTagsCustomizationKeys,
     boolean,
@@ -101,7 +105,11 @@ type WorkflowTriggersActions = {
     string,
     boolean
   >;
-  toggleComplexTriggerPath: Double<ComplexPathsCustomizationKeys, string>;
+  toggleComplexTriggerPath: Triple<
+    ComplexPathsCustomizationKeys,
+    string,
+    boolean
+  >;
   toggleComplexTriggerTag: Triple<
     ComplexTagsCustomizationKeys,
     string,

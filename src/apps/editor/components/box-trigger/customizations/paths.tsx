@@ -20,18 +20,26 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
   const { toggleComplexTriggerPath, getComplexTriggerPaths } =
     useWorkflowTriggersStore();
 
-  const paths = getComplexTriggerPaths(trigger);
+  const paths = getComplexTriggerPaths(trigger, false);
+  const ignoredPaths = getComplexTriggerPaths(trigger, true);
 
-  const methods = useAdvancedInput('', {
+  const pathsMethods = useAdvancedInput('', {
     tabCount: [0, paths.size],
     onEnterPress: (value, { onResetInput }) => {
-      toggleComplexTriggerPath(trigger, value);
+      toggleComplexTriggerPath(trigger, value, false);
+      onResetInput();
+    },
+  });
+  const ignoredMethods = useAdvancedInput('', {
+    tabCount: [0, ignoredPaths.size],
+    onEnterPress: (value, { onResetInput }) => {
+      toggleComplexTriggerPath(trigger, value, true);
       onResetInput();
     },
   });
 
-  const handleOnRemovePath = (path: string) => () => {
-    toggleComplexTriggerPath(trigger, path);
+  const handleOnRemovePath = (path: string, ignore: boolean) => () => {
+    toggleComplexTriggerPath(trigger, path, ignore);
   };
 
   return (
@@ -44,13 +52,27 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
               <Chip
                 key={path}
                 text={path}
-                onClick={handleOnRemovePath(path)}
+                onClick={handleOnRemovePath(path, false)}
                 active
               />
             ))}
           </ChipWrapper>
         ) : null}
-        <Input placeholder="Type path name" {...methods} />
+        <Input placeholder="Type path name" {...pathsMethods} />
+        <Label className="w-[280px]">Ignored paths</Label>
+        {ignoredPaths.size > 0 ? (
+          <ChipWrapper variant="left">
+            {[...ignoredPaths].map((path) => (
+              <Chip
+                key={path}
+                text={path}
+                onClick={handleOnRemovePath(path, true)}
+                active
+              />
+            ))}
+          </ChipWrapper>
+        ) : null}
+        <Input placeholder="Type path to ignore" {...ignoredMethods} />
       </DraggableWrapper>
     </VCol>
   );

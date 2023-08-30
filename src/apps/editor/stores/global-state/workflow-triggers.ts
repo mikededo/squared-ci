@@ -179,7 +179,7 @@ export const workflowTriggersStore: StateCreator<
       customization?.get(ignore ? 'branches-ignore' : 'branches') ?? new Set()
     );
   },
-  toggleComplexTriggerPath: (trigger, path) => {
+  toggleComplexTriggerPath: (trigger, path, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
     if (!customization) {
@@ -191,15 +191,15 @@ export const workflowTriggersStore: StateCreator<
         complexCustomization,
         customization,
         trigger,
-        'paths',
+        ignore ? 'paths-ignore' : 'paths',
         path,
       ),
     });
   },
-  getComplexTriggerPaths: (trigger) => {
+  getComplexTriggerPaths: (trigger, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
-    return customization?.get('paths') ?? new Set();
+    return customization?.get(ignore ? 'paths-ignore' : 'paths') ?? new Set();
   },
   toggleComplexTriggerTag: (trigger, tags, ignore) => {
     const { complexCustomization } = get();
