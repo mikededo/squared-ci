@@ -59,8 +59,11 @@ const complexTypeMap = () =>
   new Map([
     ['types', new Set<string>()],
     ['tags', new Set<string>()],
+    ['tags-ignore', new Set<string>()],
     ['paths', new Set<string>()],
+    ['paths-ignore', new Set<string>()],
     ['branches', new Set<string>()],
+    ['branches-ignore', new Set<string>()],
   ] as const);
 
 export const workflowTriggersStore: StateCreator<
@@ -152,7 +155,7 @@ export const workflowTriggersStore: StateCreator<
       });
     }
   },
-  toggleComplexTriggerBranch: (trigger, branch) => {
+  toggleComplexTriggerBranch: (trigger, branch, ignore) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
     if (!customization) {
@@ -164,15 +167,17 @@ export const workflowTriggersStore: StateCreator<
         complexCustomization,
         customization,
         trigger,
-        'branches',
+        ignore ? 'branches-ignore' : 'branches',
         branch,
       ),
     });
   },
-  getComplexTriggerBranches: (trigger) => {
+  getComplexTriggerBranches: (trigger, ignore = false) => {
     const { complexCustomization } = get();
     const customization = complexCustomization.get(trigger);
-    return customization?.get('branches') ?? new Set();
+    return (
+      customization?.get(ignore ? 'branches-ignore' : 'branches') ?? new Set()
+    );
   },
   toggleComplexTriggerPath: (trigger, path) => {
     const { complexCustomization } = get();

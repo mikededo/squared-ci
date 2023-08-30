@@ -22,7 +22,8 @@ import type { OptionalSectionsStore } from './optional-sections';
 
 export type Empty<R = void> = () => R;
 export type Single<T, R = void> = (arg0: T) => R;
-export type Double<T, J, R = void> = (arg0: T, arg1: J) => R;
+export type Double<F, S, R = void> = (arg0: F, arg1: S) => R;
+export type Triple<F, S, T, R = void> = (arg0: F, arg1: S, arg2: T) => R;
 
 type GlobalDragState = Position & OriginPosition & { isDragging: boolean };
 type GlobalDragActions = {
@@ -47,8 +48,11 @@ export type WorkflowBasicsStore = WorkflowBasicsState & WorkflowBasicsActions;
 export type ComplexTypeCustomizationProps =
   | 'types'
   | 'branches'
+  | 'branches-ignore'
   | 'tags'
-  | 'paths';
+  | 'tags-ignore'
+  | 'paths'
+  | 'paths-ignore';
 
 export type WorkflowTriggersState = {
   noneCustomization: Set<NoneCustomizationKeys>;
@@ -71,8 +75,9 @@ type WorkflowTriggersActions = {
     | ComplexTypesCustomizationKeys,
     Set<string>
   >;
-  getComplexTriggerBranches: Single<
+  getComplexTriggerBranches: Double<
     ComplexBranchesCustomizationKeys,
+    boolean,
     Set<string>
   >;
   getComplexTriggerPaths: Single<ComplexPathsCustomizationKeys, Set<string>>;
@@ -87,7 +92,11 @@ type WorkflowTriggersActions = {
     string
   >;
   toggleComplexTrigger: Single<ComplexTypesCustomizationKeys>;
-  toggleComplexTriggerBranch: Double<ComplexBranchesCustomizationKeys, string>;
+  toggleComplexTriggerBranch: Triple<
+    ComplexBranchesCustomizationKeys,
+    string,
+    boolean
+  >;
   toggleComplexTriggerPath: Double<ComplexPathsCustomizationKeys, string>;
   toggleComplexTriggerTag: Double<ComplexTagsCustomizationKeys, string>;
   toggleCronTrigger: Single<CronCustomizationKeys>;

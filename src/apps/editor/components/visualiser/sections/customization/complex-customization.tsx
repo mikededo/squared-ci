@@ -28,6 +28,8 @@ export const ComplexTypeCustomizationTrigger: React.FC<
 > = ({ text, customizations }) => {
   const types = customizations.get('types') ?? new Set<string>();
   const branches = customizations.get('branches') ?? new Set<string>();
+  const ignoredBranches =
+    customizations.get('branches-ignore') ?? new Set<string>();
   const paths = customizations.get('paths') ?? new Set<string>();
   const tags = customizations.get('tags') ?? new Set<string>();
 
@@ -42,6 +44,7 @@ export const ComplexTypeCustomizationTrigger: React.FC<
       </Tabbed>
       <CustomizationList items={types} group="types" />
       <CustomizationList items={branches} group="branches" />
+      <CustomizationList items={ignoredBranches} group="branches-ignore" />
       <CustomizationList items={paths} group="paths" />
       <CustomizationList items={tags} group="tags" />
     </>
