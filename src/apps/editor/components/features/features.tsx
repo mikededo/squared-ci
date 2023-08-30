@@ -17,12 +17,6 @@ const FeatureList: Parameters<typeof Feature>[0][] = [
     description: 'Enables the dark theme mode, by enabling the toggler.',
   },
   {
-    feature: 'fsMatrix',
-    title: 'Matrix editor',
-    description:
-      'Enables the configuration of a matrix. Currently it is only available through the concurrency box, which can be enabled in the optional sections.',
-  },
-  {
     feature: 'fsCopyAction',
     title: 'Copy action',
     description:

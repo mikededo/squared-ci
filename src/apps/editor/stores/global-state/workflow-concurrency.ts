@@ -9,6 +9,7 @@ export const workflowConcurrencyStore: StateCreator<
   WorkflowConcurrencyStore
 > = (set, get) => ({
   concurrency: {
+    name: '',
     cancelInProgress: false,
     group: '',
     max: 0,
@@ -22,6 +23,10 @@ export const workflowConcurrencyStore: StateCreator<
         cancelInProgress: !concurrency.cancelInProgress,
       },
     });
+  },
+  onChangeName: (name) => {
+    const { concurrency } = get();
+    set({ concurrency: { ...concurrency, name } });
   },
   onChangeGroup: (group) => {
     const { concurrency } = get();

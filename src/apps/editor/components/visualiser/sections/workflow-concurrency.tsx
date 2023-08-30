@@ -7,16 +7,20 @@ import { Matrix } from './matrix';
 
 export const WorkflowConcurrency: React.FC = () => {
   const {
-    concurrency: { cancelInProgress, group, max, matrix },
+    concurrency: { name, cancelInProgress, group, max, matrix },
   } = useWorkflowConcurrency();
 
   const anyConcurrency =
     cancelInProgress || group !== '' || max > 0 || matrix.length > 0;
-  if (!anyConcurrency) {
+  if (!anyConcurrency && name === '') {
     return null;
   }
 
-  return (
+  return name !== '' ? (
+    <Line>
+      <Keyword>concurrency</Keyword>: {name}
+    </Line>
+  ) : (
     <>
       <Line>
         <Keyword>concurrency</Keyword>:

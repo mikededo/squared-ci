@@ -19,7 +19,6 @@ export type FeatureSwitchesStore = FeatureSwitchesState &
 const FSKeys = new Set<FeatureSwitches>([
   'fsGlobalDrag',
   'fsDarkTheme',
-  'fsMatrix',
   'fsCopyAction',
 ]);
 const saveFSStateToLocalStorage = (
@@ -50,7 +49,6 @@ export const featureSwitchesStore: StateCreator<
     fsGlobalDrag: LSFeatureSwitches?.fsGlobalDrag ?? false,
     fsDarkTheme: LSFeatureSwitches?.fsDarkTheme ?? false,
     fsCopyAction: LSFeatureSwitches?.fsCopyAction ?? false,
-    fsMatrix: LSFeatureSwitches?.fsMatrix ?? false,
     activeFSCount: Object.values(LSFeatureSwitches ?? {}).reduce(
       (count, active) => count + +active,
       0,

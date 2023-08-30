@@ -19,7 +19,7 @@ export const Max: React.FC = () => {
   });
 
   return (
-    <VCol variant="md">
+    <VCol>
       <DraggableWrapper>
         <Label className="text-muted-foreground">Max</Label>
         <Input

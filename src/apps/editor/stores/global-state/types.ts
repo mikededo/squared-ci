@@ -124,6 +124,7 @@ export type WorkflowEnvStore = WorkflowEnvState & WorkflowEnvActions;
 
 export type WorkflowConcurrencyState = {
   concurrency: {
+    name: string;
     cancelInProgress: boolean;
     group: string;
     max: number;
@@ -132,6 +133,7 @@ export type WorkflowConcurrencyState = {
 };
 export type WorkflowConcurrencyActions = {
   toggleCancelInProgress: Empty;
+  onChangeName: Single<string>;
   onChangeGroup: Single<string>;
   onChangeMax: Single<number>;
   onChangeMatrix: Single<Field[]>;
