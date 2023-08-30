@@ -15,7 +15,7 @@ export const workflowConcurrencyStore: StateCreator<
     max: 0,
     matrix: [],
   },
-  toggleCancelInProgress: () => {
+  toggleConcurrencyCancelInProgress: () => {
     const { concurrency } = get();
     set({
       concurrency: {
@@ -24,19 +24,19 @@ export const workflowConcurrencyStore: StateCreator<
       },
     });
   },
-  onChangeName: (name) => {
+  onChangeConcurrencyName: (name) => {
     const { concurrency } = get();
     set({ concurrency: { ...concurrency, name } });
   },
-  onChangeGroup: (group) => {
+  onChangeConcurrencyGroup: (group) => {
     const { concurrency } = get();
     set({ concurrency: { ...concurrency, group } });
   },
-  onChangeMax: (max) => {
+  onChangeConcurrencyMax: (max) => {
     const { concurrency } = get();
     set({ concurrency: { ...concurrency, max } });
   },
-  onChangeMatrix: (matrix) => {
+  onChangeConcurrencyMatrix: (matrix) => {
     const { concurrency } = get();
     set({ concurrency: { ...concurrency, matrix } });
   },

@@ -153,11 +153,11 @@ export const useWorkflowConcurrency = () =>
   globalStore(
     ({
       concurrency,
-      toggleCancelInProgress,
-      onChangeMax,
+      toggleConcurrencyCancelInProgress: toggleCancelInProgress,
+      onChangeConcurrencyMax: onChangeMax,
       onChangeBasicsName: onChangeName,
-      onChangeGroup,
-      onChangeMatrix,
+      onChangeConcurrencyGroup: onChangeGroup,
+      onChangeConcurrencyMatrix: onChangeMatrix,
     }) => ({
       concurrency,
       toggleCancelInProgress,

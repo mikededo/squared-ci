@@ -134,11 +134,11 @@ export type WorkflowConcurrencyState = {
   };
 };
 export type WorkflowConcurrencyActions = {
-  toggleCancelInProgress: Empty;
-  onChangeName: Single<string>; // TODO: Refactor name
-  onChangeGroup: Single<string>;
-  onChangeMax: Single<number>;
-  onChangeMatrix: Single<Field[]>;
+  toggleConcurrencyCancelInProgress: Empty;
+  onChangeConcurrencyName: Single<string>;
+  onChangeConcurrencyGroup: Single<string>;
+  onChangeConcurrencyMax: Single<number>;
+  onChangeConcurrencyMatrix: Single<Field[]>;
 };
 export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
   WorkflowConcurrencyActions;
