@@ -10,7 +10,10 @@ export const RunName: React.FC<WithExpandableRef<HTMLDivElement> & Props> = ({
   expandableRef,
   isDragging,
 }) => {
-  const { runName, onChangeRunName } = useWorkflowBasicsStore();
+  const {
+    basics: { runName },
+    onChangeRunName,
+  } = useWorkflowBasicsStore();
 
   const handleOnChangeRunName = (e: React.FormEvent<HTMLInputElement>) => {
     onChangeRunName(e.currentTarget.value);

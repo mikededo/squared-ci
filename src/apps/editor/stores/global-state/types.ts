@@ -33,12 +33,14 @@ type GlobalDragActions = {
 export type GlobalDragStore = GlobalDragState & GlobalDragActions;
 
 type WorkflowBasicsState = {
-  name?: string;
-  runName?: string;
+  basics: {
+    name: string;
+    runName: string;
+  };
 };
 type WorkflowBasicsActions = {
-  onChangeName: Single<string>;
-  onChangeRunName: Single<string>;
+  onChangeBasicsName: Single<string>;
+  onChangeBasicsRunName: Single<string>;
 };
 export type WorkflowBasicsStore = WorkflowBasicsState & WorkflowBasicsActions;
 
@@ -133,7 +135,7 @@ export type WorkflowConcurrencyState = {
 };
 export type WorkflowConcurrencyActions = {
   toggleCancelInProgress: Empty;
-  onChangeName: Single<string>;
+  onChangeName: Single<string>; // TODO: Refactor name
   onChangeGroup: Single<string>;
   onChangeMax: Single<number>;
   onChangeMatrix: Single<Field[]>;

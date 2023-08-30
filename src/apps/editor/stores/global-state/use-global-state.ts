@@ -63,12 +63,18 @@ export const useGlobalDragListener = () =>
   globalStore(({ x, y }) => ({ x, y }));
 
 export const useWorkflowBasicsStore = () =>
-  globalStore(({ name, runName, onChangeName, onChangeRunName }) => ({
-    name,
-    runName,
-    onChangeName,
-    onChangeRunName,
-  }));
+  globalStore(
+    ({
+      basics,
+      // Use alias in order to simplify the name exported
+      onChangeBasicsName: onChangeName,
+      onChangeBasicsRunName: onChangeRunName,
+    }) => ({
+      basics,
+      onChangeName,
+      onChangeRunName,
+    }),
+  );
 
 export const useWorkflowTriggersStore = () =>
   globalStore(
@@ -149,7 +155,7 @@ export const useWorkflowConcurrency = () =>
       concurrency,
       toggleCancelInProgress,
       onChangeMax,
-      onChangeName,
+      onChangeBasicsName: onChangeName,
       onChangeGroup,
       onChangeMatrix,
     }) => ({

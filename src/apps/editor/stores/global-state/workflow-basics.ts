@@ -7,13 +7,15 @@ export const workflowBasicsStore: StateCreator<
   [],
   [],
   WorkflowBasicsStore
-> = (set) => ({
-  name: undefined,
-  runName: undefined,
-  onChangeName: (value) => {
-    set({ name: value === '' ? undefined : value });
+> = (set, get) => ({
+  basics: {
+    name: '',
+    runName: '',
   },
-  onChangeRunName: (value) => {
-    set({ runName: value === '' ? undefined : value });
+  onChangeBasicsName: (name) => {
+    set({ basics: { ...get().basics, name } });
+  },
+  onChangeBasicsRunName: (runName) => {
+    set({ basics: { ...get().basics, runName } });
   },
 });

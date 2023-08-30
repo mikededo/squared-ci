@@ -4,7 +4,9 @@ import { Comment, Keyword, Line } from '@/aero';
 import { useWorkflowBasicsStore } from '@/editor/stores';
 
 export const WorkflowBasics: React.FC = () => {
-  const { name, runName } = useWorkflowBasicsStore();
+  const {
+    basics: { name, runName },
+  } = useWorkflowBasicsStore();
 
   return (
     <>
