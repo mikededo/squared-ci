@@ -7,6 +7,7 @@ import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
 import { optionalSectionsStore } from './optional-sections';
 import type { Empty, GlobalStore } from './types';
+import { workflowInfoStore } from './worfklow-info';
 import { workflowBasicsStore } from './workflow-basics';
 import { workflowConcurrencyStore } from './workflow-concurrency';
 import { workflowEnvStore } from './workflow-env';
@@ -17,6 +18,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...featureSwitchesStore(...args),
   ...optionalSectionsStore(...args),
   ...globalDragStore(...args),
+  ...workflowInfoStore(...args),
   ...workflowBasicsStore(...args),
   ...workflowTriggersStore(...args),
   ...worfklowPermissionsStore(...args),
@@ -61,6 +63,12 @@ export const useGlobalDragNotifier = () =>
   }));
 export const useGlobalDragListener = () =>
   globalStore(({ x, y }) => ({ x, y }));
+
+export const useWorkflowInfoStore = () =>
+  globalStore(({ info, onChangeInfoFileName }) => ({
+    info,
+    onChangeFileName: onChangeInfoFileName,
+  }));
 
 export const useWorkflowBasicsStore = () =>
   globalStore(

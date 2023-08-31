@@ -33,6 +33,16 @@ type GlobalDragActions = {
 };
 export type GlobalDragStore = GlobalDragState & GlobalDragActions;
 
+type WorkflowInfoState = {
+  info: {
+    fileName: string;
+  };
+};
+type WorkflowInfoActions = {
+  onChangeInfoFileName: Single<string>;
+};
+export type WorkflowInfoStore = WorkflowInfoState & WorkflowInfoActions;
+
 type WorkflowBasicsState = {
   basics: {
     name: string;
@@ -171,6 +181,7 @@ export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
 export type GlobalStore = FeatureSwitchesStore &
   OptionalSectionsStore &
   GlobalDragStore &
+  WorkflowInfoStore &
   WorkflowBasicsStore &
   WorkflowTriggersStore &
   WorkflowPermissionsStore &

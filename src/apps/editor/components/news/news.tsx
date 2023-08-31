@@ -8,6 +8,11 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Edit action file name',
+    description: 'New you can edit the file name in the visualiser',
+    date: new Date('2023-08-31'),
+  },
+  {
     title: 'Ignore paths, branches and tags',
     description:
       'Added a missing feature to ignore branches, tags and/or paths for the workflow triggers that allow it.',

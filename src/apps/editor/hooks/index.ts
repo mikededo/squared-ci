@@ -4,4 +4,5 @@ export { useChangesStack } from './use-changes-stack';
 export { useDraggable } from './use-draggable';
 export { useExpandable } from './use-expandable';
 export { useSizeObserver } from './use-size-observer';
+export { useToggler } from './use-toggler';
 export { useViewport } from './use-viewport';
