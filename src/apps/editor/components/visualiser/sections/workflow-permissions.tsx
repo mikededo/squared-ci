@@ -43,7 +43,7 @@ export const WorkflowPermissions: React.FC = () => {
           <Tabbed key={key} tabs={1}>
             <Keyword>{key}</Keyword>: {read ? 'read' : write ? 'write' : 'none'}
           </Tabbed>
-        ) : null
+        ) : null,
       )}
     </>
   ) : null;

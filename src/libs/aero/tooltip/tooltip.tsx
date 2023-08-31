@@ -47,7 +47,7 @@ export const Tooltip: React.FC<Props> = ({ children, text }) => {
             <span className="w-full">{text}</span>
           </div>
         </AppearTransition>,
-        document.body
+        document.body,
       )}
     </>
   );

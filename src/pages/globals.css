@@ -7,14 +7,14 @@
 
 @layer base {
   html {
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
     color: hsl(var(--foreground));
-  background-color: hsl(var(--background));
+    background-color: hsl(var(--background));
   }
 
   /* Remove the arrows in all input[type="number"] */
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
@@ -35,11 +35,10 @@ root {
   user-select: none;
 }
 
-
 @layer base {
   :root {
-    --font-sans: "IBM Plex Sans";
-    --font-mono: "IBM Plex Mono";
+    --font-sans: 'IBM Plex Sans';
+    --font-mono: 'IBM Plex Mono';
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -64,10 +63,11 @@ root {
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.75rem;
-    --bg-paper: linear-gradient(#e8e8e8 1px, transparent 0), linear-gradient(90deg, #e8e8e8 1px, transparent 0);
+    --bg-paper: linear-gradient(#e8e8e8 1px, transparent 0),
+      linear-gradient(90deg, #e8e8e8 1px, transparent 0);
     --bg-paper-size: 50px 50px;
   }
- 
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -92,6 +92,7 @@ root {
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9;
-    --bg-paper: linear-gradient(#475569 1px, transparent 0), linear-gradient(90deg, #475569 1px, #111827 0);
+    --bg-paper: linear-gradient(#475569 1px, transparent 0),
+      linear-gradient(90deg, #475569 1px, #111827 0);
   }
 }

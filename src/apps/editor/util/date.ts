@@ -26,4 +26,5 @@ export const formatDateToRelative = (date: Date): string => {
   }
 };
 
-export const isDateLessThanOneWeekAgo = (date: Date): boolean => new Date().getTime() - date.getTime() < ONE_WEEK_MS;
+export const isDateLessThanOneWeekAgo = (date: Date): boolean =>
+  new Date().getTime() - date.getTime() < ONE_WEEK_MS;

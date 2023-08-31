@@ -44,7 +44,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
     HTMLDivElement
   >();
   const { isDragging, position, onDrag, onDragStart, onDragEnd } = useDraggable(
-    { x: initialX, y: initialY, onDrag: onPositionChange }
+    { x: initialX, y: initialY, onDrag: onPositionChange },
   );
   const { fsGlobalDrag } = useFeatureSwitch('fsGlobalDrag');
   const { x, y } = useGlobalDragListener();
@@ -61,7 +61,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           }),
     // isDragging is the only dependency that matters in this case
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDragging]
+    [isDragging],
   );
   const memoizedInvisible = React.useMemo(
     () =>
@@ -74,7 +74,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
           }),
     // isDragging is the only dependency that matters in this case
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDragging]
+    [isDragging],
   );
   // Children do not have any dependency with the dragging state
   // therefore it should only be rendered once
@@ -109,7 +109,7 @@ export const Draggable: React.FC<PropsWithChildren<Props>> = ({
         ref={innerRef}
         className={twMerge(
           'rounded-lg min-w-[240px] max-w-fit absolute transition-colors group border hover:border-extra bg-card',
-          isDragging && 'border-extra'
+          isDragging && 'border-extra',
         )}
         style={styles}
         onMouseDown={handleOnDragStart}

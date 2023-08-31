@@ -13,14 +13,14 @@ const elementHeight = (ref: HTMLElement | null) =>
 
 export const useExpandable = <
   T extends HTMLElement,
-  J extends HTMLElement
+  J extends HTMLElement,
 >() => {
   const visibleRef = useRef<T>(null);
   const invisibleRef = useRef<J>(null);
 
   const [expanded, setExpanded] = useAtom(useMemo(() => atom(false), []));
   const [height, setHeight] = useAtom(
-    useMemo(() => atom(elementHeight(visibleRef.current)), [])
+    useMemo(() => atom(elementHeight(visibleRef.current)), []),
   );
 
   useSizeObserver(
@@ -30,15 +30,15 @@ export const useExpandable = <
         setHeight(
           expanded
             ? entry.contentRect.height + elementHeight(invisibleRef.current)
-            : entry.contentRect.height
+            : entry.contentRect.height,
         );
       },
     },
-    [expanded]
+    [expanded],
   );
 
   const handleOnExpandToggle = () => {
-    setExpanded(!expanded);
+    setExpanded((prev) => !prev);
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export const useExpandable = <
       expanded
         ? elementHeight(visibleRef.current) +
             elementHeight(invisibleRef.current)
-        : elementHeight(visibleRef.current)
+        : elementHeight(visibleRef.current),
     );
   }, [expanded, visibleRef, invisibleRef, setHeight]);
 

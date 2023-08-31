@@ -30,7 +30,7 @@ export const mapAtom = <K extends Key, V>() => {
       }
 
       set(base, cloned);
-    }
+    },
   );
 
   return derived;

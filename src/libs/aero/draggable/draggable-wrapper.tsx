@@ -14,7 +14,7 @@ export const DraggableWrapper: React.FC<Props> = ({ children }) => (
     {React.Children.map(children, (child) =>
       React.isValidElement(child)
         ? React.cloneElement(child, { ...child.props, 'data-draggable': true })
-        : undefined
+        : undefined,
     )}
   </>
 );

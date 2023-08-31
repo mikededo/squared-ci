@@ -15,7 +15,7 @@ export const Content: React.FC<PropsWithChildren> = ({ children }) => {
     <article
       className={twMerge(
         'fixed transition-all top-4 bottom-4 w-[600px] bg-card px-4 pt-2 pb-4 border rounded-lg -right-[600px]',
-        opened && 'right-4'
+        opened && 'right-4',
       )}
     >
       <div
@@ -26,7 +26,7 @@ export const Content: React.FC<PropsWithChildren> = ({ children }) => {
           <ChevronLeftIcon
             className={twMerge(
               'transition-transform delay-150 cursor-pointer rotate-0',
-              opened && 'rotate-180'
+              opened && 'rotate-180',
             )}
           />
         </div>

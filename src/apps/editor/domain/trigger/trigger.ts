@@ -107,28 +107,28 @@ export type CronCustomizationKeys = CustomizationKeys<'cron'>;
 
 export const NoneCustomizations = Object.entries(TriggerCustomization).reduce(
   (res, [key, value]) => ({ ...res, [key]: value === 'none' }),
-  {}
+  {},
 ) as NoneCustomizationKeys;
 export const TypesCustomizations = Object.entries(TriggerCustomization).reduce(
   (res, [key, value]) => ({ ...res, [key]: value === 'types' }),
-  {}
+  {},
 ) as TypesCustomizationKeys;
 export const CustomTypesCustomizations = Object.entries(
-  TriggerCustomization
+  TriggerCustomization,
 ).reduce(
   (res, [key, value]) => ({ ...res, [key]: value === 'custom-types' }),
-  {}
+  {},
 ) as CustomTypesCustomizationKeys;
 export const CronCustomizations = Object.entries(TriggerCustomization).reduce(
   (res, [key, value]) => ({ ...res, [key]: value === 'cron' }),
-  {}
+  {},
 ) as CronCustomizationKeys;
 
 export const isNoneCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is NoneCustomizationKeys => TriggerCustomization[trigger] === 'none';
 export const isComplexCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is ComplexTypesCustomizationKeys => {
   const triggerType = TriggerCustomization[trigger];
   return (
@@ -137,15 +137,15 @@ export const isComplexCustomization = (
   );
 };
 export const isComplexPathCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is ComplexPathsCustomizationKeys =>
   TriggerCustomization[trigger] === 'types-branches-paths';
 export const isComplexTagCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is ComplexTagsCustomizationKeys =>
   TriggerCustomization[trigger] === 'types-branches-tags';
 export const isTypeCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is
   | TypesCustomizationKeys
   | CustomTypesCustomizationKeys
@@ -158,7 +158,7 @@ export const isTypeCustomization = (
   );
 };
 export const isCronCustomization = (
-  trigger: Trigger
+  trigger: Trigger,
 ): trigger is CronCustomizationKeys => TriggerCustomization[trigger] === 'cron';
 
 export const BaseTriggerTypes = ['created', 'edited', 'deleted'];

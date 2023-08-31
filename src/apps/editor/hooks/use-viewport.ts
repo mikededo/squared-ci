@@ -7,7 +7,7 @@ const getWindowDimensions = () => ({
 
 export const useViewport = () => {
   const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
+    getWindowDimensions(),
   );
 
   useEffect(() => {

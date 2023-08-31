@@ -45,7 +45,7 @@ export const worfklowPermissionsStore: StateCreator<
     }
 
     const isOneAlreadyEnabled = Object.values(permissionState).some(
-      (value) => value
+      (value) => value,
     );
     set({
       permissions: {
@@ -70,7 +70,7 @@ export const worfklowPermissionsStore: StateCreator<
           ...permissions,
           [permission]: { none: false, read: !readAll, write: false },
         }),
-        {} as WorkflowPermissionsStore['permissions']
+        {} as WorkflowPermissionsStore['permissions'],
       ),
       readAll: !readAll,
       disableAll: false,
@@ -88,7 +88,7 @@ export const worfklowPermissionsStore: StateCreator<
           ...permissions,
           [permission]: { none: false, read: false, write: !writeAll },
         }),
-        {} as WorkflowPermissionsStore['permissions']
+        {} as WorkflowPermissionsStore['permissions'],
       ),
       writeAll: !writeAll,
       disableAll: false,
@@ -106,7 +106,7 @@ export const worfklowPermissionsStore: StateCreator<
           ...permissions,
           [permission]: { none: !disableAll, read: false, write: false },
         }),
-        {} as WorkflowPermissionsStore['permissions']
+        {} as WorkflowPermissionsStore['permissions'],
       ),
       disableAll: !disableAll,
       readAll: false,

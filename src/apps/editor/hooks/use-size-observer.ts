@@ -8,7 +8,7 @@ type Args<T extends HTMLElement> = {
 
 export const useSizeObserver = <T extends HTMLElement = HTMLDivElement>(
   { element, onUpdate }: Args<T>,
-  deps: React.DependencyList = []
+  deps: React.DependencyList = [],
 ) => {
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
