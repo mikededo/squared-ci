@@ -6,6 +6,7 @@ import {
   isComplexCustomization,
   isComplexPathCustomization,
   isComplexTagCustomization,
+  isCronCustomization,
   isTypeCustomization,
 } from '@/editor/domain/trigger';
 import { useWorkflowTriggersStore } from '@/editor/stores';
@@ -13,6 +14,7 @@ import { useWorkflowTriggersStore } from '@/editor/stores';
 import { Branches } from './branches';
 import { None } from './none';
 import { Paths } from './paths';
+import { Schedule } from './schedule';
 import { Tags } from './tags';
 import { Types } from './types';
 
@@ -53,6 +55,8 @@ export const TypeRenderer: React.FC<Props> = memo(({ trigger }) => {
             selected={[...getTriggerTypes(trigger)]}
             onTypeToggle={handleOnTypesToggle(trigger)}
           />
+        ) : isCronCustomization(trigger) ? (
+          <Schedule />
         ) : (
           <None />
         )

@@ -6,6 +6,7 @@ import { useWorkflowTriggersStore } from '@/editor/stores';
 import {
   BaseCustomizationTrigger,
   ComplexTypeCustomizationTrigger,
+  CronCustomizationTrigger,
   TypeCustomizationTrigger,
 } from './customization';
 
@@ -15,7 +16,7 @@ export const WorkflowTriggers: React.FC = () => {
     noneCustomization,
     complexCustomization,
     typeCustomization,
-    // TODO: cronCustomization,
+    cronCustomization,
   } = useWorkflowTriggersStore();
 
   return (
@@ -40,6 +41,13 @@ export const WorkflowTriggers: React.FC = () => {
           key={customization}
           text={customization}
           types={[...types]}
+        />
+      ))}
+      {[...cronCustomization].map(([customization, cronList]) => (
+        <CronCustomizationTrigger
+          key={customization}
+          text={customization}
+          cronList={cronList}
         />
       ))}
       {[...noneCustomization].map((customization) => (

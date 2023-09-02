@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
   return (
     <>
       <Input
-        className="text-lg font-bold mb-1"
+        className="text-lg font-bold mt-1 mb-3"
         value={fileName}
         onChange={handleOnChange}
         variant="plain"

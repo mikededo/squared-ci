@@ -16,6 +16,7 @@ export type { DataDraggable } from './draggable';
 export { Grid } from './grid';
 export { IconButton } from './icon-button';
 export { Input } from './input';
+export { Link } from './link';
 export { Row } from './row';
 export { Toggle } from './toggle';
 export { Tooltip } from './tooltip';

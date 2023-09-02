@@ -8,6 +8,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Schedule cron trigger',
+    description:
+      'For the schedule trigger, it is now possible to customize the crons for the schedule',
+    date: new Date('2023-09-02'),
+  },
+  {
     title: 'Edit action file name',
     description: 'New you can edit the file name in the visualiser',
     date: new Date('2023-08-31'),

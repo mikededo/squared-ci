@@ -1,6 +1,9 @@
 import type { StateCreator } from 'zustand';
 
-import type { ComplexTypesCustomizationKeys } from '@/editor/domain/trigger';
+import type {
+  ComplexTypesCustomizationKeys,
+  Cron,
+} from '@/editor/domain/trigger';
 import {
   DefaultCronValue,
   isComplexCustomization,
@@ -223,6 +226,9 @@ export const workflowTriggersStore: StateCreator<
     const customization = complexCustomization.get(trigger);
     return customization?.get(ignore ? 'tags-ignore' : 'tags') ?? new Set();
   },
+  // This could seem a bit redundant as the only cron trigger is the schedule
+  // However, by keeping this implementation, it would be automatically
+  // scaled if another trigger was to be added that involved cron usage.
   toggleCronTrigger: (trigger) => {
     const { triggers, cronCustomization } = get();
     const exists = triggers.has(trigger);
@@ -232,7 +238,69 @@ export const workflowTriggersStore: StateCreator<
         : addToSet(triggers, trigger),
       cronCustomization: exists
         ? removeFromMap(cronCustomization, trigger)
-        : addToMap(cronCustomization, trigger, DefaultCronValue),
+        : addToMap(cronCustomization, trigger, [DefaultCronValue]),
+    });
+  },
+  onAddCronTriggerValue: (trigger) => {
+    const { triggers, cronCustomization } = get();
+    const exists = triggers.has(trigger);
+    if (!exists) {
+      return;
+    }
+
+    const currentList = cronCustomization.get(trigger);
+    if (!currentList) {
+      return;
+    }
+
+    set({
+      cronCustomization: addToMap(cronCustomization, trigger, [
+        ...currentList,
+        DefaultCronValue,
+      ]),
+    });
+  },
+  onDeleteCronTriggerVaule: (trigger, position)=>{
+    const { triggers, cronCustomization } = get();
+    const exists = triggers.has(trigger);
+    if (!exists) {
+      return;
+    }
+
+    const currentList = cronCustomization.get(trigger);
+    if (!currentList) {
+      return;
+    }
+
+    const updatedList = [...currentList];
+    updatedList.splice(position, 1);
+    set({
+      cronCustomization: addToMap(cronCustomization, trigger, updatedList),
+    });
+  },
+
+  onCronTriggerValueChange: (trigger, cron, position) => {
+    const { cronCustomization } = get();
+    const currentList = cronCustomization.get(trigger);
+    if (!currentList) {
+      return;
+    }
+    if (!currentList[position]) {
+      return;
+    }
+
+    const nextCron: Cron = [
+      cron[0] ?? currentList[position][0],
+      cron[1] ?? currentList[position][1],
+      cron[2] ?? currentList[position][2],
+      cron[3] ?? currentList[position][3],
+      cron[4] ?? currentList[position][4],
+    ];
+    const updatedCronList = [...currentList];
+    updatedCronList[position] = nextCron;
+
+    set({
+      cronCustomization: addToMap(cronCustomization, trigger, updatedCronList),
     });
   },
 });

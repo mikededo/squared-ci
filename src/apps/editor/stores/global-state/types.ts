@@ -74,7 +74,7 @@ export type WorkflowTriggersState = {
     ComplexTypesCustomizationKeys,
     Map<ComplexTypeCustomizationProps, Set<string>>
   >;
-  cronCustomization: Map<CronCustomizationKeys, Cron>;
+  cronCustomization: Map<CronCustomizationKeys, Cron[]>;
   triggers: Set<Trigger>;
 };
 type WorkflowTriggersActions = {
@@ -126,6 +126,13 @@ type WorkflowTriggersActions = {
     boolean
   >;
   toggleCronTrigger: Single<CronCustomizationKeys>;
+  onAddCronTriggerValue: Single<CronCustomizationKeys>;
+  onDeleteCronTriggerVaule: Double<CronCustomizationKeys, number>;
+  onCronTriggerValueChange: Triple<
+    CronCustomizationKeys,
+    Partial<Cron>,
+    number
+  >;
 };
 export type WorkflowTriggersStore = WorkflowTriggersState &
   WorkflowTriggersActions;

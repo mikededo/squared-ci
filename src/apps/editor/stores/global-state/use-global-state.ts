@@ -124,6 +124,20 @@ export const useWorkflowTriggersStore = () =>
       toggleCronTrigger,
     }),
   );
+export const useWorkflowCronTriggerStore = () =>
+  globalStore(
+    ({
+      cronCustomization,
+      onAddCronTriggerValue,
+      onDeleteCronTriggerVaule,
+      onCronTriggerValueChange,
+    }) => ({
+      cronCustomization,
+      onAddCronTriggerValue,
+      onDeleteCronTriggerVaule,
+      onCronTriggerValueChange,
+    }),
+  );
 
 export const useWorkflowPermissions = () =>
   globalStore(
