@@ -17,7 +17,8 @@ export const Nav: React.FC = () => (
     </p>
     */}
     <p className="self-center text-sm uppercase font-semibold">
-      🚧 This page is still under construction 🚧
+      🚧 This page is still under construction - The project is currently on
+      stand by! 🚧
     </p>
     <DarkModeToggler />
   </Row>

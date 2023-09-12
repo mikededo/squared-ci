@@ -111,6 +111,11 @@ export const News: React.FC = () => {
             experience, fixed global drag and more! Thanks for coming!
           </span>
         </Banner>
+        <Banner className="mx-5">
+          <span>
+            The project is currently on stand by, as I am a bit short on time and have other priorities!
+          </span>
+        </Banner>
         <div className="self-start flex-1 flex flex-col gap-4 w-full overflow-y-auto px-5">
           {NewsList.map(({ title, description, date }) => (
             <New
