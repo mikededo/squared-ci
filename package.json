@@ -24,7 +24,7 @@
     "zustand": "4.4.1"
   },
   "devDependencies": {
-    "@semantic-release/commit-analyzer": "10.0.4",
+    "@semantic-release/commit-analyzer": "11.0.0",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@types/node": "20.5.9",
@@ -44,7 +44,7 @@
     "husky": "8.0.3",
     "lint-staged": "14.0.1",
     "prettier": "3.0.3",
-    "semantic-release": "21.1.2",
+    "semantic-release": "22.0.5",
     "typescript": "5.2.2"
   }
 }
