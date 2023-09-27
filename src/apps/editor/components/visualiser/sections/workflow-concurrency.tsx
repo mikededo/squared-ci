@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { Keyword, Line, Tabbed } from '@/aero';
+import { Keyword, Line, Tabbed, YamlVisualiser } from '@/aero';
 import { useWorkflowConcurrency } from '@/editor/stores';
-
-import { Matrix } from './matrix';
 
 export const WorkflowConcurrency: React.FC = () => {
   const {
@@ -40,7 +38,7 @@ export const WorkflowConcurrency: React.FC = () => {
           <Keyword>max</Keyword>: {max}
         </Tabbed>
       ) : null}
-      {matrix.length > 0 ? <Matrix matrix={matrix} tabs={2} /> : null}
+      {matrix.length > 0 ? <YamlVisualiser title="matrix" yaml={matrix} tabs={2} /> : null}
     </>
   );
 };

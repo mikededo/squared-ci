@@ -4,13 +4,13 @@ import React, { useMemo, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { IconButton, Input, Row, VCol } from '@/aero';
-import type { Field } from '@/editor/domain/matrix';
+import type { YamlField } from '@/aero';
 
 import { AddButtons } from './add-buttons';
 import type { UseFieldsResult } from './use-fields';
 
 type Props = {
-  field: Field;
+  field: YamlField;
   path?: string[];
   arrayChild?: boolean;
   onAddField: UseFieldsResult['onAddField'];
@@ -18,13 +18,13 @@ type Props = {
   onRemoveField: UseFieldsResult['onRemoveField'];
 };
 
-const StringPlaceholder: Record<Exclude<Field['as'], undefined>, string> = {
+const StringPlaceholder: Record<Exclude<YamlField['as'], undefined>, string> = {
   number: 'Number value',
   boolean: 'Boolean value',
   string: 'String value',
 };
 
-export const FormRenderer: React.FC<Props> = ({
+export const YamlForm: React.FC<Props> = ({
   arrayChild,
   field,
   path = [],
@@ -130,7 +130,7 @@ export const FormRenderer: React.FC<Props> = ({
               className="w-full border-l border-dashed"
             >
               {child.map((field) => (
-                <FormRenderer
+                <YamlForm
                   key={field.id}
                   field={field}
                   path={childPath}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Keyword, List, Tabbed } from '@/aero';
-import type { Field, FieldAs } from '@/editor/domain/matrix';
+import type { YamlField, YamlFieldAs } from '@/aero';
 
 type Props = {
   /**
@@ -19,7 +19,7 @@ type Props = {
    * If the object is inside of an array, the key of the object should
    * not be rendered, and the first property of the object should contain
    * the bullet point.
-   * Therefore, from a {@link Field} object, whose parent is an array,
+   * Therefore, from a {@link YamlField} object, whose parent is an array,
    * the value property will not be rendered.
    *
    * @example
@@ -35,16 +35,16 @@ type Props = {
   /**
    * The field to render.
    */
-  field: Field;
+  field: YamlField;
 };
 
-const StringColor: Record<FieldAs, string> = {
+const StringColor: Record<YamlFieldAs, string> = {
   number: 'text-amber-600 dark:text-amber-400',
   boolean: 'text-purple-600 dark:text-purple-400',
   string: 'text-emerald-600 dark:text-green-400',
 };
 
-type StringRendererProps = Pick<Field, 'value' | 'as'> &
+type StringRendererProps = Pick<YamlField, 'value' | 'as'> &
   Required<Pick<Props, 'depth'>> &
   Pick<Props, 'arrayChild'> & { child?: string };
 
@@ -77,7 +77,7 @@ const StringRenderer: React.FC<StringRendererProps> = ({
   );
 };
 
-export const MatrixRenderer: React.FC<Props> = ({
+export const YamlRenderer: React.FC<Props> = ({
   arrayChild,
   field,
   depth = 1,
@@ -102,7 +102,7 @@ export const MatrixRenderer: React.FC<Props> = ({
     <List
       group={type === 'object' ? objectGroup : group}
       items={child.map((field) => (
-        <MatrixRenderer
+        <YamlRenderer
           key={field.id}
           field={field}
           depth={depth + 1}

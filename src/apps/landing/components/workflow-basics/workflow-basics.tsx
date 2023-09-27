@@ -21,6 +21,7 @@ export const WorkflowBasics: React.FC = () => {
     () => {
       setAtom({ focused });
     };
+
   return (
     <>
       <Box

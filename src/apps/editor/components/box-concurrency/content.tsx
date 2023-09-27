@@ -12,8 +12,8 @@ import {
   Toggle,
   VCol,
 } from '@/aero';
+import type { YamlField } from '@/aero';
 import { Matrix } from '@/editor/components';
-import type { Field } from '@/editor/domain/matrix';
 import { useWorkflowConcurrency } from '@/editor/stores';
 
 import { Max } from './max';
@@ -40,7 +40,7 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
     setShowDialog((prev) => !prev);
   };
 
-  const handleOnSave = (fields: Field[]) => {
+  const handleOnSave = (fields: YamlField[]) => {
     onChangeMatrix(fields);
     setShowDialog(false);
   };

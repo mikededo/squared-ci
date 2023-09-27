@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
+import type { YamlField } from '@/aero';
 import {
+  AddButtons,
   AppearTransition,
   Banner,
   Button,
@@ -10,20 +12,17 @@ import {
   Meta,
   Row,
   VCol,
+  YamlForm,
+  useFields,
 } from '@/aero';
-import type { Field } from '@/editor/domain/matrix';
-
-import { AddButtons } from './add-buttons';
-import { FormRenderer } from './form-renderer';
-import { useFields } from './use-fields';
 
 type Props = {
-  initialValue?: Field[];
+  initialValue?: YamlField[];
   title: string;
   show?: boolean;
   onClose?: () => void;
   onDiscard?: () => void;
-  onSave: (fields: Field[]) => void;
+  onSave: (fields: YamlField[]) => void;
 };
 
 export const Matrix: React.FC<Props> = ({
@@ -81,7 +80,7 @@ export const Matrix: React.FC<Props> = ({
           {fields.length ? (
             <VCol className="w-full" variant="none">
               {fields.map((field) => (
-                <FormRenderer
+                <YamlForm
                   key={field.id}
                   field={field}
                   onAddField={onAddField}

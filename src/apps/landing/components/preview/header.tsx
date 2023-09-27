@@ -8,10 +8,10 @@ export const PreviewHeader: React.FC = () => (
     <BorderedBox columns={1} sm={3} bottom right />
     <BorderedBox bottom columns={10} sm={6}>
       <VCol className="text-center" align="center">
-        <h2 className="font-semibold text-2xl py-3">
+        <h2 className="font-semibold text-2xl md:text-3xl py-3 md:py-6">
           Squared <span className="text-indigo-500">CI</span> features
         </h2>
-        <BorderedBox top className="py-2 px-3">
+        <BorderedBox top className="p-3">
           <Meta>Preview some of the most loved features of Squared CI</Meta>
         </BorderedBox>
       </VCol>

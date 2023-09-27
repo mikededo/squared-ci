@@ -16,7 +16,7 @@ export const Nav: React.FC = () => (
       Squared <span className="text-extra">CI</span>
     </p>
     */}
-    <p className="self-center text-sm uppercase font-semibold">
+    <p className="self-center text-sm uppercase text-center sm:text-left font-semibold">
       🚧 This page is still under construction - The project is currently on
       stand by! 🚧
     </p>

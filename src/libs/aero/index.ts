@@ -23,3 +23,6 @@ export { Tooltip } from './tooltip';
 export { AppearTransition } from './transitions';
 export { Meta, Label } from './typography';
 export { Comment, Line, Keyword, Tabbed, List } from './visualiser';
+export { YamlForm, AddButtons, useFields } from './yaml-form';
+export type { YamlField, YamlFieldAs } from './yaml-form';
+export { YamlVisualiser } from './yaml-visualiser';

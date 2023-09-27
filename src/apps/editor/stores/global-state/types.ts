@@ -1,4 +1,4 @@
-import type { Field } from '@/editor/domain/matrix';
+import type { YamlField } from '@/aero';
 import type {
   PermissionStatus,
   Permissions,
@@ -172,7 +172,7 @@ export type WorkflowConcurrencyState = {
     cancelInProgress: boolean;
     group: string;
     max: number;
-    matrix: Field[];
+    matrix: YamlField[];
   };
 };
 export type WorkflowConcurrencyActions = {
@@ -180,7 +180,7 @@ export type WorkflowConcurrencyActions = {
   onChangeConcurrencyName: Single<string>;
   onChangeConcurrencyGroup: Single<string>;
   onChangeConcurrencyMax: Single<number>;
-  onChangeConcurrencyMatrix: Single<Field[]>;
+  onChangeConcurrencyMatrix: Single<YamlField[]>;
 };
 export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
   WorkflowConcurrencyActions;

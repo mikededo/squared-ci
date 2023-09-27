@@ -1,27 +1,28 @@
 import { atom, useAtom } from 'jotai';
 import { useMemo } from 'react';
 
-import type { Field } from '@/editor/domain/matrix';
 import { useChangesStack } from '@/editor/hooks';
 
-type Path = Array<Field['id']>;
+import type { YamlField } from './types';
+
+type Path = Array<YamlField['id']>;
 export type UseFieldsResult = {
-  fields: Field[];
+  fields: YamlField[];
   hasChanges: boolean;
-  onAddField: (type: Field['type'], path: Path, as?: Field['as']) => () => void;
+  onAddField: (type: YamlField['type'], path: Path, as?: YamlField['as']) => () => void;
   onFieldUpdate: (
-    id: Field['id'],
+    id: YamlField['id'],
     path: Path,
     isChild?: boolean,
   ) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onRemoveField: (id: Field['id'], path: Path) => () => void;
+  onRemoveField: (id: YamlField['id'], path: Path) => () => void;
   onUndo: () => void;
 };
 
-const matrixFields = (initialValue: Field[] = []) =>
-  atom<Field[]>(initialValue);
+const matrixFields = (initialValue: YamlField[] = []) =>
+  atom<YamlField[]>(initialValue);
 
-const createNewField = (type: Field['type'], as?: Field['as']): Field => {
+const createNewField = (type: YamlField['type'], as?: YamlField['as']): YamlField => {
   if (type === 'string') {
     return {
       id: Math.random().toString(),
@@ -35,11 +36,11 @@ const createNewField = (type: Field['type'], as?: Field['as']): Field => {
   }
 };
 
-export const useFields = (initialValue?: Field[]): UseFieldsResult => {
+export const useFields = (initialValue?: YamlField[]): UseFieldsResult => {
   const [fields, setFields] = useAtom(
     useMemo(() => matrixFields(initialValue), [initialValue]),
   );
-  const { hasChanges, onChange, onUndo } = useChangesStack<Field[]>();
+  const { hasChanges, onChange, onUndo } = useChangesStack<YamlField[]>();
 
   /**
    * Most of the checks that are done throught the code are to avoid
@@ -169,7 +170,7 @@ export const useFields = (initialValue?: Field[]): UseFieldsResult => {
         }
 
         // Search for the new current field
-        currentField = (child as Field[]).find(
+        currentField = (child as YamlField[]).find(
           (field) => field.id === parentId,
         );
         if (!currentField) {
@@ -258,7 +259,7 @@ export const useFields = (initialValue?: Field[]): UseFieldsResult => {
         }
 
         // Search for the new current field
-        currentField = (child as Field[]).find(
+        currentField = (child as YamlField[]).find(
           (field) => field.id === parentId,
         );
         if (!currentField) {
