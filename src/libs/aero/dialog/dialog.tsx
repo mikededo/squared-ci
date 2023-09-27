@@ -8,9 +8,14 @@ import { AppearTransition } from '../transitions';
 type Props = {
   show?: boolean;
   blur?: boolean;
+  children: React.ReactNode;
 };
 
-export const Dialog: RequiredChildrenFC<Props> = ({ show, children, blur }) => (
+export const Dialog: RequiredChildrenFC<Props> = ({
+  show,
+  children,
+  blur,
+}): React.ReactNode => (
   <AppearTransition show={!!show}>
     <div
       role="presentation"
