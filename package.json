@@ -16,7 +16,7 @@
     "@headlessui/react": "1.7.17",
     "@primer/octicons-react": "19.8.0",
     "autoprefixer": "10.4.16",
-    "jotai": "2.4.2",
+    "jotai": "2.4.3",
     "next": "13.5.3",
     "postcss": "8.4.30",
     "react": "18.2.0",
