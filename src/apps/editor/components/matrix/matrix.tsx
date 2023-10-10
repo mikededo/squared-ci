@@ -67,7 +67,7 @@ export const Matrix: React.FC<Props> = ({
     };
   }, [show, onCtrlZListener]);
 
-  return ReactDOM.createPortal(
+  const portal = ReactDOM.createPortal(
     <Dialog show={show} blur>
       <VCol className="h-full w-full" variant="lg">
         <DialogHeader title={title} onClose={onClose} />
@@ -107,4 +107,6 @@ export const Matrix: React.FC<Props> = ({
     </Dialog>,
     document.body,
   );
+
+  return <>{portal}</>;
 };
