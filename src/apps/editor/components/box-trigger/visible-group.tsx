@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { DraggableTitle, DraggableWrapper } from '@/aero';
+import { DraggableTitle, DraggableWrapper, Label } from '@/aero';
 import { ActionsDocs } from '@/editor/config';
 import type { Trigger } from '@/editor/domain/trigger';
 import { VisibleTriggers } from '@/editor/domain/trigger';
 import type { ExpandableToggler, WithExpandableRef } from '@/editor/hooks';
-import { useWorkflowTriggersStore } from '@/editor/stores';
+import {
+  useWorkflowTriggersStore,
+  useWorkflowTriggersToggler,
+} from '@/editor/stores';
 
 import { TriggerGroup } from './trigger-group';
 
@@ -17,6 +20,7 @@ export const VisibleGroup: React.FC<
   WithExpandableRef<HTMLDivElement> & ExpandableToggler & Props
 > = ({ expandableRef, onExpand, onTriggerChange }) => {
   const { triggers: selected } = useWorkflowTriggersStore();
+  const { hideTriggers } = useWorkflowTriggersToggler();
 
   return (
     <DraggableWrapper>
@@ -29,6 +33,12 @@ export const VisibleGroup: React.FC<
         <DraggableWrapper>
           <div className="px-3 pb-3 flex flex-col gap-1.5">
             <DraggableWrapper>
+              {hideTriggers ? (
+                <Label className="max-w-[210px]">
+                  Triggers properties are not displayed since you have hid them.
+                  Toggle the option at the top menu.
+                </Label>
+              ) : null}
               <p className="text-xs italic font-mono text-muted-foreground max-w-[210px]">
                 {selected.size > 0
                   ? [...selected].join(', ')

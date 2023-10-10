@@ -23,7 +23,7 @@ export const DraggableTitle = React.forwardRef<HTMLDivElement, Props>(
                 rel="noopener"
                 className="flex"
               >
-                <QuestionIcon />
+                <QuestionIcon className="hover:fill-extra transition-colors" />
               </a>
             ) : null}
             {onExpand ? (

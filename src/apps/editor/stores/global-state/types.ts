@@ -65,6 +65,7 @@ export type ComplexTypeCustomizationProps =
   | 'paths-ignore';
 
 export type WorkflowTriggersState = {
+  hideTriggers: boolean;
   noneCustomization: Set<NoneCustomizationKeys>;
   typeCustomization: Map<
     TypesCustomizationKeys | CustomTypesCustomizationKeys,
@@ -78,6 +79,7 @@ export type WorkflowTriggersState = {
   triggers: Set<Trigger>;
 };
 type WorkflowTriggersActions = {
+  toggleHideTriggers: Empty;
   toggleNoneTrigger: Single<NoneCustomizationKeys>;
   getTriggerTypes: Single<
     | TypesCustomizationKeys

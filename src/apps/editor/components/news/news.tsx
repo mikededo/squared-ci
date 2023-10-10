@@ -8,6 +8,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Hide workflow triggers',
+    description:
+      'New menu option that allows you to hide the workflow triggers in order to have a cleaner layout if you have many active',
+    date: new Date('2023-10-10'),
+  },
+  {
     title: 'Schedule cron trigger',
     description:
       'For the schedule trigger, it is now possible to customize the crons for the schedule',
@@ -113,7 +119,8 @@ export const News: React.FC = () => {
         </Banner>
         <Banner className="mx-5">
           <span>
-            The project is currently on stand by, as I am a bit short on time and have other priorities!
+            The project is currently on stand by, as I am a bit short on time
+            and have other priorities!
           </span>
         </Banner>
         <div className="self-start flex-1 flex flex-col gap-4 w-full overflow-y-auto px-5">

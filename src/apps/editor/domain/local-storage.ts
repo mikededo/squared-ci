@@ -6,6 +6,7 @@ import type { OptionalSections } from './optional-sections';
 export type ThemeModes = 'light' | 'dark';
 
 export type LocalStorageData = {
+  hideTriggers: boolean;
   featureSwitches: Record<FeatureSwitches, boolean>;
   optionalSections: Record<OptionalSections, boolean>;
   themeMode: ThemeModes;

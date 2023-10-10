@@ -138,6 +138,11 @@ export const useWorkflowCronTriggerStore = () =>
       onCronTriggerValueChange,
     }),
   );
+export const useWorkflowTriggersToggler = () =>
+  globalStore(({ hideTriggers, toggleHideTriggers }) => ({
+    hideTriggers,
+    toggleHideTriggers,
+  }));
 
 export const useWorkflowPermissions = () =>
   globalStore(

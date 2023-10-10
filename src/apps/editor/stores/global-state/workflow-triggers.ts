@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand';
 
+import { LS } from '@/editor/domain/local-storage';
 import type {
   ComplexTypesCustomizationKeys,
   Cron,
@@ -75,11 +76,15 @@ export const workflowTriggersStore: StateCreator<
   [],
   WorkflowTriggersStore
 > = (set, get) => ({
+  hideTriggers: LS.get('hideTriggers') ?? false,
   noneCustomization: new Set(),
   typeCustomization: new Map(),
   complexCustomization: new Map(),
   cronCustomization: new Map(),
   triggers: new Set(),
+  toggleHideTriggers: () => {
+    set({ hideTriggers: !get().hideTriggers });
+  },
   toggleNoneTrigger: (trigger) => {
     const { triggers, noneCustomization } = get();
     const exists = triggers.has(trigger);
@@ -260,7 +265,7 @@ export const workflowTriggersStore: StateCreator<
       ]),
     });
   },
-  onDeleteCronTriggerVaule: (trigger, position)=>{
+  onDeleteCronTriggerVaule: (trigger, position) => {
     const { triggers, cronCustomization } = get();
     const exists = triggers.has(trigger);
     if (!exists) {
