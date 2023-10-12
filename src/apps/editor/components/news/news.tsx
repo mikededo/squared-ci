@@ -8,6 +8,11 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Added support for defaults',
+    description: 'Now you can add defaults to your workflow!',
+    date: new Date('2023-10-12'),
+  },
+  {
     title: 'Hide workflow triggers',
     description:
       'New menu option that allows you to hide the workflow triggers in order to have a cleaner layout if you have many active',

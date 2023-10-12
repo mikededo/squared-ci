@@ -23,11 +23,7 @@ export const OptionalSections: React.FC<Props> = ({ show = false }) => (
         <VCol className="w-full" align="between">
           <OptionalSection text="Permissions" section="osPermissions" />
           <OptionalSection text="Env" section="osEnv" />
-          <OptionalSection
-            text="Defaults (coming soon)"
-            section="osDefaults"
-            disabled
-          />
+          <OptionalSection text="Defaults" section="osDefaults" />
           <OptionalSection text="Concurrency" section="osConcurrency" />
         </VCol>
       </VCol>

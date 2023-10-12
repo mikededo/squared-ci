@@ -11,4 +11,6 @@ export const Positions = {
   BoxEnvY: 560,
   BoxConcurrencyX: 140,
   BoxConcurrencyY: 760,
+  BoxDefaultsX: 140,
+  BoxDefaultsY: 840,
 };

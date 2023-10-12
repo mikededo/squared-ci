@@ -2,7 +2,7 @@ export { Button } from './button';
 export { Banner } from './banner';
 export { Chip, ChipWrapper } from './chip';
 export { HCol, VCol } from './col';
-export { Dialog, DialogHeader } from './dialog';
+export { useDialog, Dialog, DialogHeader } from './dialog';
 export { Divider } from './divider';
 export { Dot } from './dot';
 export type { DotPosition } from './dot';

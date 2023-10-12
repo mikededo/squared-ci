@@ -1,6 +1,5 @@
 import { ChevronRightIcon } from '@primer/octicons-react';
-import { atom, useAtom } from 'jotai';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import {
   Divider,
@@ -11,6 +10,7 @@ import {
   Row,
   Toggle,
   VCol,
+  useDialog,
 } from '@/aero';
 import type { YamlField } from '@/aero';
 import { Matrix } from '@/editor/components';
@@ -19,7 +19,7 @@ import { useWorkflowConcurrency } from '@/editor/stores';
 import { Max } from './max';
 
 export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
-  const [showDialog, setShowDialog] = useAtom(useMemo(() => atom(false), []));
+  const { show, onToggleDialog, onHideDialog } = useDialog();
   const {
     concurrency: { cancelInProgress, name, group },
     onChangeName,
@@ -36,13 +36,9 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
     onChangeGroup(e.target.value);
   };
 
-  const handleOnDialogToggle = () => {
-    setShowDialog((prev) => !prev);
-  };
-
   const handleOnSave = (fields: YamlField[]) => {
     onChangeMatrix(fields);
-    setShowDialog(false);
+    onHideDialog();
   };
 
   return (
@@ -88,7 +84,7 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
             <Label className="text-muted-foreground">Matrix</Label>
             <button
               className="py-1.5 px-2 -mt-0.5 rounded-md border border-input hover:bg-muted transition-colors cursor-pointer text-muted-foreground"
-              onClick={handleOnDialogToggle}
+              onClick={onToggleDialog}
             >
               <Row align="center" justify="between">
                 <DraggableWrapper>
@@ -102,9 +98,9 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
       </DraggableWrapper>
       <Matrix
         title="Create concurrency matrix"
-        show={showDialog}
-        onClose={handleOnDialogToggle}
-        onDiscard={handleOnDialogToggle}
+        show={show}
+        onClose={onToggleDialog}
+        onDiscard={onToggleDialog}
         onSave={handleOnSave}
       />
     </>

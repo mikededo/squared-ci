@@ -16,6 +16,7 @@ import {
   News,
   Visualiser,
 } from '@/editor/components';
+import { BoxDefaults } from '@/editor/components/box-defaults';
 
 const Editor: React.FC = () => {
   const { onLoadMode } = useThemeModeLoader();
@@ -34,6 +35,7 @@ const Editor: React.FC = () => {
         <BoxPermissions />
         <BoxEnv />
         <BoxConcurrency />
+        <BoxDefaults />
       </GlobalDrag>
       <Menu />
       <Features />

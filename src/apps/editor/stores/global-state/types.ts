@@ -187,6 +187,17 @@ export type WorkflowConcurrencyActions = {
 export type WorkflowConcurrencyStore = WorkflowConcurrencyState &
   WorkflowConcurrencyActions;
 
+export type WorkflowDefaultsState = {
+  defaults: {
+    matrix: YamlField[];
+  };
+};
+export type WorkflowDefaultsActions = {
+  onChangeDefaultsMatrix: Single<YamlField[]>;
+};
+export type WorkflowDefaultsStore = WorkflowDefaultsState &
+  WorkflowDefaultsActions;
+
 export type GlobalStore = FeatureSwitchesStore &
   OptionalSectionsStore &
   GlobalDragStore &
@@ -195,4 +206,5 @@ export type GlobalStore = FeatureSwitchesStore &
   WorkflowTriggersStore &
   WorkflowPermissionsStore &
   WorkflowEnvStore &
-  WorkflowConcurrencyStore;
+  WorkflowConcurrencyStore &
+  WorkflowDefaultsStore;

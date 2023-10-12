@@ -6,6 +6,7 @@ import { Content, Footer, Header, Main } from './layout';
 import {
   WorkflowBasics,
   WorkflowConcurrency,
+  WorkflowDefaults,
   WorkflowEnv,
   WorkflowJobs,
   WorkflowPermissions,
@@ -22,6 +23,7 @@ export const Visualiser: React.FC = () => (
         <WorkflowEnv />
         <WorkflowPermissions />
         <WorkflowConcurrency />
+        <WorkflowDefaults />
         <WorkflowJobs />
       </Main>
       <Footer />

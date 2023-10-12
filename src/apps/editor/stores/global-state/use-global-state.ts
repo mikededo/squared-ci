@@ -7,6 +7,7 @@ import { featureSwitchesStore } from './feature-switches';
 import { globalDragStore } from './global-drag';
 import { optionalSectionsStore } from './optional-sections';
 import type { Empty, GlobalStore } from './types';
+import { workflowDefaultsStore } from './worfklow-defaults';
 import { workflowInfoStore } from './worfklow-info';
 import { workflowBasicsStore } from './workflow-basics';
 import { workflowConcurrencyStore } from './workflow-concurrency';
@@ -24,6 +25,7 @@ const globalStore = create<GlobalStore>()((...args) => ({
   ...worfklowPermissionsStore(...args),
   ...workflowEnvStore(...args),
   ...workflowConcurrencyStore(...args),
+  ...workflowDefaultsStore(...args),
 }));
 
 export const useFeatureSwitch = <FS extends FeatureSwitches>(
@@ -194,3 +196,9 @@ export const useWorkflowConcurrency = () =>
       onChangeMatrix,
     }),
   );
+
+export const useWorkflowDefaults = () =>
+  globalStore(({ defaults, onChangeDefaultsMatrix: onChangeMatrix }) => ({
+    defaults,
+    onChangeMatrix,
+  }));
