@@ -14,8 +14,8 @@ export const BoxConcurrency: React.FC = () => {
     <DraggableWrapper>
       <Draggable
         innerRef={innerRef}
-        initialX={Positions.BoxEnvX}
-        initialY={Positions.BoxEnvY}
+        initialX={Positions.BoxConcurrencyX}
+        initialY={Positions.BoxConcurrencyY}
         visible={({ ref, onExpand }) => (
           <DraggableWrapper>
             <div ref={ref}>

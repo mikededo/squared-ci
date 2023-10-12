@@ -6,7 +6,9 @@ export const Positions = {
   BoxTriggerPropsX: 380,
   BoxTriggerPropsY: 280,
   BoxPermissionsX: 140,
-  BoxPermissionsY: 580,
+  BoxPermissionsY: 480,
   BoxEnvX: 140,
-  BoxEnvY: 640,
+  BoxEnvY: 560,
+  BoxConcurrencyX: 140,
+  BoxConcurrencyY: 760,
 };
