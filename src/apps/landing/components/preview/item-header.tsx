@@ -16,9 +16,7 @@ export const ItemHeader: React.FC<Props> = ({ title }) => (
       align="center"
     >
       <ArrowDownIcon className="group-hover:animate-bounce" />
-      <h3 className="font-semibold text-lg text-center relative before:absolute before:left-2 before:-right-2 before:bottom-0.5 before:h-2 before:bg-extra/30">
-        {title}
-      </h3>
+      <h3 className="font-semibold text-lg text-center">{title}</h3>
       <ArrowDownIcon className="group-hover:animate-bounce" />
     </Row>
   </BorderedBox>
