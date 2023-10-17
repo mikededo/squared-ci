@@ -1,1 +1,1 @@
-export * from './use-global-state';
+export * from './hooks';
