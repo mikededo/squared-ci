@@ -1,3 +1,4 @@
+export { useSearchParam } from './use-search-param';
 export {
   useThemeMode,
   useThemeModeLoader,

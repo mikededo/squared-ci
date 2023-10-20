@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import type { YamlField } from '@/aero';
 import {
@@ -67,7 +67,7 @@ export const Matrix: React.FC<Props> = ({
     };
   }, [show, onCtrlZListener]);
 
-  const portal = ReactDOM.createPortal(
+  const portal = createPortal(
     <Dialog show={show} blur>
       <VCol className="h-full w-full" variant="lg">
         <DialogHeader title={title} onClose={onClose} />

@@ -12,6 +12,7 @@ import {
   BoxTrigger,
   Features,
   GlobalDrag,
+  JobDialog,
   Menu,
   News,
   Visualiser,
@@ -36,6 +37,7 @@ const Editor: React.FC = () => {
         <BoxEnv />
         <BoxConcurrency />
         <BoxDefaults />
+        <JobDialog />
       </GlobalDrag>
       <Menu />
       <Features />
