@@ -5,6 +5,14 @@ module.exports = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   darkMode: 'class',
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        xl: '1100px',
+        '2xl': '1100px',
+      },
+    },
     extend: {
       backgroundImage: { paper: 'var(--bg-paper)' },
       backgroundSize: { 'paper-size': 'var(--bg-paper-size)' },

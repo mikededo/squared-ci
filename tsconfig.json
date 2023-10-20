@@ -19,6 +19,7 @@
     "paths": {
       "@/editor/*": ["./src/apps/editor/*"],
       "@/landing/*": ["./src/apps/landing/*"],
+      "@/roadmap/*": ["./src/apps/roadmap/*"],
       "@/aero": ["./src/libs/aero/index.ts"],
       "@/pulse": ["./src/libs/pulse/index.ts"],
       "@/chain": ["./src/libs/chain/index.ts"]

@@ -7,16 +7,10 @@ export const Nav: React.FC = () => (
     as="nav"
     align="center"
     justify="center"
-    className="px-6 border-b border-slate-150 h-12 z-10"
+    className="px-6 border-b border-slate-150 h-12 z-10 sticky bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 inset-0 "
   >
-    {/* TODO: Add when page is finished
-    <p className="font-semibold uppercase">
-      Squared <span className="text-extra">CI</span>
-    </p>
-    */}
     <p className="self-center text-sm uppercase text-center sm:text-left font-semibold">
-      🚧 This page is still under construction - The project is currently on
-      stand by! 🚧
+      Roadmap
     </p>
     <DarkModeToggler />
   </Row>

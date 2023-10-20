@@ -14,7 +14,7 @@ export {
 } from './draggable';
 export type { DataDraggable } from './draggable';
 export { Grid } from './grid';
-export { IconButton } from './icon-button';
+export { IconButton, DarkModeToggler } from './icon-button';
 export { Input } from './input';
 export { Link } from './link';
 export { Row } from './row';
