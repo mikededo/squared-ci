@@ -4,6 +4,7 @@ import { Row } from '@/aero';
 
 import {
   DarkThemeMenuOption,
+  ExtraColorOption,
   OptionalSectionsMenuOption,
   ShowTriggers,
 } from './options';
@@ -16,5 +17,6 @@ export const Menu: React.FC = () => (
     <OptionalSectionsMenuOption />
     <DarkThemeMenuOption />
     <ShowTriggers />
+    <ExtraColorOption />
   </Row>
 );

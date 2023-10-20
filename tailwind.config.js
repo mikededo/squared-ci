@@ -53,6 +53,12 @@ module.exports = {
         extra: {
           DEFAULT: 'hsl(var(--extra))',
           foreground: 'hsl(var(--extra-foreground))',
+          def: 'hsl(var(--extra-default))',
+          green: 'hsl(var(--extra-green))',
+          orange: 'hsl(var(--extra-orange))',
+          magenta: 'hsl(var(--extra-magenta))',
+          red: 'hsl(var(--extra-red))',
+          purple: 'hsl(var(--extra-purple))',
         },
       },
       borderRadius: {

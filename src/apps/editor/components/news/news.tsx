@@ -8,6 +8,12 @@ import { useNews } from './use-news';
 
 const NewsList: NewItem[] = [
   {
+    title: 'Different primary colors',
+    description:
+      'Check the new menu option that allows you to choose a different primary color!',
+    date: new Date('2023-10-20'),
+  },
+  {
     title: 'Added support for defaults',
     description: 'Now you can add defaults to your workflow!',
     date: new Date('2023-10-12'),

@@ -66,6 +66,14 @@ root {
     --bg-paper: linear-gradient(#e8e8e8 1px, transparent 0),
       linear-gradient(90deg, #e8e8e8 1px, transparent 0);
     --bg-paper-size: 50px 50px;
+
+    /* Extra colors */
+    --extra-default: 239 84% 67%;
+    --extra-green: 135 85% 67%;
+    --extra-orange: 28 85% 67%;
+    --extra-magenta: 331 85% 67%;
+    --extra-red: 0 85% 67%;
+    --extra-purple: 265 85% 67%;
   }
 
   .dark {
@@ -95,4 +103,20 @@ root {
     --bg-paper: linear-gradient(#475569 1px, transparent 0),
       linear-gradient(90deg, #475569 1px, #111827 0);
   }
+}
+
+:root.extra-green {
+  --extra: var(--extra-green);
+}
+:root.extra-orange {
+  --extra: var(--extra-orange);
+}
+:root.extra-magenta {
+  --extra: var(--extra-magenta);
+}
+:root.extra-red {
+  --extra: var(--extra-red);
+}
+:root.extra-purple {
+  --extra: var(--extra-purple);
 }
