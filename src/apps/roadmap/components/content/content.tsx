@@ -1,86 +1,184 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-const SectionWrapper: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className="flex flex-col gap-6">{children}</div>
+import { Features } from './features';
+import { Intro } from './intro';
+import { SectionWrapper } from './section-wrapper';
+
+type Props = {
+  completed?: boolean;
+};
+
+const Li: React.FC<PropsWithChildren<Props>> = ({ completed, children }) => (
+  <li>
+    <span className="mr-2 text-sm">{completed ? '✅' : '❌'}</span>
+    {children}
+  </li>
+);
+
+const Subtitle: React.FC<PropsWithChildren> = ({ children }) => (
+  <p className="text-sm -mt-2 italic text-foreground/60">{children}</p>
 );
 
 export const Content: React.FC = () => (
   <section className="flex flex-col gap-8 sm:gap-10 md:gap-12 pb-8">
-    <SectionWrapper>
-      <h1 className="text-4xl font-bold">Roadmap</h1>
-      <p>
-        Ever felt lost in GitHub Actions&apos; complexity? I get it—I&apos;ve
-        been there too. As the sole developer behind this project, I&apos;ve
-        created this roadmap as your companion in this CI/CD journey. GitHub
-        Actions Builder is all about making the intimidating task of creating
-        action.yaml files a breeze.
-        <br />
-        This roadmap is my commitment to simplifying this process for you. No
-        jargon, no confusion—just a clear path to creating GitHub Actions. Join
-        me in this adventure, and let&apos;s demystify the world of GitHub
-        Actions together. Stay tuned for updates; your GitHub Actions experience
-        is about to get a whole lot smoother! Happy coding (or not)! 🚀
-      </p>
-    </SectionWrapper>
-    <SectionWrapper>
-      <h2 className="text-3xl font-bold">Features in the pipeline</h2>
-      <p>
-        Curious about what&apos;s on the horizon and/or what has already been
-        implemented? Here&apos;s a glimpse of the exciting features and
-        enhancements that I&apos;m working on for GitHub Actions Builder:
-      </p>
-      <ul className="list-decimal list-inside font-bold">
-        <li className="mb-2">
-          Visual workflow editor:{' '}
-          <span className="font-normal">
-            A user-friendly with a drag-and-drop interface to create GitHub
-            Actions visually, simplifying the process even further. This feature
-            is partially developed already. Check further sections to see what
-            parts of the worfklow can you edit!
-          </span>
-        </li>
-        <li className="mb-2">
-          Custom action templates:{' '}
-          <span className="font-normal">
-            Create and save custom action templates, tailored to your specific
-            project needs, for quick and easy reuse.
-          </span>
-        </li>
-        <li className="mb-2">
-          Transforming YAML into the editor:{' '}
-          <span className="font-normal">
-            Sometimes we want to modify an existing action file and the best
-            thing we can do is copy it and adapt it. With this future feature,
-            you will be able to past pure YAML code and get it working with the
-            application.
-          </span>
-        </li>
-        <li>
-          Sharing is caring:{' '}
-          <span className="font-normal">
-            The same way we share CodeSandboxes, the idea is that we can also
-            share the current workflow we are working on. This project has
-            initially been thought to work without authentication, therefore
-            this feature will most likely not be implemented until
-            authentication is.
-          </span>
-        </li>
-      </ul>
-      <p>
-        Stay tuned for these enhancements and more. I&apos;m committed to
-        refining GitHub Actions Builder to best serve your needs. Your feedback
-        is invaluable, so if you have any specific features in mind, don&apos;t
-        hesitate to reach out. Together, let&apos;s make GitHub Actions a tool
-        that empowers developers worldwide.
-      </p>
-    </SectionWrapper>
+    <Intro />
+    <Features />
     <SectionWrapper>
       <h2 className="text-3xl font-bold">Feature&apos;s state of art</h2>
+      <p>
+        The following sections contain a more descriptive feature specification,
+        so that it is easier to understand what has already been developed and
+        what it is on its way.
+      </p>
       <h3 className="text-2xl font-bold">Visual editor</h3>
+      <p>
+        The visual editor is the main thing about the application. The idea is
+        that it contains everything necessary for you to be able to generate the
+        YAML file with ease. It will also contain a live preview of the YAML
+        file so that you can see how are your changes modifyign the output.
+        <br />
+        It is a very complex part and the idea is to make it as intuitive as
+        possible for the end user.
+      </p>
+      <h4 className="text-xl font-bold">Workflow syntax</h4>
+      <Subtitle>
+        All the different porperties that the GitHub Actions specification
+        provides.
+      </Subtitle>
+      <ul className="pl-2 list-disc list-inside -mt-1.5">
+        <Li completed>
+          Workflow <kbd>run</kbd> and <kbd>run-name</kbd>.
+        </Li>
+        <Li completed>
+          Workflow triggers <kbd>on</kbd>.
+        </Li>
+        <ul className="pl-10 list-disc list-outside">
+          <Li completed>
+            Select one or multiple triggers that will trigger the workflow.
+          </Li>
+          <Li completed>
+            Customize <kbd>branches</kbd>, <kbd>branches-ignore</kbd> for{' '}
+            <kbd>pull_request</kbd> and <kbd>pull_request_target</kbd> events.
+          </Li>
+          <Li completed>
+            Customize <kbd>branches</kbd>, <kbd>branches-ignore</kbd>,{' '}
+            <kbd>tags</kbd> and <kbd>tags-ignore</kbd> for <kbd>push</kbd>{' '}
+            events.
+          </Li>
+          <Li completed>
+            Customize <kbd>paths</kbd>, <kbd>paths-ignore</kbd> for{' '}
+            <kbd>push</kbd>, <kbd>pull_request</kbd> and{' '}
+            <kbd>pull_request_target</kbd> events.
+          </Li>
+          <Li>
+            Configuration of a cron value for <kbd>schedule</kbd> trigger.
+          </Li>
+          <Li>
+            <kbd>workflow_call</kbd>, <kbd>workflow_run</kbd> and{' '}
+            <kbd>workflow_dispatch</kbd> customizations.
+          </Li>
+        </ul>
+        <Li completed>Workflow permissions (root level).</Li>
+        <Li completed>Workflow environment variables (root level).</Li>
+        <Li completed>Workflow defaults (root level).</Li>
+        <Li completed>Workflow concurrency (root level).</Li>
+        <Li>Workflow jobs</Li>
+        <ul className="pl-10 list-disc list-outside">
+          <Li>
+            Job <kbd>name</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>permissions</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>needs</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>needs</kbd> autocompletion. The UI will provide a list of
+            the other jobs that have been created by the you, so that you can
+            easily remember the name of the other jobs.
+          </Li>
+          <Li>
+            Job <kbd>if</kbd> (conditional execution).
+          </Li>
+          <Li>
+            Job conditional running common templates. Provide commonly used
+            conditions to avoid having to search for them on the internet.
+          </Li>
+          <Li>
+            Job <kbd>runs-on</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>runs-on</kbd> runners autocompletion. Provide the list of
+            the official runners from GitHub in order to avoid making you have
+            to search for them.
+          </Li>
+          <Li>
+            Job <kbd>environment</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>concurrency</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>outputs</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>env</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>defaults</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>steps</kbd>. The steps are one of the most complex parts of
+            the workflow. Once I have had more time to plan how will I structure
+            this section, the roadmap will be updated accordingly.
+          </Li>
+          <Li>
+            Job <kbd>timeout-minutes</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>strategy</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>continue</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>container</kbd>. Similar to the <kbd>steps</kbd> section,
+            this configuration of the job will be updated once I have had time
+            to plan the development.
+          </Li>
+          <Li>
+            Job <kbd>uses</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>with</kbd>.
+          </Li>
+          <Li>
+            Job <kbd>secrets</kbd>.
+          </Li>
+        </ul>
+        <Li completed>Output file name.</Li>
+        <Li completed>Output file preview (life updated).</Li>
+        <Li completed>Copy/Export resulting code.</Li>
+        <Li completed>Dark theme and primary theme customizations.</Li>
+        <Li completed>
+          News dialog. On starting up the application, a dialog appears
+          displaying the new features that have been added to the editor.
+        </Li>
+      </ul>
       <h3 className="text-2xl font-bold">Action templates</h3>
+      <Subtitle>
+        This sections&apos;s roadmap will be updated in the near future.
+      </Subtitle>
       <h3 className="text-2xl font-bold">YAML translator</h3>
+      <Subtitle>
+        This sections&apos;s roadmap will be updated in the near future.
+      </Subtitle>
       <h3 className="text-2xl font-bold">Sharing workflows</h3>
+      <Subtitle>
+        This sections&apos;s roadmap will be updated in the near future.
+      </Subtitle>
     </SectionWrapper>
   </section>
 );
