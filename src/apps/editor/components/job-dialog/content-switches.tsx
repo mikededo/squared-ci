@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useSearchParam } from '@/chain';
 
+import { BaseContent } from './content';
 import type { Views } from './types';
 
 const VIEW_TO_CONTENT: Record<Views, React.ReactNode> = {
-  b: <div>Base</div>,
+  b: <BaseContent />,
   p: <div>Permissions</div>,
   coc: <div>Concurrency</div>,
   o: <div>Outputs</div>,
@@ -14,10 +15,11 @@ const VIEW_TO_CONTENT: Record<Views, React.ReactNode> = {
   ste: <div>Steps</div>,
   str: <div>Strategy</div>,
   con: <div>Container</div>,
+  ser: <div>Services</div>,
   h: <div>Help</div>,
 };
 
-export const ContenSwitcher: React.FC = () => {
+export const ContentSwitcher: React.FC = () => {
   const { getParam } = useSearchParam();
 
   return VIEW_TO_CONTENT[(getParam('view') ?? 'b') as Views];

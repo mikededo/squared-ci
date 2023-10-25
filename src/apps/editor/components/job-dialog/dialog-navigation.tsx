@@ -14,11 +14,13 @@ const NEXT_VIEW: Record<Views, Views> = {
   d: 'ste',
   ste: 'str',
   str: 'con',
-  con: 'h',
+  con: 'ser',
+  ser: 'h',
   h: 'h',
 };
 const PREV_VIEW: Record<Views, Views> = {
-  h: 'con',
+  h: 'ser',
+  ser: 'con',
   con: 'str',
   str: 'ste',
   ste: 'd',
@@ -45,7 +47,7 @@ export const DialogNavigation: React.FC = () => {
   };
 
   return (
-    <Row className="pr-8 pb-6 w-full" justify="between">
+    <Row className="pr-6 py-4 w-full" justify="between">
       <Row className="gap-2">
         <Button onClick={handleOnPrev} variant="secondary" disabled={isFirst}>
           Previous

@@ -2,16 +2,15 @@ import React from 'react';
 
 import { VCol } from '@/aero';
 
-import { ContenSwitcher } from './content-switches';
+import { ContentSwitcher } from './content-switches';
 import { DialogNavigation } from './dialog-navigation';
+import { DialogTitle } from './dialog-title';
 
 export const DialogContent: React.FC = () => (
-  <VCol className="w-full h-full items-stretch">
-    <h3 className="p-4 text-2xl font-semibold">Selected section</h3>
-    <div className="pr-8 pb-4 w-full flex-1">
-      <div className="py-4 px-5 rounded-md bg-muted h-full border">
-        <ContenSwitcher />
-      </div>
+  <VCol className="w-full h-full items-stretch gap-0">
+    <DialogTitle />
+    <div className="pl-4 pr-6 pb-4 w-full relative overflow-y-auto flex-1">
+      <ContentSwitcher />
     </div>
     <DialogNavigation />
   </VCol>

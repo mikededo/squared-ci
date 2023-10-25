@@ -8,4 +8,5 @@ export type Views =
   | 'ste'
   | 'str'
   | 'con'
+  | 'ser'
   | 'h';

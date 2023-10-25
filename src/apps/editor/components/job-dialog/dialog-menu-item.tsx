@@ -27,10 +27,8 @@ export const DialogMenuItem: React.FC<PropsWithChildren<Props>> = ({
   return (
     <li
       className={twMerge(
-        'rounded-md py-2 pl-3 mr-2 transition-all cursor-pointer border',
-        active
-          ? 'bg-muted rounded-r-none -mr-[1px] border-r-transparent z-10'
-          : 'hover:bg-muted border-transparent',
+        'rounded-md py-2 px-3 transition-all cursor-pointer',
+        active ? 'bg-muted' : 'hover:bg-muted',
       )}
       onClick={handleOnClick}
     >

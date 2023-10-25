@@ -19,7 +19,7 @@ export const DialogMenu: React.FC = () => (
           <p>Base</p>
           <p className="text-xs mb-0.5">
             Name, needs, if, runs-on, environment, timeout minutes, continue on
-            error, services
+            error, uses, with
           </p>
         </DialogMenuItem>
         <DialogMenuItem paramValue="p">Permissions</DialogMenuItem>
@@ -30,6 +30,7 @@ export const DialogMenu: React.FC = () => (
         <DialogMenuItem paramValue="ste">Steps</DialogMenuItem>
         <DialogMenuItem paramValue="str">Strategy</DialogMenuItem>
         <DialogMenuItem paramValue="con">Container</DialogMenuItem>
+        <DialogMenuItem paramValue="ser">Services</DialogMenuItem>
         <DialogMenuItem paramValue="h">Help</DialogMenuItem>
       </ul>
     </div>

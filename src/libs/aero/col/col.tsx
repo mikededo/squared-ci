@@ -46,6 +46,7 @@ type Props = {
   justify?: Justify;
   align?: Justify;
   style?: React.CSSProperties;
+  expand?: boolean;
 } & DataDraggable;
 
 export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
@@ -56,6 +57,7 @@ export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
       justify = 'start',
       align = 'start',
       className,
+      expand,
       ...props
     },
     ref,
@@ -67,6 +69,7 @@ export const VCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
         VColVariants[variant],
         ColJustify[justify],
         ColAlign[align],
+        expand && 'w-full',
         className,
       )}
       {...props}
@@ -84,6 +87,7 @@ export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
       justify = 'start',
       align = 'start',
       className,
+      expand,
       ...props
     },
     ref,
@@ -95,6 +99,7 @@ export const HCol = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
         HColVariants[variant],
         ColJustify[justify],
         ColAlign[align],
+        expand && 'w-full',
         className,
       )}
       {...props}
