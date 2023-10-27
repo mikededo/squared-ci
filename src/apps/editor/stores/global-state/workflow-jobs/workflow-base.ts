@@ -14,7 +14,7 @@ export const workflowBase: StateCreator<
       return;
     }
 
-    const updated = new Map([...get().jobs]);
+    const updated = new Map([...jobs]);
     const current = updated.get(jobId)!;
     current.name = jobName;
     set({ jobs: updated });

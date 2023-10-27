@@ -8,6 +8,7 @@ type Options = {
   tabCount?: [number, number];
   numOnly?: boolean;
   spaceAsUnderscore?: boolean;
+  disableSpaces?: boolean;
   preventUppercase?: boolean;
 };
 type SideEffects = {
@@ -30,6 +31,7 @@ export const useAdvancedInput = (
     tabCount: [minTabCount, maxTabCount] = [-Infinity, Infinity],
     numOnly,
     spaceAsUnderscore,
+    disableSpaces,
     preventUppercase,
     onEnterPress,
     onTabPress,
@@ -46,7 +48,11 @@ export const useAdvancedInput = (
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.currentTarget.value;
-    value = spaceAsUnderscore ? value.replaceAll(' ', '_') : value;
+    const spaceReplacement = spaceAsUnderscore ? '_' : disableSpaces ? '' : ' ';
+    value =
+      spaceReplacement !== ' '
+        ? value.replaceAll(' ', spaceReplacement)
+        : value;
     value = preventUppercase ? value.toLowerCase() : value;
 
     setValue(value);
@@ -64,14 +70,14 @@ export const useAdvancedInput = (
       e.preventDefault();
       onEnterPress?.(e.currentTarget.value, helpers);
     }
-    if (e.key === 'Tab' && !e.shiftKey) {
+    if (e.key === 'Tab' && !e.shiftKey && onTabPress) {
       e.preventDefault();
-      onTabPress?.(e.currentTarget.value, tabCount, helpers);
+      onTabPress(e.currentTarget.value, tabCount, helpers);
       setTabCount(tabCount + 1 > maxTabCount ? minTabCount : tabCount + 1);
     }
-    if (e.key === 'Tab' && e.shiftKey) {
+    if (e.key === 'Tab' && e.shiftKey && onShiftTabPress) {
       e.preventDefault();
-      onShiftTabPress?.(e.currentTarget.value, tabCount, helpers);
+      onShiftTabPress(e.currentTarget.value, tabCount, helpers);
       setTabCount(tabCount - 1 < minTabCount ? maxTabCount : tabCount - 1);
     }
   };

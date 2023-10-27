@@ -10,7 +10,6 @@ import { Section, SectionHeader } from '../shared';
 export const JobNeeds: React.FC = () => {
   const jobId = useSelectedJobId();
   const { active, inactive, onToggleJobNeed } = useWorkflowNeeds(jobId ?? '');
-  console.log(active, inactive);
 
   const handleOnClick = (jobId: string) => () => {
     onToggleJobNeed(jobId);

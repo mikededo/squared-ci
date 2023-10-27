@@ -1,12 +1,14 @@
 import type { StateCreator } from 'zustand';
 
 import { workflowBase } from './workflow-base';
+import { workflowEnvironment } from './workflow-environment';
 import { workflowNeeds } from './workflow-needs';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
 const BaseJob: Omit<Job, 'id'> = {
   name: '',
   needs: new Set(),
+  environment: { name: '' },
 };
 
 export const workflowJobsStore: StateCreator<
@@ -23,4 +25,5 @@ export const workflowJobsStore: StateCreator<
   },
   ...workflowBase(set, get, ...rest),
   ...workflowNeeds(set, get, ...rest),
+  ...workflowEnvironment(set, get, ...rest),
 });

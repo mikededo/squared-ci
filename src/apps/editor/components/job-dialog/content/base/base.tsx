@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Input, Toggle, VCol } from '@/aero';
+import { Toggle, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
 
+import { JobEnvironment } from './job-environment';
 import { JobName } from './job-name';
 import { JobNeeds } from './job-needs';
 import { Section, SectionHeader } from '../shared';
@@ -11,27 +12,13 @@ export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
     <JobName />
     <JobNeeds />
+    <JobEnvironment />
     {/* TODO: Add recommendations of if conditions */}
     {/* <InputSection */}
     {/*   title="Job conditions (if)" */}
     {/*   docs={JobDocs.jobIf} */}
     {/*   subtitle="Prevent a job from running unless this condition is met" */}
     {/* /> */}
-    <Section>
-      <SectionHeader
-        title="Environment"
-        docs={JobDocs.jobEnv}
-        subtitle="Define the environment that the job references"
-      />
-      <VCol expand>
-        <p className="text-sm">Name</p>
-        <Input placeholder="production_environment" variant="plain" />
-      </VCol>
-      <VCol expand>
-        <p className="text-sm">Url (optional)</p>
-        <Input placeholder="https://your-domain.com" variant="plain" />
-      </VCol>
-    </Section>
     {/* <InputSection */}
     {/*   title="Timeout minutes" */}
     {/*   docs={JobDocs.jobTimeoutMinutes} */}
