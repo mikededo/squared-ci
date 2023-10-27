@@ -40,11 +40,11 @@ type JobSecrets = {
  * which, even though it has the inconvenience of duplicated types, allows the
  * codebase to differentiate both sections, as they could indepently change
  */
-type Job = {
+export type Job = {
   id: string;
   name: string;
   permissions?: JobPermissions;
-  needs?: Set<string>;
+  needs: Set<string>;
   condition?: string;
   runsOn?: never; // TBD
   environment?: JobEnvironment;
@@ -68,9 +68,13 @@ type Job = {
 export type WorkflowJobsBaseActions = {
   onChangeJobName: Single<string, Single<string>>;
 };
+export type WorkflowJobsNeedsActions = {
+  onToggleJobNeed: Single<string, Single<string>>;
+};
 
 type WorkflowJobsState = { jobs: Map<string, Job> };
-type WorkflowJobsActions = WorkflowJobsBaseActions & {
-  onAddJob: Single<string>;
-};
+type WorkflowJobsActions = WorkflowJobsBaseActions &
+  WorkflowJobsNeedsActions & {
+    onAddJob: Single<string>;
+  };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

@@ -1,28 +1,13 @@
 import type { StateCreator } from 'zustand';
 
-import type {
-  GlobalStore,
-  WorkflowJobsBaseActions,
-  WorkflowJobsStore,
-} from '../types';
+import { workflowBase } from './workflow-base';
+import { workflowNeeds } from './workflow-needs';
+import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
-const workflowBase: StateCreator<
-  GlobalStore,
-  [],
-  [],
-  Pick<WorkflowJobsBaseActions, 'onChangeJobName'>
-> = (set, get) => ({
-  onChangeJobName: (jobId) => (jobName) => {
-    const jobs = new Map([...get().jobs]);
-    const current = jobs.get(jobId);
-    if (!current) {
-      return;
-    }
-
-    current.name = jobName;
-    set({ jobs });
-  },
-});
+const BaseJob: Omit<Job, 'id'> = {
+  name: '',
+  needs: new Set(),
+};
 
 export const workflowJobsStore: StateCreator<
   GlobalStore,
@@ -33,8 +18,9 @@ export const workflowJobsStore: StateCreator<
   jobs: new Map(),
   onAddJob: (id) => {
     const jobs = new Map([...get().jobs]);
-    jobs.set(id, { id: id, name: '' });
+    jobs.set(id, { id: id, ...BaseJob });
     set({ jobs });
   },
   ...workflowBase(set, get, ...rest),
+  ...workflowNeeds(set, get, ...rest),
 });

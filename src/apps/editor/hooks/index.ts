@@ -3,6 +3,7 @@ export { useAdvancedInput } from './use-advanced-input';
 export { useChangesStack } from './use-changes-stack';
 export { useDraggable } from './use-draggable';
 export { useExpandable } from './use-expandable';
+export { useSelectedJobId } from './use-selected-job-id';
 export { useSizeObserver } from './use-size-observer';
 export { useToggler } from './use-toggler';
 export { useViewport } from './use-viewport';

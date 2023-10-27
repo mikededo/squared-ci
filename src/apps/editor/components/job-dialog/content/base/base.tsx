@@ -1,56 +1,16 @@
 import React from 'react';
 
-import { Input, Label, Toggle, VCol } from '@/aero';
-import { useSearchParam } from '@/chain';
+import { Input, Toggle, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
-import { useWorkflowJobName } from '@/editor/stores';
 
-import { Section, SectionHeader } from './shared';
-
-const JobName: React.FC = () => {
-  const { getParam } = useSearchParam();
-  const jobId = getParam('job-editor');
-  const { job, onChangeJobName } = useWorkflowJobName(jobId ?? '');
-
-  const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    onChangeJobName(e.currentTarget.value);
-  };
-
-  return (
-    <Section>
-      <SectionHeader
-        title="Job name"
-        docs={JobDocs.jobName}
-        subtitle="Name of the job that will be displayed in the GitHub UI"
-      />
-      <Input
-        placeholder="job_name"
-        defaultValue={job?.name ?? ''}
-        onBlur={handleOnBlur}
-        variant="plain"
-        disabled={!jobId}
-      />
-    </Section>
-  );
-};
+import { JobName } from './job-name';
+import { JobNeeds } from './job-needs';
+import { Section, SectionHeader } from '../shared';
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
     <JobName />
-    <Section>
-      <SectionHeader
-        title="Needs"
-        docs={JobDocs.jobNeeds}
-        subtitle="Set up the job or list of jobs that must complete successfully before running this job"
-      />
-      <VCol variant="xs" expand>
-        <p className="text-sm font-medium">Workflow jobs</p>
-        <Label>
-          You have not created any other job. Create other jobs and they will
-          appear here.
-        </Label>
-      </VCol>
-    </Section>
+    <JobNeeds />
     {/* TODO: Add recommendations of if conditions */}
     {/* <InputSection */}
     {/*   title="Job conditions (if)" */}
