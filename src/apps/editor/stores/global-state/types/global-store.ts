@@ -4,6 +4,7 @@ import type { WorkflowConcurrencyStore } from './workflow-concurrency';
 import type { WorkflowDefaultsStore } from './workflow-defaults';
 import type { WorkflowEnvStore } from './workflow-env';
 import type { WorkflowInfoStore } from './workflow-info';
+import type { WorkflowJobsStore } from './workflow-jobs';
 import type { WorkflowPermissionsStore } from './workflow-permissions';
 import type { WorkflowTriggersStore } from './workflow-triggers';
 import type { FeatureSwitchesStore } from '../feature-switches';
@@ -18,4 +19,5 @@ export type GlobalStore = FeatureSwitchesStore &
   WorkflowPermissionsStore &
   WorkflowEnvStore &
   WorkflowConcurrencyStore &
-  WorkflowDefaultsStore;
+  WorkflowDefaultsStore &
+  WorkflowJobsStore;

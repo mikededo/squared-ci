@@ -7,6 +7,8 @@ type SideEffectHelpers = {
 type Options = {
   tabCount?: [number, number];
   numOnly?: boolean;
+  spaceAsUnderscore?: boolean;
+  preventUppercase?: boolean;
 };
 type SideEffects = {
   onEnterPress?: (value: string, helpers: SideEffectHelpers) => void;
@@ -27,6 +29,8 @@ export const useAdvancedInput = (
   {
     tabCount: [minTabCount, maxTabCount] = [-Infinity, Infinity],
     numOnly,
+    spaceAsUnderscore,
+    preventUppercase,
     onEnterPress,
     onTabPress,
     onShiftTabPress,
@@ -41,7 +45,11 @@ export const useAdvancedInput = (
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
+    let value = e.currentTarget.value;
+    value = spaceAsUnderscore ? value.replaceAll(' ', '_') : value;
+    value = preventUppercase ? value.toLowerCase() : value;
+
+    setValue(value);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

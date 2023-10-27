@@ -1,4 +1,3 @@
-import { ChevronRightIcon } from '@primer/octicons-react';
 import React from 'react';
 
 import {
@@ -6,8 +5,6 @@ import {
   DraggableWrapper,
   Input,
   Label,
-  Meta,
-  Row,
   Toggle,
   VCol,
   useDialog,
@@ -17,6 +14,7 @@ import { Matrix } from '@/editor/components';
 import { useWorkflowConcurrency } from '@/editor/stores';
 
 import { Max } from './max';
+import { BoxButton } from '../box-button';
 
 export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
   const { show, onToggleDialog, onHideDialog } = useDialog();
@@ -82,17 +80,7 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
             </VCol>
             <Max />
             <Label className="text-muted-foreground">Matrix</Label>
-            <button
-              className="py-1.5 px-2 -mt-0.5 rounded-md border border-input hover:bg-muted transition-colors cursor-pointer text-muted-foreground"
-              onClick={onToggleDialog}
-            >
-              <Row align="center" justify="between">
-                <DraggableWrapper>
-                  <Meta className="text-muted-foreground">Add matrix</Meta>
-                  <ChevronRightIcon className="fill-muted-foreground" />
-                </DraggableWrapper>
-              </Row>
-            </button>
+            <BoxButton title="Add matrix" onClick={onToggleDialog} />
           </DraggableWrapper>
         </VCol>
       </DraggableWrapper>

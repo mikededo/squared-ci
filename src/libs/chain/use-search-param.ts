@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
 type GetSearchParameter = (name: string) => string | null;
-type SetSearchParameter = (name: string, value: string) => void;
-type DeleteSearchParameter = (name: string) => void;
+type SetSearchParameter = (entries: Record<string, string>) => void;
+type DeleteSearchParameter = (name: string | string[]) => void;
 
 type UseSearchParameterFn = () => {
   getParam: GetSearchParameter;
@@ -24,21 +24,36 @@ export const useSearchParam: UseSearchParameterFn = () => {
   );
 
   const setParam: SetSearchParameter = useCallback(
-    (name, value) => {
+    (entries) => {
       const searchParams = new URLSearchParams(params);
-      searchParams.set(name, value);
+
+      Object.entries(entries).forEach(([param, value]) => {
+        if (value === '') {
+          searchParams.delete(param);
+        } else {
+          searchParams.set(param, value);
+        }
+      });
+
       replace(`${pathname}?${searchParams.toString()}`);
     },
     [pathname, params, replace],
   );
 
   const deleteParam: DeleteSearchParameter = useCallback(
-    (name) => {
+    (paramNames) => {
       const searchParams = new URLSearchParams(params);
-      searchParams.delete(name);
+
+      if (typeof paramNames === 'string') {
+        searchParams.delete(paramNames);
+      } else {
+        paramNames.forEach((param) => {
+          searchParams.delete(param);
+        });
+      }
+
       const searchParamsString =
         searchParams.toString().length > 0 ? `?${searchParams.toString()}` : '';
-
       replace(`${pathname}${searchParamsString}`);
     },
     [pathname, params, replace],

@@ -1,5 +1,6 @@
 export { BoxConcurrency } from './box-concurrency';
 export { BoxEnv } from './box-env';
+export { BoxJobs } from './box-jobs';
 export { BoxName } from './box-name';
 export { BoxPermissions } from './box-permissions';
 export { BoxTrigger } from './box-trigger';

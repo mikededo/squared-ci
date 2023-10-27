@@ -33,17 +33,21 @@ const PREV_VIEW: Record<Views, Views> = {
 };
 
 export const DialogNavigation: React.FC = () => {
-  const { getParam, setParam } = useSearchParam();
+  const { getParam, setParam, deleteParam } = useSearchParam();
   const currentParam = (getParam('view') ?? 'b') as Views;
   const isFirst = currentParam === 'b';
   const isLast = currentParam === 'h';
 
   const handleOnNext = () => {
-    setParam('view', NEXT_VIEW[currentParam]);
+    setParam({ view: NEXT_VIEW[currentParam] });
   };
 
   const handleOnPrev = () => {
-    setParam('view', PREV_VIEW[currentParam]);
+    setParam({ view: PREV_VIEW[currentParam] });
+  };
+
+  const handleOnCancel = () => {
+    deleteParam(['job-editor', 'view']);
   };
 
   return (
@@ -57,10 +61,10 @@ export const DialogNavigation: React.FC = () => {
         </Button>
       </Row>
       <Row className="gap-2">
-        <Button onClick={() => console.log('discard')} variant="text">
+        <Button onClick={handleOnCancel} variant="text">
           Cancel
         </Button>
-        <Button onClick={() => console.log('discard')}>Save</Button>
+        <Button onClick={() => console.log('save')}>Save</Button>
       </Row>
     </Row>
   );

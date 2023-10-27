@@ -9,6 +9,7 @@ import { workflowInfoStore } from '../worfklow-info';
 import { workflowBasicsStore } from '../workflow-basics';
 import { workflowConcurrencyStore } from '../workflow-concurrency';
 import { workflowEnvStore } from '../workflow-env';
+import { workflowJobsStore } from '../workflow-jobs';
 import { worfklowPermissionsStore } from '../workflow-permissions';
 import { workflowTriggersStore } from '../workflow-triggers';
 
@@ -23,4 +24,5 @@ export const globalStore = create<GlobalStore>()((...args) => ({
   ...workflowEnvStore(...args),
   ...workflowConcurrencyStore(...args),
   ...workflowDefaultsStore(...args),
+  ...workflowJobsStore(...args),
 }));

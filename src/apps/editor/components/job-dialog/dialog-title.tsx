@@ -23,7 +23,8 @@ export const DialogTitle: React.FC = () => {
 
   return (
     <h3 className="p-4 text-2xl font-semibold">
-      {VIEW_TO_TITLE[(getParam('view') ?? 'b') as Views]}
+      {VIEW_TO_TITLE[(getParam('view') ?? 'b') as Views]}:{' '}
+      <kbd>{getParam('job-editor')}</kbd>
     </h3>
   );
 };

@@ -1,61 +1,42 @@
-import { QuestionIcon } from '@primer/octicons-react';
-import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-import { Input, Label, Row, Toggle, VCol } from '@/aero';
+import { Input, Label, Toggle, VCol } from '@/aero';
+import { useSearchParam } from '@/chain';
 import { JobDocs } from '@/editor/config';
+import { useWorkflowJobName } from '@/editor/stores';
 
-type Props = {
-  title: string;
-  docs?: string;
-  subtitle?: string;
+import { Section, SectionHeader } from './shared';
+
+const JobName: React.FC = () => {
+  const { getParam } = useSearchParam();
+  const jobId = getParam('job-editor');
+  const { job, onChangeJobName } = useWorkflowJobName(jobId ?? '');
+
+  const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    onChangeJobName(e.currentTarget.value);
+  };
+
+  return (
+    <Section>
+      <SectionHeader
+        title="Job name"
+        docs={JobDocs.jobName}
+        subtitle="Name of the job that will be displayed in the GitHub UI"
+      />
+      <Input
+        placeholder="job_name"
+        defaultValue={job?.name ?? ''}
+        onBlur={handleOnBlur}
+        variant="plain"
+        disabled={!jobId}
+      />
+    </Section>
+  );
 };
-
-// TODO:: Extract into shared component
-const Section: React.FC<PropsWithChildren> = ({ children }) => (
-  <VCol variant="md" expand>
-    {children}
-  </VCol>
-);
-
-const SectionHeader: React.FC<Props> = ({ title, docs, subtitle }) => (
-  <VCol variant="xs" expand>
-    <Row align="center" justify="between" expand>
-      <p className="font-semibold">{title}</p>
-      {docs ? (
-        <a
-          href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_id"
-          target="_blank"
-          rel="noopener"
-          className="flex"
-        >
-          <QuestionIcon className="hover:fill-extra transition-colors" />
-        </a>
-      ) : null}
-    </Row>
-    {subtitle ? <Label>{subtitle}</Label> : null}
-  </VCol>
-);
-
-const InputSection: React.FC<Props> = ({ title, docs, subtitle }) => (
-  <Section>
-    <SectionHeader title={title} subtitle={subtitle} docs={docs} />
-    <Input placeholder="my_job_id" variant="plain" />
-  </Section>
-);
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
-    <InputSection
-      title="Job id"
-      docs={JobDocs.jobId}
-      subtitle="Job unique identifier"
-    />
-    <InputSection
-      title="Job name"
-      docs={JobDocs.jobName}
-      subtitle="Name of the job that will be displayed in the GitHub UI"
-    />
+    <JobName />
     <Section>
       <SectionHeader
         title="Needs"
@@ -71,11 +52,11 @@ export const BaseContent: React.FC = () => (
       </VCol>
     </Section>
     {/* TODO: Add recommendations of if conditions */}
-    <InputSection
-      title="Job conditions (if)"
-      docs={JobDocs.jobIf}
-      subtitle="Prevent a job from running unless this condition is met"
-    />
+    {/* <InputSection */}
+    {/*   title="Job conditions (if)" */}
+    {/*   docs={JobDocs.jobIf} */}
+    {/*   subtitle="Prevent a job from running unless this condition is met" */}
+    {/* /> */}
     <Section>
       <SectionHeader
         title="Environment"
@@ -91,11 +72,11 @@ export const BaseContent: React.FC = () => (
         <Input placeholder="https://your-domain.com" variant="plain" />
       </VCol>
     </Section>
-    <InputSection
-      title="Timeout minutes"
-      docs={JobDocs.jobTimeoutMinutes}
-      subtitle="The maximum number of minutes to let a job run before it is automatically cancelled"
-    />
+    {/* <InputSection */}
+    {/*   title="Timeout minutes" */}
+    {/*   docs={JobDocs.jobTimeoutMinutes} */}
+    {/*   subtitle="The maximum number of minutes to let a job run before it is automatically cancelled" */}
+    {/* /> */}
     <Section>
       <SectionHeader
         title="Continue on error"

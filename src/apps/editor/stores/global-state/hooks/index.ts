@@ -6,5 +6,6 @@ export * from './use-workflow-concurrency';
 export * from './use-workflow-defaults';
 export * from './use-workflow-env';
 export * from './use-workflow-info';
+export * from './use-workflow-jobs';
 export * from './use-workflow-permissions';
 export * from './use-workflow-triggers';

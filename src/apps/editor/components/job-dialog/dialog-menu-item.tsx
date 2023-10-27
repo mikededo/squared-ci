@@ -21,7 +21,7 @@ export const DialogMenuItem: React.FC<PropsWithChildren<Props>> = ({
       return;
     }
 
-    setParam('view', paramValue);
+    setParam({ view: paramValue });
   };
 
   return (

@@ -7,6 +7,7 @@ import { useThemeModeLoader } from '@/chain';
 import {
   BoxConcurrency,
   BoxEnv,
+  BoxJobs,
   BoxName,
   BoxPermissions,
   BoxTrigger,
@@ -33,6 +34,7 @@ const Editor: React.FC = () => {
       <GlobalDrag>
         <BoxName />
         <BoxTrigger />
+        <BoxJobs />
         <BoxPermissions />
         <BoxEnv />
         <BoxConcurrency />

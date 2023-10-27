@@ -71,7 +71,7 @@ export const Input: React.FC<Props> = (props) => {
   }, []);
 
   const classes = twMerge(
-    'font-mono text-sm px-2 py-1.5 w-full transition-all placeholder:text-muted-foreground',
+    'font-mono text-sm px-2 py-1.5 w-full transition-all placeholder:text-muted-foreground disabled:cursor-not-allowed',
     Variants[variant],
     className,
   );
