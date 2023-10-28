@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Toggle, VCol } from '@/aero';
-import { JobDocs } from '@/editor/config';
+import { VCol } from '@/aero';
 
+import { JobContinueOnError } from './job-continue-on-error';
 import { JobEnvironment } from './job-environment';
 import { JobName } from './job-name';
 import { JobNeeds } from './job-needs';
-import { Section, SectionHeader } from '../shared';
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
@@ -24,15 +23,6 @@ export const BaseContent: React.FC = () => (
     {/*   docs={JobDocs.jobTimeoutMinutes} */}
     {/*   subtitle="The maximum number of minutes to let a job run before it is automatically cancelled" */}
     {/* /> */}
-    <Section>
-      <SectionHeader
-        title="Continue on error"
-        docs={JobDocs.jobContinueOnError}
-        subtitle="Prevents a workflow run from failing when a job fails."
-      />
-      <div className="w-full">
-        <Toggle text="Enabled" value={false} onClick={console.log} />
-      </div>
-    </Section>
+    <JobContinueOnError />
   </VCol>
 );

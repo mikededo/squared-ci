@@ -17,7 +17,7 @@ const changeJobEnvironmentValue = (
   prop: keyof Job['environment'],
   { jobs, jobId, value }: ChangeJobEnvironmentValueOptions,
 ) => {
-  const updated = new Map([...jobs]);
+  const updated = new Map(jobs);
   const current = updated.get(jobId)!;
   current.environment[prop] = value;
   return updated;

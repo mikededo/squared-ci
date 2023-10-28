@@ -8,7 +8,7 @@ import type {
   Permissions,
 } from '@/editor/domain/permissions';
 
-import type { Single } from './shared';
+import type { Empty, Single } from './shared';
 
 type JobPermissions = {
   totalPermissionsEnabled: number;
@@ -56,7 +56,7 @@ export type Job = {
   steps?: never; // TBD
   timeoutMinutes?: number;
   strategy?: YamlField[];
-  continueOnError?: boolean;
+  continueOnError: boolean;
   container?: Container;
   services?: Map<string, Container>;
   uses?: string;
@@ -75,11 +75,13 @@ export type WorkflowJobsEnvironmentActions = {
   onChangeJobEnvironmentName: Single<string, Single<string>>;
   onChangeJobEnvironmentUrl: Single<string, Single<string>>;
 };
+export type WorkflowJobsContinueOnErrorActions = {
+  onToggleJobContinueOnError: Single<string, Empty>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsNeedsActions &
-  WorkflowJobsEnvironmentActions & {
-    onAddJob: Single<string>;
-  };
+  WorkflowJobsEnvironmentActions &
+  WorkflowJobsContinueOnErrorActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

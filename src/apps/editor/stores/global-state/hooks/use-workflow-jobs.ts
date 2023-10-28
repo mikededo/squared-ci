@@ -31,3 +31,9 @@ export const useWorkflowEnvironment = (jobId: string) =>
       onChangeUrl: onChangeJobEnvironmentUrl(jobId),
     }),
   );
+
+export const useWorkflowJobContinueOnError = (jobId: string) =>
+  globalStore(({ jobs, onToggleJobContinueOnError }) => ({
+    value: jobs.get(jobId)?.continueOnError,
+    onToggle: onToggleJobContinueOnError(jobId),
+  }));

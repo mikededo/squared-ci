@@ -14,7 +14,7 @@ export const workflowNeeds: StateCreator<
       return;
     }
 
-    const updated = new Map([...get().jobs]);
+    const updated = new Map(jobs);
     const current = updated.get(jobId)!;
     if (current.needs.has(need)) {
       current.needs.delete(need);
