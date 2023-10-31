@@ -12,6 +12,8 @@ export const JobDocs = {
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idenvironment',
   jobTimeoutMinutes:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes',
+  jobUses:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iduses',
   jobContinueOnError:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontinue-on-error',
 };

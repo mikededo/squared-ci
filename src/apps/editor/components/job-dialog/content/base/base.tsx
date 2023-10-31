@@ -8,14 +8,18 @@ import { JobIf } from './job-if';
 import { JobName } from './job-name';
 import { JobNeeds } from './job-needs';
 import { JobTimeoutMinutes } from './job-timeout-minutes';
+import { JobUses } from './job-uses';
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
     <JobName />
     <JobNeeds />
-    <JobEnvironment />
     <JobIf />
+    {/* <JobRunsOn /> */}
+    <JobEnvironment />
+    <JobUses />
     <JobTimeoutMinutes />
+    {/* <JobWith /> */}
     <JobContinueOnError />
   </VCol>
 );

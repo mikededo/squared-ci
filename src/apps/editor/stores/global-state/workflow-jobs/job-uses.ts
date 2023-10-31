@@ -1,14 +1,14 @@
 import type { StateCreator } from 'zustand';
 
-import type { GlobalStore, WorkflowJobsTimeoutMinutesActions } from '../types';
+import type { GlobalStore, WorkflowJobsUsesActions } from '../types';
 
-export const jobTimeoutMinutes: StateCreator<
+export const jobUses: StateCreator<
   GlobalStore,
   [],
   [],
-  WorkflowJobsTimeoutMinutesActions
+  WorkflowJobsUsesActions
 > = (set, get) => ({
-  onChangeJobTimeoutMinutes: (jobId) => (minutes) => {
+  onChangeJobUses: (jobId) => (value) => {
     const { jobs } = get();
     if (!jobs.has(jobId)) {
       return;
@@ -16,7 +16,7 @@ export const jobTimeoutMinutes: StateCreator<
 
     const updated = new Map(jobs);
     const current = updated.get(jobId)!;
-    current.timeoutMinutes = minutes;
+    current.uses = value;
     set({ jobs: updated });
   },
 });

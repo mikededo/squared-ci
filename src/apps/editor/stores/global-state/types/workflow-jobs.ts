@@ -59,7 +59,7 @@ export type Job = {
   continueOnError: boolean;
   container?: Container;
   services?: Map<string, Container>;
-  uses?: string;
+  uses: string;
   with?: never; // TBD
   secrets?: JobSecrets;
 };
@@ -82,7 +82,10 @@ export type WorkflowJobsConditionActions = {
   onChangeJobCondition: Single<string, Single<string>>;
 };
 export type WorkflowJobsTimeoutMinutesActions = {
-  onChangeTimeoutMinutes: Single<string, Single<number>>;
+  onChangeJobTimeoutMinutes: Single<string, Single<number>>;
+};
+export type WorkflowJobsUsesActions = {
+  onChangeJobUses: Single<string, Single<string>>;
 };
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
@@ -91,5 +94,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsEnvironmentActions &
   WorkflowJobsContinueOnErrorActions &
   WorkflowJobsConditionActions &
-  WorkflowJobsTimeoutMinutesActions & { onAddJob: Single<string> };
+  WorkflowJobsTimeoutMinutesActions &
+  WorkflowJobsUsesActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

@@ -6,6 +6,7 @@ import { jobContinueOnError } from './job-continue-error';
 import { jobEnvironment } from './job-environment';
 import { jobNeeds } from './job-needs';
 import { jobTimeoutMinutes } from './job-timeout-minutes';
+import { jobUses } from './job-uses';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
 const BaseJob: Omit<Job, 'id'> = {
@@ -15,6 +16,7 @@ const BaseJob: Omit<Job, 'id'> = {
   continueOnError: false,
   condition: '',
   timeoutMinutes: 360,
+  uses: '',
 };
 
 export const workflowJobsStore: StateCreator<
@@ -35,4 +37,5 @@ export const workflowJobsStore: StateCreator<
   ...jobContinueOnError(set, get, ...rest),
   ...jobCondition(set, get, ...rest),
   ...jobTimeoutMinutes(set, get, ...rest),
+  ...jobUses(set, get, ...rest),
 });

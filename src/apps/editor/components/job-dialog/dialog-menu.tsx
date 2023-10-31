@@ -18,8 +18,8 @@ export const DialogMenu: React.FC = () => (
         <DialogMenuItem paramValue="b">
           <p>Base</p>
           <p className="text-xs mb-0.5">
-            Name, needs, if, runs-on, environment, timeout minutes, continue on
-            error, uses, with
+            Name, needs, if, runs-on, environment, uses, timeout minutes, with,
+            continue on error
           </p>
         </DialogMenuItem>
         <DialogMenuItem paramValue="p">Permissions</DialogMenuItem>

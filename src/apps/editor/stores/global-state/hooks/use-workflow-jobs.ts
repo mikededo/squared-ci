@@ -45,7 +45,15 @@ export const useJobCondition = (jobId: string) =>
   }));
 
 export const useJobTimeoutMinutes = (jobId: string) =>
-  globalStore(({ jobs, onChangeTimeoutMinutes }) => ({
-    minutes: jobs.get(jobId)?.timeoutMinutes,
-    onChange: onChangeTimeoutMinutes(jobId),
+  globalStore(
+    ({ jobs, onChangeJobTimeoutMinutes: onChangeTimeoutMinutes }) => ({
+      minutes: jobs.get(jobId)?.timeoutMinutes,
+      onChange: onChangeTimeoutMinutes(jobId),
+    }),
+  );
+
+export const useJobUses = (jobId: string) =>
+  globalStore(({ jobs, onChangeJobUses }) => ({
+    uses: jobs.get(jobId)?.uses,
+    onChange: onChangeJobUses(jobId),
   }));
