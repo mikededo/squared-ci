@@ -35,7 +35,7 @@ const BoxJobsContent: React.FC = () => {
     <DraggableWrapper>
       <VCol className="px-3 pb-3 max-w-[240px]" variant="xl">
         <VCol variant="md" expand>
-          <Label>Create a job by typing its id</Label>
+          <Label>Create a job by typing its id. Press enter to submit.</Label>
           <Input {...methods} placeholder="job_id" />
         </VCol>
         <VCol variant="md" expand>

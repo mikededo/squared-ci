@@ -28,7 +28,7 @@ export const SectionHeader: React.FC<SectionProps> = ({
   <VCol variant="xs" expand>
     <Row align="center" justify="between" expand>
       <Row align="center" variant="md">
-        <Header className="font-semibold">{title}</Header>
+        <Header className={Header === 'h4' ? 'font-semibold text-lg' : 'font-semibold' }>{title}</Header>
         <AppearTransition show={!!headerLabel} as={React.Fragment}>
           <span className="bg-extra text-[8px] px-2 rounded-full text-extra-foreground font-mono font-semibold uppercase">
             Active
