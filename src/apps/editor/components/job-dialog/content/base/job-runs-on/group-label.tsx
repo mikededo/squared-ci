@@ -1,4 +1,5 @@
-import React from 'react';
+import { atom, useAtom } from 'jotai';
+import React, { useMemo } from 'react';
 
 import { Button, Input, Row, VCol } from '@/aero';
 import { useSelectedJobId } from '@/editor/hooks';
@@ -13,9 +14,22 @@ export const GroupLabel: React.FC = () => {
   );
   const active = useJobRunsOnActive(jobId ?? '') === 'group';
 
+  const [groupValue, setGroupValue] = useAtom(
+    useMemo(() => atom(group?.group), [group?.group]),
+  );
+  const [labelValue, setLabelValue] = useAtom(
+    useMemo(() => atom(group?.label), [group?.label]),
+  );
+
   const handleOnBlur =
     (cb: typeof onChangeLabel | typeof onChangeGroup) =>
     (e: React.FocusEvent<HTMLInputElement>) => {
+      cb(e.currentTarget.value);
+    };
+
+  const handleOnChange =
+    (cb: typeof setGroupValue | typeof setLabelValue) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       cb(e.currentTarget.value);
     };
 
@@ -34,8 +48,9 @@ export const GroupLabel: React.FC = () => {
           <p className="text-xs font-semibold">Group</p>
           <Input
             variant="plain"
-            defaultValue={group?.group}
+            value={groupValue}
             placeholder="ubuntu-runners"
+            onChange={handleOnChange(setGroupValue)}
             onBlur={handleOnBlur(onChangeGroup)}
           />
         </VCol>
@@ -43,8 +58,9 @@ export const GroupLabel: React.FC = () => {
           <p className="text-xs font-semibold">Label</p>
           <Input
             variant="plain"
-            defaultValue={group?.label}
+            value={labelValue}
             placeholder="ubuntu-20.04-16core"
+            onChange={handleOnChange(setLabelValue)}
             onBlur={handleOnBlur(onChangeLabel)}
           />
         </VCol>
