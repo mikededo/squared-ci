@@ -2,7 +2,7 @@ import type { StateCreator } from 'zustand';
 
 import type { GlobalStore, WorkflowJobsNeedsActions } from '../types';
 
-export const workflowNeeds: StateCreator<
+export const jobNeeds: StateCreator<
   GlobalStore,
   [],
   [],

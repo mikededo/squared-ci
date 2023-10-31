@@ -1,11 +1,11 @@
 import type { StateCreator } from 'zustand';
 
+import { jobBase } from './job-base';
+import { jobCondition } from './job-condition';
+import { jobContinueOnError } from './job-continue-error';
+import { jobEnvironment } from './job-environment';
+import { jobNeeds } from './job-needs';
 import { jobTimeoutMinutes } from './job-timeout-minutes';
-import { workflowBase } from './workflow-base';
-import { workflowCondition } from './workflow-condition';
-import { workflowContinueOnError } from './workflow-continue-error';
-import { workflowEnvironment } from './workflow-environment';
-import { workflowNeeds } from './workflow-needs';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
 const BaseJob: Omit<Job, 'id'> = {
@@ -29,10 +29,10 @@ export const workflowJobsStore: StateCreator<
     jobs.set(id, { id: id, ...BaseJob });
     set({ jobs });
   },
-  ...workflowBase(set, get, ...rest),
-  ...workflowNeeds(set, get, ...rest),
-  ...workflowEnvironment(set, get, ...rest),
-  ...workflowContinueOnError(set, get, ...rest),
-  ...workflowCondition(set, get, ...rest),
+  ...jobBase(set, get, ...rest),
+  ...jobNeeds(set, get, ...rest),
+  ...jobEnvironment(set, get, ...rest),
+  ...jobContinueOnError(set, get, ...rest),
+  ...jobCondition(set, get, ...rest),
   ...jobTimeoutMinutes(set, get, ...rest),
 });

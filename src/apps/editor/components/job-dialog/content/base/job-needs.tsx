@@ -3,13 +3,13 @@ import React from 'react';
 import { Chip, ChipWrapper, Label, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
-import { useWorkflowNeeds } from '@/editor/stores';
+import { useJobNeeds } from '@/editor/stores';
 
 import { Section, SectionHeader } from '../shared';
 
 export const JobNeeds: React.FC = () => {
   const jobId = useSelectedJobId();
-  const { active, inactive, onToggleJobNeed } = useWorkflowNeeds(jobId ?? '');
+  const { active, inactive, onToggleJobNeed } = useJobNeeds(jobId ?? '');
 
   const handleOnClick = (jobId: string) => () => {
     onToggleJobNeed(jobId);

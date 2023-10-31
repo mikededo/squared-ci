@@ -3,7 +3,7 @@ import React from 'react';
 import { Input, Label, Row, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
-import { useWorkflowCondition } from '@/editor/stores';
+import { useJobCondition } from '@/editor/stores';
 
 import { Section, SectionHeader } from '../shared';
 
@@ -71,7 +71,7 @@ const IF_CONDITIONS = {
 
 export const JobIf: React.FC = () => {
   const jobId = useSelectedJobId();
-  const { condition, onChange } = useWorkflowCondition(jobId ?? '');
+  const { condition, onChange } = useJobCondition(jobId ?? '');
 
   const handleOnChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);

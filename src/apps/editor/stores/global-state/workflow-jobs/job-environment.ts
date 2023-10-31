@@ -23,7 +23,7 @@ const changeJobEnvironmentValue = (
   return updated;
 };
 
-export const workflowEnvironment: StateCreator<
+export const jobEnvironment: StateCreator<
   GlobalStore,
   [],
   [],

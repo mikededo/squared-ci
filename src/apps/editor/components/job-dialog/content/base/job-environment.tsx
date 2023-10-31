@@ -3,13 +3,13 @@ import React from 'react';
 import { Input, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useAdvancedInput, useSelectedJobId } from '@/editor/hooks';
-import { useWorkflowEnvironment } from '@/editor/stores';
+import { useJobEnvironment } from '@/editor/stores';
 
 import { Section, SectionHeader } from '../shared';
 
 export const JobEnvironment: React.FC = () => {
   const jobId = useSelectedJobId();
-  const { environment, onChangeName, onChangeUrl } = useWorkflowEnvironment(
+  const { environment, onChangeName, onChangeUrl } = useJobEnvironment(
     jobId ?? '',
   );
 
@@ -40,8 +40,8 @@ export const JobEnvironment: React.FC = () => {
         <Input
           placeholder="production_environment"
           variant="plain"
-          onBlur={handleOnBlur(onChangeName)}
           {...nameMethods}
+          onBlur={handleOnBlur(onChangeName)}
         />
       </VCol>
       <VCol expand>
@@ -49,8 +49,8 @@ export const JobEnvironment: React.FC = () => {
         <Input
           placeholder="https://your-domain.com"
           variant="plain"
-          onBlur={handleOnBlur(onChangeUrl)}
           {...urlMethods}
+          onBlur={handleOnBlur(onChangeUrl)}
         />
       </VCol>
     </Section>

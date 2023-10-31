@@ -1,14 +1,14 @@
 import type { StateCreator } from 'zustand';
 
-import type { GlobalStore, WorkflowJobsBaseActions } from '../types';
+import type { GlobalStore, WorkflowJobsContinueOnErrorActions } from '../types';
 
-export const workflowBase: StateCreator<
+export const jobContinueOnError: StateCreator<
   GlobalStore,
   [],
   [],
-  WorkflowJobsBaseActions
+  WorkflowJobsContinueOnErrorActions
 > = (set, get) => ({
-  onChangeJobName: (jobId) => (jobName) => {
+  onToggleJobContinueOnError: (jobId) => () => {
     const { jobs } = get();
     if (!jobs.has(jobId)) {
       return;
@@ -16,7 +16,7 @@ export const workflowBase: StateCreator<
 
     const updated = new Map(jobs);
     const current = updated.get(jobId)!;
-    current.name = jobName;
+    current.continueOnError = !current.continueOnError;
     set({ jobs: updated });
   },
 });

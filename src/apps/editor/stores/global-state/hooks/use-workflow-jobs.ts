@@ -6,13 +6,13 @@ export const useWorkflowJobs = () =>
     onAddJob,
   }));
 
-export const useWorkflowJobName = (jobId: string) =>
+export const useJobName = (jobId: string) =>
   globalStore(({ jobs, onChangeJobName }) => ({
     job: jobs.get(jobId),
     onChangeJobName: onChangeJobName(jobId),
   }));
 
-export const useWorkflowNeeds = (jobId: string) =>
+export const useJobNeeds = (jobId: string) =>
   globalStore(({ jobs, onToggleJobNeed }) => ({
     active: jobs.get(jobId)?.needs ?? new Set(),
     inactive: new Set(
@@ -23,7 +23,7 @@ export const useWorkflowNeeds = (jobId: string) =>
     onToggleJobNeed: onToggleJobNeed(jobId),
   }));
 
-export const useWorkflowEnvironment = (jobId: string) =>
+export const useJobEnvironment = (jobId: string) =>
   globalStore(
     ({ jobs, onChangeJobEnvironmentName, onChangeJobEnvironmentUrl }) => ({
       environment: jobs.get(jobId)?.environment,
@@ -32,13 +32,13 @@ export const useWorkflowEnvironment = (jobId: string) =>
     }),
   );
 
-export const useWorkflowJobContinueOnError = (jobId: string) =>
+export const useJobContinueOnError = (jobId: string) =>
   globalStore(({ jobs, onToggleJobContinueOnError }) => ({
     value: jobs.get(jobId)?.continueOnError,
     onToggle: onToggleJobContinueOnError(jobId),
   }));
 
-export const useWorkflowCondition = (jobId: string) =>
+export const useJobCondition = (jobId: string) =>
   globalStore(({ jobs, onChangeJobCondition }) => ({
     condition: jobs.get(jobId)?.condition,
     onChange: onChangeJobCondition(jobId),

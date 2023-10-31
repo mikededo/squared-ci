@@ -3,13 +3,13 @@ import React from 'react';
 import { Input } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
-import { useWorkflowJobName } from '@/editor/stores';
+import { useJobName } from '@/editor/stores';
 
 import { Section, SectionHeader } from '../shared';
 
 export const JobName: React.FC = () => {
   const jobId = useSelectedJobId();
-  const { job, onChangeJobName } = useWorkflowJobName(jobId ?? '');
+  const { job, onChangeJobName } = useJobName(jobId ?? '');
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     onChangeJobName(e.currentTarget.value);

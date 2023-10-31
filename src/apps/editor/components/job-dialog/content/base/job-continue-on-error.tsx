@@ -3,13 +3,13 @@ import React from 'react';
 import { Toggle } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
-import { useWorkflowJobContinueOnError } from '@/editor/stores';
+import { useJobContinueOnError } from '@/editor/stores';
 
 import { Section, SectionHeader } from '../shared';
 
 export const JobContinueOnError: React.FC = () => {
   const jobId = useSelectedJobId();
-  const { value, onToggle } = useWorkflowJobContinueOnError(jobId ?? '');
+  const { value, onToggle } = useJobContinueOnError(jobId ?? '');
 
   return (
     <Section>
