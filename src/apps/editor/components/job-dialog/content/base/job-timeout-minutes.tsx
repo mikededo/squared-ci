@@ -22,7 +22,7 @@ export const JobTimeoutMinutes: React.FC = () => {
   return (
     <Section>
       <SectionHeader
-        title="If (conditon)"
+        title="Timeout minutes"
         docs={JobDocs.jobTimeoutMinutes}
         subtitle="The maximum number of minutes to let a job run before GitHub automatically cancels it. Default set to 360."
       />
