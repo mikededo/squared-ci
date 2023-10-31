@@ -43,3 +43,9 @@ export const useWorkflowCondition = (jobId: string) =>
     condition: jobs.get(jobId)?.condition,
     onChange: onChangeJobCondition(jobId),
   }));
+
+export const useJobTimeoutMinutes = (jobId: string) =>
+  globalStore(({ jobs, onChangeTimeoutMinutes }) => ({
+    minutes: jobs.get(jobId)?.timeoutMinutes,
+    onChange: onChangeTimeoutMinutes(jobId),
+  }));

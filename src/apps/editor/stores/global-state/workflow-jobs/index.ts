@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand';
 
+import { jobTimeoutMinutes } from './job-timeout-minutes';
 import { workflowBase } from './workflow-base';
 import { workflowCondition } from './workflow-condition';
 import { workflowContinueOnError } from './workflow-continue-error';
@@ -13,6 +14,7 @@ const BaseJob: Omit<Job, 'id'> = {
   environment: { name: '' },
   continueOnError: false,
   condition: '',
+  timeoutMinutes: 360,
 };
 
 export const workflowJobsStore: StateCreator<
@@ -32,4 +34,5 @@ export const workflowJobsStore: StateCreator<
   ...workflowEnvironment(set, get, ...rest),
   ...workflowContinueOnError(set, get, ...rest),
   ...workflowCondition(set, get, ...rest),
+  ...jobTimeoutMinutes(set, get, ...rest),
 });

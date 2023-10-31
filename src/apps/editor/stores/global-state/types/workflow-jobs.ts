@@ -54,7 +54,7 @@ export type Job = {
   defaults?: YamlField[];
   run?: JobRun;
   steps?: never; // TBD
-  timeoutMinutes?: number;
+  timeoutMinutes: number;
   strategy?: YamlField[];
   continueOnError: boolean;
   container?: Container;
@@ -81,11 +81,15 @@ export type WorkflowJobsContinueOnErrorActions = {
 export type WorkflowJobsConditionActions = {
   onChangeJobCondition: Single<string, Single<string>>;
 };
+export type WorkflowJobsTimeoutMinutesActions = {
+  onChangeTimeoutMinutes: Single<string, Single<number>>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsNeedsActions &
   WorkflowJobsEnvironmentActions &
   WorkflowJobsContinueOnErrorActions &
-  WorkflowJobsConditionActions & { onAddJob: Single<string> };
+  WorkflowJobsConditionActions &
+  WorkflowJobsTimeoutMinutesActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

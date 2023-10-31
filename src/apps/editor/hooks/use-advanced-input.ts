@@ -12,6 +12,7 @@ type Options = {
   preventUppercase?: boolean;
 };
 type SideEffects = {
+  onBlur?: (value: string, helpers: SideEffectHelpers) => void;
   onEnterPress?: (value: string, helpers: SideEffectHelpers) => void;
   onTabPress?: (
     value: string,
@@ -33,6 +34,7 @@ export const useAdvancedInput = (
     spaceAsUnderscore,
     disableSpaces,
     preventUppercase,
+    onBlur,
     onEnterPress,
     onTabPress,
     onShiftTabPress,
@@ -66,9 +68,9 @@ export const useAdvancedInput = (
       return;
     }
 
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && onEnterPress) {
       e.preventDefault();
-      onEnterPress?.(e.currentTarget.value, helpers);
+      onEnterPress(e.currentTarget.value, helpers);
     }
     if (e.key === 'Tab' && !e.shiftKey && onTabPress) {
       e.preventDefault();
@@ -82,5 +84,14 @@ export const useAdvancedInput = (
     }
   };
 
-  return { value, onChange, onKeyDown };
+  const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!onBlur) {
+      return;
+    }
+
+    const helpers = { onResetInput };
+    onBlur(e.currentTarget.value, helpers);
+  };
+
+  return { value, onChange, onKeyDown, onBlur: handleOnBlur };
 };

@@ -7,6 +7,7 @@ import { JobEnvironment } from './job-environment';
 import { JobIf } from './job-if';
 import { JobName } from './job-name';
 import { JobNeeds } from './job-needs';
+import { JobTimeoutMinutes } from './job-timeout-minutes';
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
@@ -14,17 +15,7 @@ export const BaseContent: React.FC = () => (
     <JobNeeds />
     <JobEnvironment />
     <JobIf />
-    {/* TODO: Add recommendations of if conditions */}
-    {/* <InputSection */}
-    {/*   title="Job conditions (if)" */}
-    {/*   docs={JobDocs.jobIf} */}
-    {/*   subtitle="Prevent a job from running unless this condition is met" */}
-    {/* /> */}
-    {/* <InputSection */}
-    {/*   title="Timeout minutes" */}
-    {/*   docs={JobDocs.jobTimeoutMinutes} */}
-    {/*   subtitle="The maximum number of minutes to let a job run before it is automatically cancelled" */}
-    {/* /> */}
+    <JobTimeoutMinutes />
     <JobContinueOnError />
   </VCol>
 );
