@@ -40,6 +40,7 @@ module.exports = {
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
+          hover: 'hsl(var(--muted-hover))',
           foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {

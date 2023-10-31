@@ -44,7 +44,7 @@ export const Input: React.FC<Props> = (props) => {
   useLayoutEffect(() => {
     syncHeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.value]);
 
   const classes = twMerge(
     'font-mono text-sm px-2 py-1.5 w-full transition-all placeholder:text-muted-foreground disabled:cursor-not-allowed',
@@ -95,6 +95,7 @@ export const Input: React.FC<Props> = (props) => {
     onIconClick: _onIconClick,
     ...rest
   } = props;
+
   return (
     <ErrorTextWrapper error={error}>
       <IconWrapper icon={icon}>

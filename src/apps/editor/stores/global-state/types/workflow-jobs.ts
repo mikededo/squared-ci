@@ -45,7 +45,7 @@ export type Job = {
   name: string;
   permissions?: JobPermissions;
   needs: Set<string>;
-  condition?: string;
+  condition: string;
   runsOn?: never; // TBD
   environment: JobEnvironment;
   concurrency?: JobConcurrency;
@@ -78,10 +78,14 @@ export type WorkflowJobsEnvironmentActions = {
 export type WorkflowJobsContinueOnErrorActions = {
   onToggleJobContinueOnError: Single<string, Empty>;
 };
+export type WorkflowJobsConditionActions = {
+  onChangeJobCondition: Single<string, Single<string>>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsNeedsActions &
   WorkflowJobsEnvironmentActions &
-  WorkflowJobsContinueOnErrorActions & { onAddJob: Single<string> };
+  WorkflowJobsContinueOnErrorActions &
+  WorkflowJobsConditionActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

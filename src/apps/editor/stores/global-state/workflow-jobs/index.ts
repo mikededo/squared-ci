@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand';
 
 import { workflowBase } from './workflow-base';
+import { workflowCondition } from './workflow-condition';
 import { workflowContinueOnError } from './workflow-continue-error';
 import { workflowEnvironment } from './workflow-environment';
 import { workflowNeeds } from './workflow-needs';
@@ -11,6 +12,7 @@ const BaseJob: Omit<Job, 'id'> = {
   needs: new Set(),
   environment: { name: '' },
   continueOnError: false,
+  condition: '',
 };
 
 export const workflowJobsStore: StateCreator<
@@ -29,4 +31,5 @@ export const workflowJobsStore: StateCreator<
   ...workflowNeeds(set, get, ...rest),
   ...workflowEnvironment(set, get, ...rest),
   ...workflowContinueOnError(set, get, ...rest),
+  ...workflowCondition(set, get, ...rest),
 });

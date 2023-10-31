@@ -4,6 +4,7 @@ import { VCol } from '@/aero';
 
 import { JobContinueOnError } from './job-continue-on-error';
 import { JobEnvironment } from './job-environment';
+import { JobIf } from './job-if';
 import { JobName } from './job-name';
 import { JobNeeds } from './job-needs';
 
@@ -12,6 +13,7 @@ export const BaseContent: React.FC = () => (
     <JobName />
     <JobNeeds />
     <JobEnvironment />
+    <JobIf />
     {/* TODO: Add recommendations of if conditions */}
     {/* <InputSection */}
     {/*   title="Job conditions (if)" */}

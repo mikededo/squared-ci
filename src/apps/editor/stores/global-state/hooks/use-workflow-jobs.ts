@@ -37,3 +37,9 @@ export const useWorkflowJobContinueOnError = (jobId: string) =>
     value: jobs.get(jobId)?.continueOnError,
     onToggle: onToggleJobContinueOnError(jobId),
   }));
+
+export const useWorkflowCondition = (jobId: string) =>
+  globalStore(({ jobs, onChangeJobCondition }) => ({
+    condition: jobs.get(jobId)?.condition,
+    onChange: onChangeJobCondition(jobId),
+  }));
