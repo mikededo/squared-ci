@@ -5,6 +5,7 @@ import { jobCondition } from './job-condition';
 import { jobContinueOnError } from './job-continue-error';
 import { jobEnvironment } from './job-environment';
 import { jobNeeds } from './job-needs';
+import { jobRunsOn } from './job-runs-on';
 import { jobTimeoutMinutes } from './job-timeout-minutes';
 import { jobUses } from './job-uses';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
@@ -17,6 +18,10 @@ const BaseJob: Omit<Job, 'id'> = {
   condition: '',
   timeoutMinutes: 360,
   uses: '',
+  runsOn: {
+    custom: new Set(),
+    group: { group: '', label: '' },
+  },
 };
 
 export const workflowJobsStore: StateCreator<
@@ -32,10 +37,11 @@ export const workflowJobsStore: StateCreator<
     set({ jobs });
   },
   ...jobBase(set, get, ...rest),
-  ...jobNeeds(set, get, ...rest),
-  ...jobEnvironment(set, get, ...rest),
-  ...jobContinueOnError(set, get, ...rest),
   ...jobCondition(set, get, ...rest),
+  ...jobContinueOnError(set, get, ...rest),
+  ...jobEnvironment(set, get, ...rest),
+  ...jobNeeds(set, get, ...rest),
+  ...jobRunsOn(set, get, ...rest),
   ...jobTimeoutMinutes(set, get, ...rest),
   ...jobUses(set, get, ...rest),
 });

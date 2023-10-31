@@ -22,7 +22,7 @@ const Variants: Record<Variant, string> = {
   secondary:
     'bg-secondary hover:bg-secondary/80 text-secondary-foreground dark:disabled:bg-secondary/40 disabled:text-secondary-foreground/50',
   danger: 'bg-destructive hover:bg-destructive/80 text-destructive-foreground',
-  text: 'hover:bg-accent hover:text-accent-foreground',
+  text: 'hover:bg-accent hover:text-accent-foreground disabled:text-muted-hover disabled:hover:bg-transparent',
 };
 
 export const Button: React.FC<Props> = ({

@@ -18,6 +18,7 @@ export { IconButton, DarkModeToggler } from './icon-button';
 export { Input } from './input';
 export { Link } from './link';
 export { Row } from './row';
+export { Select } from './select';
 export { Toggle } from './toggle';
 export { Tooltip } from './tooltip';
 export { AppearTransition } from './transitions';

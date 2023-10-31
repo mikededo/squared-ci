@@ -7,6 +7,7 @@ import type {
   PermissionStatus,
   Permissions,
 } from '@/editor/domain/permissions';
+import type { GitHubHostedRunners } from '@/editor/domain/runners';
 
 import type { Empty, Single } from './shared';
 
@@ -18,6 +19,17 @@ type JobPermissions = {
   readAll: boolean;
   writeAll: boolean;
   disableAll: boolean;
+};
+/**
+ * The runs-on property can be specified in different forms:
+ * specifing the github runner, providing a set of variables that
+ * will identify the runner to be used or using a key/value pair with
+ * the group of the runner and a label.
+ */
+type JobRunsOn = {
+  githubRunner?: GitHubHostedRunners;
+  custom: Set<string>;
+  group: { group: string; label: string };
 };
 type JobEnvironment = { name: string; url?: string };
 type JobConcurrency = {
@@ -46,7 +58,7 @@ export type Job = {
   permissions?: JobPermissions;
   needs: Set<string>;
   condition: string;
-  runsOn?: never; // TBD
+  runsOn: JobRunsOn; // TBD
   environment: JobEnvironment;
   concurrency?: JobConcurrency;
   outputs?: Map<string, string>;
@@ -87,6 +99,16 @@ export type WorkflowJobsTimeoutMinutesActions = {
 export type WorkflowJobsUsesActions = {
   onChangeJobUses: Single<string, Single<string>>;
 };
+export type WorkflowJobsRunsOnActions = {
+  onChangeJobGithubRunner: Single<string, Single<GitHubHostedRunners>>;
+  onToggleJobRunCustomValue: Single<string, Single<string>>;
+  onChangeJobRunGroup: Single<string, Single<string>>;
+  onChangeJobRunLabel: Single<string, Single<string>>;
+  // Clear events
+  onClearJobGithubRunner: Single<string, Empty>;
+  onClearJobRunCustomValue: Single<string, Empty>;
+  onClearJobRunGroup: Single<string, Empty>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
@@ -95,5 +117,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsContinueOnErrorActions &
   WorkflowJobsConditionActions &
   WorkflowJobsTimeoutMinutesActions &
-  WorkflowJobsUsesActions & { onAddJob: Single<string> };
+  WorkflowJobsUsesActions &
+  WorkflowJobsRunsOnActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

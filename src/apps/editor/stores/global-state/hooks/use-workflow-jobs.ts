@@ -57,3 +57,50 @@ export const useJobUses = (jobId: string) =>
     uses: jobs.get(jobId)?.uses,
     onChange: onChangeJobUses(jobId),
   }));
+
+export const useJobRunsOnGithubRunner = (jobId: string) =>
+  globalStore(({ jobs, onChangeJobGithubRunner, onClearJobGithubRunner }) => ({
+    runner: jobs.get(jobId)?.runsOn.githubRunner,
+    onChange: onChangeJobGithubRunner(jobId),
+    onClear: onClearJobGithubRunner(jobId),
+  }));
+export const useJobRunsOnCustom = (jobId: string) =>
+  globalStore(
+    ({ jobs, onToggleJobRunCustomValue, onClearJobRunCustomValue }) => ({
+      custom: jobs.get(jobId)?.runsOn.custom,
+      onToggle: onToggleJobRunCustomValue(jobId),
+      onClear: onClearJobRunCustomValue(jobId),
+    }),
+  );
+export const useJobRunsOnGroup = (jobId: string) =>
+  globalStore(
+    ({
+      jobs,
+      onChangeJobRunGroup,
+      onChangeJobRunLabel,
+      onClearJobRunGroup,
+    }) => ({
+      group: jobs.get(jobId)?.runsOn.group,
+      onChangeGroup: onChangeJobRunGroup(jobId),
+      onChangeLabel: onChangeJobRunLabel(jobId),
+      onClear: onClearJobRunGroup(jobId),
+    }),
+  );
+export const useJobRunsOnActive = (jobId: string) =>
+  globalStore(({ jobs }): 'none' | 'github-runner' | 'group' | 'custom' => {
+    const current = jobs.get(jobId)?.runsOn;
+    if (!current) {
+      return 'none';
+    }
+    if (current.githubRunner) {
+      return 'github-runner';
+    }
+    if (current.group.group || current.group.label) {
+      return 'group';
+    }
+    if (current.custom.size > 0) {
+      return 'custom';
+    }
+
+    return 'none';
+  });

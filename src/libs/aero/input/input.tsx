@@ -53,16 +53,18 @@ export const Input: React.FC<Props> = (props) => {
     className,
   );
 
+  const IconComponent = onIconClick ? 'button' : 'div';
   const iconButton = icon ? (
-    <button
+    <IconComponent
       className={twMerge(
-        'flex items-center justify-center hover:bg-primary/10 transition-colors -ml-8 h-5 w-5 rounded-full cursor-pointer',
+        'flex items-center justify-center transition-colors -ml-8 h-5 w-5 rounded-full',
         multiline && 'self-start mt-2',
+        onIconClick && 'hover:bg-muted-hover cursor-pointer',
       )}
-      onClick={onIconClick}
+      onClick={onIconClick as React.MouseEventHandler}
     >
       {icon}
-    </button>
+    </IconComponent>
   ) : null;
 
   if (multiline) {
