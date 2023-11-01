@@ -13,11 +13,11 @@ export const JobEnvironment: React.FC = () => {
     jobId ?? '',
   );
 
-  const nameMethods = useAdvancedInput(environment?.name ?? '', {
+  const [nameMethods] = useAdvancedInput(environment?.name ?? '', {
     spaceAsUnderscore: true,
     preventUppercase: true,
   });
-  const urlMethods = useAdvancedInput(environment?.url ?? '', {
+  const [urlMethods] = useAdvancedInput(environment?.url ?? '', {
     disableSpaces: true,
     preventUppercase: true,
   });

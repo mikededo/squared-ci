@@ -6,7 +6,7 @@ import { ErrorTextWrapper, IconWrapper } from './wrappers';
 
 const Variants: Record<InputVariant, string> = {
   default:
-    'rounded-md border border-input bg-background outline-none focus:ring-offset-2 focus:ring-offset-background focus:ring-extra focus:ring-2',
+    'rounded-sm border border-input bg-background outline-none focus:ring-offset-2 focus:ring-offset-background focus:ring-extra focus:ring-2',
   plain:
     'border-b-2 border-b-transparent focus:border-extra bg-muted outline-none focus:ring-0',
 };

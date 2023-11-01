@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai';
 import { useMemo } from 'react';
 
-type SideEffectHelpers = {
+type Helpers = {
   onResetInput: (value?: string) => void;
 };
 type Options = {
@@ -12,19 +12,18 @@ type Options = {
   preventUppercase?: boolean;
 };
 type SideEffects = {
-  onBlur?: (value: string, helpers: SideEffectHelpers) => void;
-  onEnterPress?: (value: string, helpers: SideEffectHelpers) => void;
-  onTabPress?: (
-    value: string,
-    count: number,
-    helpers: SideEffectHelpers,
-  ) => void;
-  onShiftTabPress?: (
-    value: string,
-    count: number,
-    helpers: SideEffectHelpers,
-  ) => void;
+  onBlur?: (value: string, helpers: Helpers) => void;
+  onEnterPress?: (value: string, helpers: Helpers) => void;
+  onTabPress?: (value: string, count: number, helpers: Helpers) => void;
+  onShiftTabPress?: (value: string, count: number, helpers: Helpers) => void;
 };
+type Methods = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+};
+type UseAdvancedInputResult = [Methods, Helpers];
 
 export const useAdvancedInput = (
   initialValue: string,
@@ -39,7 +38,7 @@ export const useAdvancedInput = (
     onTabPress,
     onShiftTabPress,
   }: SideEffects & Options,
-) => {
+): UseAdvancedInputResult => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [value, setValue] = useAtom(useMemo(() => atom(initialValue), []));
   const [tabCount, setTabCount] = useAtom(useMemo(() => atom(0), []));
@@ -47,6 +46,8 @@ export const useAdvancedInput = (
   const onResetInput = (value?: string) => {
     setValue(value ?? initialValue);
   };
+
+  const helpers = { onResetInput };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.currentTarget.value;
@@ -61,8 +62,6 @@ export const useAdvancedInput = (
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const helpers = { onResetInput };
-
     if (numOnly && !/^[0-9]+$/.test(e.key) && e.key !== 'Backspace') {
       e.preventDefault();
       return;
@@ -93,5 +92,6 @@ export const useAdvancedInput = (
     onBlur(e.currentTarget.value, helpers);
   };
 
-  return { value, onChange, onKeyDown, onBlur: handleOnBlur };
+  const methods = { value, onChange, onKeyDown, onBlur: handleOnBlur };
+  return [methods, helpers];
 };

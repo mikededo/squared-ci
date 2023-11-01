@@ -18,7 +18,7 @@ import { BoxButton } from '../box-button';
 const BoxJobsContent: React.FC = () => {
   const { setParam } = useSearchParam();
   const { jobs, onAddJob } = useWorkflowJobs();
-  const methods = useAdvancedInput('', {
+  const [methods] = useAdvancedInput('', {
     spaceAsUnderscore: true,
     preventUppercase: true,
     onEnterPress: (value, { onResetInput }) => {
@@ -33,7 +33,7 @@ const BoxJobsContent: React.FC = () => {
 
   return (
     <DraggableWrapper>
-      <VCol className="px-3 pb-3 max-w-[240px]" variant="xl">
+      <VCol className="px-3 pb-3 max-w-[280px]" variant="xl">
         <VCol variant="md" expand>
           <Label>Create a job by typing its id. Press enter to submit.</Label>
           <Input {...methods} placeholder="job_id" />

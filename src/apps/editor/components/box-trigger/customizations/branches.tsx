@@ -23,14 +23,14 @@ export const Branches: React.FC<Props> = ({ trigger }) => {
   const branches = getComplexTriggerBranches(trigger, false);
   const ignoredBranches = getComplexTriggerBranches(trigger, true);
 
-  const branchesMethods = useAdvancedInput('', {
+  const [branchesMethods] = useAdvancedInput('', {
     tabCount: [0, branches.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerBranch(trigger, value, false);
       onResetInput();
     },
   });
-  const ignoredMethods = useAdvancedInput('', {
+  const [ignoredMethods] = useAdvancedInput('', {
     tabCount: [0, ignoredBranches.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerBranch(trigger, value, true);

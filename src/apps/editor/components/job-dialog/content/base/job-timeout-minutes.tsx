@@ -10,7 +10,7 @@ import { Section, SectionHeader } from '../shared';
 export const JobTimeoutMinutes: React.FC = () => {
   const jobId = useSelectedJobId();
   const { minutes, onChange } = useJobTimeoutMinutes(jobId ?? '');
-  const methods = useAdvancedInput(`${minutes}`, {
+  const [methods] = useAdvancedInput(`${minutes}`, {
     numOnly: true,
     onBlur: (value, { onResetInput }) => {
       const parsed = Math.min(360, Math.max(0, parseInt(value, 10)));

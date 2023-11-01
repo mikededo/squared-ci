@@ -23,14 +23,14 @@ export const Paths: React.FC<Props> = ({ trigger }) => {
   const paths = getComplexTriggerPaths(trigger, false);
   const ignoredPaths = getComplexTriggerPaths(trigger, true);
 
-  const pathsMethods = useAdvancedInput('', {
+  const [pathsMethods] = useAdvancedInput('', {
     tabCount: [0, paths.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerPath(trigger, value, false);
       onResetInput();
     },
   });
-  const ignoredMethods = useAdvancedInput('', {
+  const [ignoredMethods] = useAdvancedInput('', {
     tabCount: [0, ignoredPaths.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerPath(trigger, value, true);

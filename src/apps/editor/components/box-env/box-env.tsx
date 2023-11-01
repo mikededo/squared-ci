@@ -18,7 +18,7 @@ const EnvRegex = /^([a-zA-Z0-9_]+)=(.+)$/;
 
 export const BoxEnvContent: React.FC = () => {
   const { variables, addVariable, deleteVariable } = useWorkflowEnv();
-  const methods = useAdvancedInput('', {
+  const [methods] = useAdvancedInput('', {
     onEnterPress: (value, helpers) => {
       if (!EnvRegex.test(value)) {
         return;

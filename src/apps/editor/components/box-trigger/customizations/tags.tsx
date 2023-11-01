@@ -23,14 +23,14 @@ export const Tags: React.FC<Props> = ({ trigger }) => {
   const tags = getComplexTriggerTags(trigger, false);
   const ignoredTags = getComplexTriggerTags(trigger, true);
 
-  const tagsMethods = useAdvancedInput('', {
+  const [tagsMethods] = useAdvancedInput('', {
     tabCount: [0, tags.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerTag(trigger, value, false);
       onResetInput();
     },
   });
-  const ignoredMethods = useAdvancedInput('', {
+  const [ignoredMethods] = useAdvancedInput('', {
     tabCount: [0, ignoredTags.size],
     onEnterPress: (value, { onResetInput }) => {
       toggleComplexTriggerTag(trigger, value, true);

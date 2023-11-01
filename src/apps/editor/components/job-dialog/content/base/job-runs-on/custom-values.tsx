@@ -18,7 +18,7 @@ export const CustomValues: React.FC = () => {
   const { custom, onToggle, onClear } = useJobRunsOnCustom(jobId ?? '');
   const active = useJobRunsOnActive(jobId ?? '') === 'custom';
 
-  const methods = useAdvancedInput('', {
+  const [methods] = useAdvancedInput('', {
     spaceAsUnderscore: true,
     preventUppercase: true,
     onEnterPress: (value, { onResetInput }) => {
