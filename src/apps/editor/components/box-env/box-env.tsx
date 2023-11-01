@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
 import {
+  Button,
   Chip,
   ChipWrapper,
   Draggable,
@@ -8,6 +9,7 @@ import {
   DraggableWrapper,
   Input,
   Meta,
+  Row,
   VCol,
 } from '@/aero';
 import { ActionsDocs, Positions } from '@/editor/config';
@@ -18,7 +20,7 @@ const EnvRegex = /^([a-zA-Z0-9_]+)=(.+)$/;
 
 export const BoxEnvContent: React.FC = () => {
   const { variables, addVariable, deleteVariable } = useWorkflowEnv();
-  const [methods] = useAdvancedInput('', {
+  const [methods, { onResetInput }] = useAdvancedInput('', {
     onEnterPress: (value, helpers) => {
       if (!EnvRegex.test(value)) {
         return;
@@ -31,6 +33,11 @@ export const BoxEnvContent: React.FC = () => {
 
   const handleOnVariableClick = (variable: string) => () => {
     deleteVariable(variable);
+  };
+
+  const handleOnAdd = () => {
+    addVariable(methods.value);
+    onResetInput();
   };
 
   return (
@@ -56,7 +63,18 @@ export const BoxEnvContent: React.FC = () => {
               ))}
             </ChipWrapper>
           ) : null}
-          <Input placeholder="ENV_NAME=ENV_VALUE" {...methods} />
+          <Row variant="lg" align="center" expand>
+            <Input placeholder="ENV_NAME=ENV_VALUE" {...methods} />
+            <Button
+              variant="primary"
+              className="h-9 rounded-md"
+              onClick={handleOnAdd}
+              disabled={!EnvRegex.test(methods.value)}
+              condensed
+            >
+              Add
+            </Button>
+          </Row>
         </DraggableWrapper>
       </VCol>
     </DraggableWrapper>

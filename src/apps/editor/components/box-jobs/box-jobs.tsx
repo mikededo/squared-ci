@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 
 import {
+  Button,
   Draggable,
   DraggableTitle,
   DraggableWrapper,
   Input,
   Label,
+  Row,
   VCol,
 } from '@/aero';
 import { useSearchParam } from '@/chain';
@@ -18,7 +20,7 @@ import { BoxButton } from '../box-button';
 const BoxJobsContent: React.FC = () => {
   const { setParam } = useSearchParam();
   const { jobs, onAddJob } = useWorkflowJobs();
-  const [methods] = useAdvancedInput('', {
+  const [methods, { onResetInput }] = useAdvancedInput('', {
     spaceAsUnderscore: true,
     preventUppercase: true,
     onEnterPress: (value, { onResetInput }) => {
@@ -31,12 +33,28 @@ const BoxJobsContent: React.FC = () => {
     setParam({ 'job-editor': jobId, view: 'b' });
   };
 
+  const handleOnAdd = () => {
+    onAddJob(methods.value);
+    onResetInput();
+  };
+
   return (
     <DraggableWrapper>
       <VCol className="px-3 pb-3 max-w-[280px]" variant="xl">
         <VCol variant="md" expand>
           <Label>Create a job by typing its id. Press enter to submit.</Label>
-          <Input {...methods} placeholder="job_id" />
+          <Row variant="lg" align="center" expand>
+            <Input {...methods} placeholder="job_id" />
+            <Button
+              variant="primary"
+              className="h-9 rounded-md"
+              onClick={handleOnAdd}
+              disabled={!methods.value}
+              condensed
+            >
+              Add
+            </Button>
+          </Row>
         </VCol>
         <VCol variant="md" expand>
           <p className="text-xs uppercase">Created jobs</p>

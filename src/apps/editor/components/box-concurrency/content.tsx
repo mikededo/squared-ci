@@ -58,7 +58,7 @@ export const ConcurrencyContent = React.forwardRef<HTMLDivElement>((_, ref) => {
                   onChange={handleOnChangeName}
                 />
                 <Label className="text-muted-foreground max-w-[240px]">
-                  Setting the name properties will override the other properties
+                  Setting the name property will override the other properties
                 </Label>
               </DraggableWrapper>
             </VCol>
