@@ -18,7 +18,7 @@ export const CustomValues: React.FC = () => {
   const { custom, onToggle, onClear } = useJobRunsOnCustom(jobId ?? '');
   const active = useJobRunsOnActive(jobId ?? '') === 'custom';
 
-  const [methods] = useAdvancedInput('', {
+  const [methods, { onResetInput }] = useAdvancedInput('', {
     spaceAsUnderscore: true,
     preventUppercase: true,
     onEnterPress: (value, { onResetInput }) => {
@@ -26,6 +26,11 @@ export const CustomValues: React.FC = () => {
       onResetInput();
     },
   });
+
+  const handleOnAddValue = () => {
+    onToggle(methods.value);
+    onResetInput();
+  };
 
   const handleOnClick = (value: string) => () => {
     onToggle(value);
@@ -55,6 +60,9 @@ export const CustomValues: React.FC = () => {
         variant="plain"
         {...methods}
         placeholder={PLACEHOLDER[custom?.size ?? 0] ?? 'other_labels'}
+        button="Add"
+        buttonDisabled={!methods.value}
+        onButtonClick={handleOnAddValue}
       />
       <Button
         variant="text"
