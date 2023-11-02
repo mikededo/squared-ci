@@ -72,7 +72,7 @@ export type Job = {
   container?: Container;
   services?: Map<string, Container>;
   uses: string;
-  with?: never; // TBD
+  with: Map<string, string>;
   secrets?: JobSecrets;
 };
 
@@ -109,6 +109,10 @@ export type WorkflowJobsRunsOnActions = {
   onClearJobRunCustomValue: Single<string, Empty>;
   onClearJobRunGroup: Single<string, Empty>;
 };
+export type WorkflowJobsWithActions = {
+  onAddJobWithEntry: Single<string, Single<[key: string, value: string]>>;
+  onRemoveJobWithEntry: Single<string, Single<string>>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
@@ -118,5 +122,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsConditionActions &
   WorkflowJobsTimeoutMinutesActions &
   WorkflowJobsUsesActions &
-  WorkflowJobsRunsOnActions & { onAddJob: Single<string> };
+  WorkflowJobsRunsOnActions &
+  WorkflowJobsWithActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

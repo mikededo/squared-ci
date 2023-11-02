@@ -104,3 +104,11 @@ export const useJobRunsOnActive = (jobId: string) =>
 
     return 'none';
   });
+
+export const useJobsWith = (jobId: string) =>
+  globalStore(({ jobs, onAddJobWithEntry, onRemoveJobWithEntry }) => ({
+    enabled: !!jobs.get(jobId)?.uses,
+    entries: jobs.get(jobId)?.with,
+    onAdd: onAddJobWithEntry(jobId),
+    onRemove: onRemoveJobWithEntry(jobId),
+  }));

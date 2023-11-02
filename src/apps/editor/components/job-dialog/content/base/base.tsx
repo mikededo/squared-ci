@@ -10,6 +10,7 @@ import { JobNeeds } from './job-needs';
 import { JobRunsOn } from './job-runs-on';
 import { JobTimeoutMinutes } from './job-timeout-minutes';
 import { JobUses } from './job-uses';
+import { JobWith } from './job-with';
 
 export const BaseContent: React.FC = () => (
   <VCol className="gap-6" expand>
@@ -19,8 +20,8 @@ export const BaseContent: React.FC = () => (
     <JobRunsOn />
     <JobEnvironment />
     <JobUses />
+    <JobWith />
     <JobTimeoutMinutes />
-    {/* <JobWith /> */}
     <JobContinueOnError />
   </VCol>
 );

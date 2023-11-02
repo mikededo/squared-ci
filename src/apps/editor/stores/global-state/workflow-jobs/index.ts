@@ -8,6 +8,7 @@ import { jobNeeds } from './job-needs';
 import { jobRunsOn } from './job-runs-on';
 import { jobTimeoutMinutes } from './job-timeout-minutes';
 import { jobUses } from './job-uses';
+import { jobWith } from './job-with';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
 const BaseJob: Omit<Job, 'id'> = {
@@ -22,6 +23,7 @@ const BaseJob: Omit<Job, 'id'> = {
     custom: new Set(),
     group: { group: '', label: '' },
   },
+  with: new Map(),
 };
 
 export const workflowJobsStore: StateCreator<
@@ -44,4 +46,5 @@ export const workflowJobsStore: StateCreator<
   ...jobRunsOn(set, get, ...rest),
   ...jobTimeoutMinutes(set, get, ...rest),
   ...jobUses(set, get, ...rest),
+  ...jobWith(set, get, ...rest),
 });
