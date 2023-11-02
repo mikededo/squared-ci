@@ -5,10 +5,12 @@ import { jobCondition } from './job-condition';
 import { jobContinueOnError } from './job-continue-error';
 import { jobEnvironment } from './job-environment';
 import { jobNeeds } from './job-needs';
+import { jobPermissions } from './job-permissions';
 import { jobRunsOn } from './job-runs-on';
 import { jobTimeoutMinutes } from './job-timeout-minutes';
 import { jobUses } from './job-uses';
 import { jobWith } from './job-with';
+import { INITIAL_PERMISSIONS_STATE } from '../helpers';
 import type { GlobalStore, Job, WorkflowJobsStore } from '../types';
 
 const BaseJob: Omit<Job, 'id'> = {
@@ -24,6 +26,7 @@ const BaseJob: Omit<Job, 'id'> = {
     group: { group: '', label: '' },
   },
   with: new Map(),
+  permissions: INITIAL_PERMISSIONS_STATE,
 };
 
 export const workflowJobsStore: StateCreator<
@@ -47,4 +50,5 @@ export const workflowJobsStore: StateCreator<
   ...jobTimeoutMinutes(set, get, ...rest),
   ...jobUses(set, get, ...rest),
   ...jobWith(set, get, ...rest),
+  ...jobPermissions(set, get, ...rest),
 });

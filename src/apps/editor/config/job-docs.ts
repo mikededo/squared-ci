@@ -1,5 +1,6 @@
 export const JobDocs = {
   jobs: 'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobs',
+  // Base
   jobId:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_id',
   jobName:
@@ -16,4 +17,9 @@ export const JobDocs = {
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iduses',
   jobContinueOnError:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontinue-on-error',
+  jobWith:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idwith',
+  // Permissions
+  jobPermissions:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idpermissions',
 };

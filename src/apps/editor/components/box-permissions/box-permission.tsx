@@ -6,7 +6,7 @@ import type {
   Permissions,
 } from '@/editor/domain/permissions';
 
-import { PermissionButton } from './box-permission-button';
+import { PermissionButton } from '../permission-button';
 
 type Props = {
   permission: Permissions;
@@ -27,13 +27,24 @@ export const Permission: React.FC<Props> = ({
     <Row justify="between" variant="lg">
       <p className="text-sm">{permission}</p>
       <Row justify="end" variant="sm">
-        <PermissionButton status="read" onClick={handleOnClick} active={read} />
+        <PermissionButton
+          status="read"
+          onClick={handleOnClick}
+          active={read}
+          condensed
+        />
         <PermissionButton
           status="write"
           onClick={handleOnClick}
           active={write}
+          condensed
         />
-        <PermissionButton status="none" onClick={handleOnClick} active={none} />
+        <PermissionButton
+          status="none"
+          onClick={handleOnClick}
+          active={none}
+          condensed
+        />
       </Row>
     </Row>
   );

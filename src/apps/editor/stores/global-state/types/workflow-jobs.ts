@@ -9,7 +9,7 @@ import type {
 } from '@/editor/domain/permissions';
 import type { GitHubHostedRunners } from '@/editor/domain/runners';
 
-import type { Empty, Single } from './shared';
+import type { Double, Empty, Single } from './shared';
 
 type JobPermissions = {
   totalPermissionsEnabled: number;
@@ -55,7 +55,7 @@ type JobSecrets = {
 export type Job = {
   id: string;
   name: string;
-  permissions?: JobPermissions;
+  permissions: JobPermissions;
   needs: Set<string>;
   condition: string;
   runsOn: JobRunsOn; // TBD
@@ -113,6 +113,12 @@ export type WorkflowJobsWithActions = {
   onAddJobWithEntry: Single<string, Single<[key: string, value: string]>>;
   onRemoveJobWithEntry: Single<string, Single<string>>;
 };
+export type WorkflowJobsPermissionsActions = {
+  onToggleJobPermission: Single<string, Double<Permissions, PermissionStatus>>;
+  onToggleJobPermissionReadAll: Single<string, Empty>;
+  onToggleJobPermissionWriteAll: Single<string, Empty>;
+  onToggleJobPermissionDisableAll: Single<string, Empty>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
@@ -123,5 +129,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsTimeoutMinutesActions &
   WorkflowJobsUsesActions &
   WorkflowJobsRunsOnActions &
-  WorkflowJobsWithActions & { onAddJob: Single<string> };
+  WorkflowJobsWithActions &
+  WorkflowJobsPermissionsActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

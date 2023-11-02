@@ -30,3 +30,15 @@ export const PermissionsList: Permissions[] = [
   'security-events',
   'statuses',
 ];
+
+export type PermissionsState = {
+  [K in Permissions]: Record<PermissionStatus, boolean>;
+};
+
+export type WorkflowPermissionsState = {
+  totalPermissionsEnabled: number;
+  permissions: PermissionsState;
+  readAll: boolean;
+  writeAll: boolean;
+  disableAll: boolean;
+};

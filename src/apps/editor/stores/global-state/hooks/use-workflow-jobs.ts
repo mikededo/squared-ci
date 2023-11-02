@@ -112,3 +112,20 @@ export const useJobsWith = (jobId: string) =>
     onAdd: onAddJobWithEntry(jobId),
     onRemove: onRemoveJobWithEntry(jobId),
   }));
+
+export const useJobPermissions = (jobId: string) =>
+  globalStore(
+    ({
+      jobs,
+      onToggleJobPermissionDisableAll,
+      onToggleJobPermissionWriteAll,
+      onToggleJobPermissionReadAll,
+      onToggleJobPermission,
+    }) => ({
+      ...(jobs.get(jobId)?.permissions ?? {}),
+      onTogglePermission: onToggleJobPermission(jobId),
+      onToggleReadAll: onToggleJobPermissionReadAll(jobId),
+      onToggleWriteAll: onToggleJobPermissionWriteAll(jobId),
+      onToggleDisableAll: onToggleJobPermissionDisableAll(jobId),
+    }),
+  );

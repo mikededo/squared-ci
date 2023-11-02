@@ -23,15 +23,15 @@ export const DialogMenu: React.FC = () => (
           </p>
         </DialogMenuItem>
         <DialogMenuItem paramValue="p">Permissions</DialogMenuItem>
-        <DialogMenuItem paramValue="coc">Concurrency</DialogMenuItem>
-        <DialogMenuItem paramValue="o">Outputs</DialogMenuItem>
-        <DialogMenuItem paramValue="e">Env</DialogMenuItem>
-        <DialogMenuItem paramValue="d">Defaults</DialogMenuItem>
-        <DialogMenuItem paramValue="ste">Steps</DialogMenuItem>
-        <DialogMenuItem paramValue="str">Strategy</DialogMenuItem>
-        <DialogMenuItem paramValue="con">Container</DialogMenuItem>
-        <DialogMenuItem paramValue="ser">Services</DialogMenuItem>
-        <DialogMenuItem paramValue="h">Help</DialogMenuItem>
+        <DialogMenuItem paramValue="coc">🚧 Concurrency</DialogMenuItem>
+        <DialogMenuItem paramValue="o">🚧 Outputs</DialogMenuItem>
+        <DialogMenuItem paramValue="e">🚧 Env</DialogMenuItem>
+        <DialogMenuItem paramValue="d">🚧 Defaults</DialogMenuItem>
+        <DialogMenuItem paramValue="ste">🚧 Steps</DialogMenuItem>
+        <DialogMenuItem paramValue="str">🚧 Strategy</DialogMenuItem>
+        <DialogMenuItem paramValue="con">🚧 Container</DialogMenuItem>
+        <DialogMenuItem paramValue="ser">🚧 Services</DialogMenuItem>
+        <DialogMenuItem paramValue="h">🚧 Help</DialogMenuItem>
       </ul>
     </div>
   </>

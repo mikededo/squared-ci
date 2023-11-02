@@ -40,7 +40,7 @@ export const JobWith: React.FC = () => {
     <Section>
       <SectionHeader
         title="With"
-        docs={JobDocs.jobId}
+        docs={JobDocs.jobWith}
         subtitle={`Map of variables that will be passed to the reusable workflow. Only available if ${jobId}.uses is set`}
       />
       {entries?.size ? (
