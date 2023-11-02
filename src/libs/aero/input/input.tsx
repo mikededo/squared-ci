@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { InputVariant, Props } from './types';
-import { ErrorTextWrapper, IconWrapper } from './wrappers';
+import { ButtonWrapper, ErrorTextWrapper, IconWrapper } from './wrappers';
 
 const Variants: Record<InputVariant, string> = {
   default:
@@ -22,10 +22,14 @@ export const Input: React.FC<Props> = (props) => {
     multiline,
     variant = 'default',
     className,
-    icon,
     error,
+    icon,
     onIconClick,
+    button,
+    buttonDisabled,
+    onButtonClick,
   } = props;
+  const buttonProps = { button, buttonDisabled, onButtonClick };
 
   const syncHeight = () => {
     if (ref.current && multiline) {
@@ -77,16 +81,18 @@ export const Input: React.FC<Props> = (props) => {
 
     return (
       <ErrorTextWrapper error={error}>
-        <IconWrapper icon={icon}>
-          <textarea
-            {...rest}
-            rows={1}
-            ref={ref}
-            className={twMerge(classes, 'resize-none overflow-hidden')}
-            onInput={handleOnInput}
-          />
-          {iconButton}
-        </IconWrapper>
+        <ButtonWrapper {...buttonProps}>
+          <IconWrapper icon={icon}>
+            <textarea
+              {...rest}
+              rows={1}
+              ref={ref}
+              className={twMerge(classes, 'resize-none overflow-hidden')}
+              onInput={handleOnInput}
+            />
+            {iconButton}
+          </IconWrapper>
+        </ButtonWrapper>
       </ErrorTextWrapper>
     );
   }
@@ -100,10 +106,12 @@ export const Input: React.FC<Props> = (props) => {
 
   return (
     <ErrorTextWrapper error={error}>
-      <IconWrapper icon={icon}>
-        <input {...rest} className={classes} />
-        {iconButton}
-      </IconWrapper>
+      <ButtonWrapper {...buttonProps}>
+        <IconWrapper icon={icon}>
+          <input {...rest} className={classes} />
+          {iconButton}
+        </IconWrapper>
+      </ButtonWrapper>
     </ErrorTextWrapper>
   );
 };

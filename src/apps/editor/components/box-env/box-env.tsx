@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 
 import {
-  Button,
   Chip,
   ChipWrapper,
   Draggable,
@@ -9,7 +8,6 @@ import {
   DraggableWrapper,
   Input,
   Meta,
-  Row,
   VCol,
 } from '@/aero';
 import { ActionsDocs, Positions } from '@/editor/config';
@@ -63,18 +61,13 @@ export const BoxEnvContent: React.FC = () => {
               ))}
             </ChipWrapper>
           ) : null}
-          <Row variant="lg" align="center" expand>
-            <Input placeholder="ENV_NAME=ENV_VALUE" {...methods} />
-            <Button
-              variant="primary"
-              className="h-9 rounded-md"
-              onClick={handleOnAdd}
-              disabled={!EnvRegex.test(methods.value)}
-              condensed
-            >
-              Add
-            </Button>
-          </Row>
+          <Input
+            placeholder="ENV_NAME=ENV_VALUE"
+            {...methods}
+            button="Add"
+            onButtonClick={handleOnAdd}
+            buttonDisabled={!EnvRegex.test(methods.value)}
+          />
         </DraggableWrapper>
       </VCol>
     </DraggableWrapper>

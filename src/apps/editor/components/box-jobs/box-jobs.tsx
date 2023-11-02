@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
 
 import {
-  Button,
   Draggable,
   DraggableTitle,
   DraggableWrapper,
   Input,
   Label,
-  Row,
   VCol,
 } from '@/aero';
 import { useSearchParam } from '@/chain';
@@ -43,18 +41,13 @@ const BoxJobsContent: React.FC = () => {
       <VCol className="px-3 pb-3 max-w-[280px]" variant="xl">
         <VCol variant="md" expand>
           <Label>Create a job by typing its id. Press enter to submit.</Label>
-          <Row variant="lg" align="center" expand>
-            <Input {...methods} placeholder="job_id" />
-            <Button
-              variant="primary"
-              className="h-9 rounded-md"
-              onClick={handleOnAdd}
-              disabled={!methods.value}
-              condensed
-            >
-              Add
-            </Button>
-          </Row>
+          <Input
+            {...methods}
+            placeholder="job_id"
+            button="Add"
+            onButtonClick={handleOnAdd}
+            buttonDisabled={!methods.value}
+          />
         </VCol>
         <VCol variant="md" expand>
           <p className="text-xs uppercase">Created jobs</p>
