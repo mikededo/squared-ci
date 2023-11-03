@@ -69,7 +69,7 @@ export type Job = {
   timeoutMinutes: number;
   strategy?: YamlField[];
   continueOnError: boolean;
-  container?: Container;
+  container: Container;
   services?: Map<string, Container>;
   uses: string;
   with: Map<string, string>;
@@ -119,6 +119,19 @@ export type WorkflowJobsPermissionsActions = {
   onToggleJobPermissionWriteAll: Single<string, Empty>;
   onToggleJobPermissionDisableAll: Single<string, Empty>;
 };
+export type WorkflowJobsContainerActions = {
+  onChangeJobContainerImage: Single<string, Single<string>>;
+  onChangeJobContainerCredentialsName: Single<string, Single<string>>;
+  onChangeJobContainerCredentialsPassword: Single<string, Single<string>>;
+  onAddJobContainerEnv: Single<string, Single<string>>;
+  onDeleteJobContainerEnv: Single<string, Single<string>>;
+  onAddJobContainerPorts: Single<string, Single<string>>;
+  onDeleteJobContainerPorts: Single<string, Single<string>>;
+  onAddJobContainerVolumes: Single<string, Single<string>>;
+  onDeleteJobContainerVolumes: Single<string, Single<string>>;
+  onAddJobContainerOptions: Single<string, Single<string>>;
+  onDeleteJobContainerOptions: Single<string, Single<string>>;
+};
 
 export type WorkflowJobsState = { jobs: Map<string, Job> };
 type WorkflowJobsActions = WorkflowJobsBaseActions &
@@ -130,5 +143,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsUsesActions &
   WorkflowJobsRunsOnActions &
   WorkflowJobsWithActions &
-  WorkflowJobsPermissionsActions & { onAddJob: Single<string> };
+  WorkflowJobsPermissionsActions &
+  WorkflowJobsContainerActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;

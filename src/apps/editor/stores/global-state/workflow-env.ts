@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand';
 
+import { addEnvVariable } from './helpers';
 import type { GlobalStore, WorkflowEnvStore } from './types';
 
 export const workflowEnvStore: StateCreator<
@@ -10,16 +11,8 @@ export const workflowEnvStore: StateCreator<
 > = (set, get) => ({
   variables: new Set(),
   addVariable: (variable) => {
-    // Parse the variabl
-    const [name, value] = variable.split('=');
-
-    // Name parsing
-    const parsedName = name.replaceAll(' ', '_').toUpperCase().trim();
-    // Value parsing
-    const hasSpaces = value.includes(' ');
-    const parsedValue = (hasSpaces ? `"${value}"` : value).trim();
     set({
-      variables: new Set([...get().variables, `${parsedName}=${parsedValue}`]),
+      variables: new Set([...get().variables, addEnvVariable(variable)]),
     });
   },
   deleteVariable: (variable) => {

@@ -1,4 +1,7 @@
+import type { Container } from '@/editor/domain/container';
+
 import { globalStore } from './global-store';
+import type { Single } from '../types';
 
 export const useWorkflowJobs = () =>
   globalStore(({ jobs, onAddJob }) => ({
@@ -129,3 +132,45 @@ export const useJobPermissions = (jobId: string) =>
       onToggleDisableAll: onToggleJobPermissionDisableAll(jobId),
     }),
   );
+
+export const useJobContainerImage = (jobId: string) =>
+  globalStore(({ jobs, onChangeJobContainerImage }) => ({
+    image: jobs.get(jobId)?.container.image,
+    onChange: onChangeJobContainerImage(jobId),
+  }));
+export const useJobContainerCredentials = (jobId: string) =>
+  globalStore(
+    ({
+      jobs,
+      onChangeJobContainerCredentialsName,
+      onChangeJobContainerCredentialsPassword,
+    }) => ({
+      credentials: jobs.get(jobId)?.container.credentials,
+      onChangeName: onChangeJobContainerCredentialsName(jobId),
+      onChangePassword: onChangeJobContainerCredentialsPassword(jobId),
+    }),
+  );
+type ContainerSets = keyof Pick<
+  Container,
+  'options' | 'volumes' | 'ports' | 'env'
+>;
+type CapitalizedContainerSets = Capitalize<ContainerSets>;
+export const useJobContainerSet = <S extends ContainerSets>(
+  jobId: string,
+  key: S,
+): { [key in S]: Set<string> | undefined } & {
+  onAdd: Single<string, Single<string>>;
+  onDelete: Single<string, Single<string>>;
+} =>
+  globalStore(({ jobs, ...state }) => {
+    const capitalizedKey = (key.charAt(0).toUpperCase() +
+      key.slice(1)) as CapitalizedContainerSets;
+    const onAddKey = `onAddJobContainer${capitalizedKey}` as const;
+    const onDeleteKey = `onDeleteJobContainer${capitalizedKey}` as const;
+
+    return {
+      [key]: jobs.get(jobId)?.container[key],
+      onAdd: state[onAddKey],
+      onDelete: state[onDeleteKey],
+    } as never;
+  });

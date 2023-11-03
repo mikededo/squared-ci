@@ -1,31 +1,50 @@
-import { ChevronDownIcon } from '@primer/octicons-react';
 import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { SelectInput } from './select-input';
 import { SelectOption } from './select-option';
-import { Input } from '../input';
 import type { InputProps } from '../input';
 import { AppearTransition } from '../transitions';
 
-type Props<O extends Record<string, string> = Record<string, string>> = {
+type BaseProps = {
   filter?: boolean;
   defaultValue?: string;
   inputProps: InputProps;
+  loading?: boolean;
+  skeleton?: React.ComponentType;
+  skeletonCount?: number;
+  maxHeight?: `max-h-${string}`;
+};
+type DefaultOptionsProps<
+  O extends Record<string, string> = Record<string, string>,
+> = {
   options: O;
   onClickOption: (key: keyof O) => void;
+  children?: undefined;
 };
+type CustomRenderProps = {
+  options?: undefined;
+  onClickOption?: undefined;
+  children: React.ReactNode;
+};
+type Props<O extends Record<string, string> = Record<string, string>> =
+  BaseProps & (DefaultOptionsProps<O> | CustomRenderProps);
 
 type Opts = {
   onClick: (key: string) => () => void;
 };
 
+const isCustomRenderProps = <O extends Record<string, string>>(
+  props: DefaultOptionsProps<O> | CustomRenderProps,
+): props is CustomRenderProps => props.children !== undefined;
+
 const filterOptions = (
-  options: Props['options'],
+  options: Record<string, string>,
   inputValue: string,
   { onClick }: Opts,
 ) =>
-  Object.entries(options).reduce<JSX.Element[]>(
+  Object.entries(options).reduce<React.JSX.Element[]>(
     (list, [key, value]) =>
       value.toLowerCase().includes(inputValue.toLowerCase())
         ? [
@@ -36,7 +55,7 @@ const filterOptions = (
     [],
   );
 
-const renderOptions = (options: Props['options'], { onClick }: Opts) =>
+const renderOptions = (options: Record<string, string>, { onClick }: Opts) =>
   Object.entries(options).map(([key, value]) => (
     <SelectOption key={key} text={value} onClick={onClick(key)} />
   ));
@@ -46,25 +65,17 @@ export const Select = <
 >({
   filter,
   defaultValue,
+  loading,
+  skeleton: Skeleton = React.Fragment,
+  skeletonCount = 3,
   inputProps,
-  options,
-  onClickOption,
+  maxHeight,
+  ...conditionalProps
 }: Props<O>): JSX.Element => {
   const [show, setShow] = useAtom(useMemo(() => atom(false), []));
   const [internalInput, setInternalInput] = useAtom(
     useMemo(() => atom(defaultValue ?? ''), [defaultValue]),
   );
-
-  const handleOnClick = (option: string) => () => {
-    onClickOption(option);
-    setShow(false);
-  };
-
-  const opts: Opts = { onClick: handleOnClick };
-  const renderedOptions: JSX.Element[] =
-    filter && internalInput
-      ? filterOptions(options, internalInput, opts)
-      : renderOptions(options, opts);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setShow(false);
@@ -72,7 +83,7 @@ export const Select = <
   };
 
   const handleOnFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    setShow(renderedOptions.length > 0);
+    setShow(true);
     inputProps.onBlur?.(e);
   };
 
@@ -81,28 +92,69 @@ export const Select = <
     inputProps.onChange?.(e);
   };
 
+  const selectInputProps = {
+    inputProps: { ...inputProps, value: internalInput },
+    onChange: handleOnChange,
+    onBlur: handleOnBlur,
+    onFocus: handleOnFocus,
+  };
+
+  if (isCustomRenderProps(conditionalProps)) {
+    const { children } = conditionalProps;
+    const childrenCount = React.Children.count(children);
+
+    return (
+      <div className="relative w-full">
+        <SelectInput {...selectInputProps} rotateIcon={show} />
+        <AppearTransition
+          as={React.Fragment}
+          show={show && (childrenCount > 0 || !!loading)}
+        >
+          <div
+            className={twMerge(
+              'absolute top-9 overflow-auto w-full bg-muted border-2 border-muted-hover z-10 block',
+              maxHeight ?? 'max-h-36',
+            )}
+          >
+            {loading
+              ? [...Array(skeletonCount)].map((_, i) => <Skeleton key={i} />)
+              : children}
+          </div>
+        </AppearTransition>
+      </div>
+    );
+  }
+
+  const { options, onClickOption } = conditionalProps;
+  const handleOnClick = (option: string) => () => {
+    if (loading) {
+      return;
+    }
+
+    onClickOption(option);
+    setShow(false);
+  };
+
+  const opts: Opts = { onClick: handleOnClick };
+  const renderedOptions = loading
+    ? [...Array(skeletonCount)].map((_, i) => <Skeleton key={i} />)
+    : filter && internalInput
+    ? filterOptions(options, internalInput, opts)
+    : renderOptions(options, opts);
+
   return (
     <div className="relative w-full">
-      <Input
-        {...inputProps}
-        value={internalInput}
-        onChange={handleOnChange}
-        onBlur={handleOnBlur}
-        onFocus={handleOnFocus}
-        icon={
-          <ChevronDownIcon
-            className={twMerge(
-              'transition-transform',
-              show && renderedOptions.length > 0 && 'rotate-180',
-            )}
-          />
-        }
-      />
+      <SelectInput {...selectInputProps} rotateIcon={show} />
       <AppearTransition
         as={React.Fragment}
-        show={show && renderedOptions.length > 0}
+        show={show && (renderedOptions.length > 0 || !!loading)}
       >
-        <div className="absolute max-h-36 top-9 overflow-auto w-full bg-muted border-2 border-t-0 border-muted-hover z-10 block">
+        <div
+          className={twMerge(
+            'absolute top-9 overflow-auto w-full bg-muted border-2 border-muted-hover z-10 block',
+            maxHeight ?? 'max-h-36',
+          )}
+        >
           {renderedOptions}
         </div>
       </AppearTransition>

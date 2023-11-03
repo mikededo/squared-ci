@@ -22,4 +22,19 @@ export const JobDocs = {
   // Permissions
   jobPermissions:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idpermissions',
+  // Container
+  jobContainer:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainer',
+  jobContainerImage:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainerimage',
+  jobContainerCredentials:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainercredentials',
+  jobContainerEnv:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainerenv',
+  jobContainerPorts:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainerports',
+  jobContainerVolumes:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontainervolumes',
+  jobContainerOptions:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontaineroptions',
 };

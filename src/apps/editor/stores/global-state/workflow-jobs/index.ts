@@ -2,6 +2,7 @@ import type { StateCreator } from 'zustand';
 
 import { jobBase } from './job-base';
 import { jobCondition } from './job-condition';
+import { jobContainer } from './job-container';
 import { jobContinueOnError } from './job-continue-error';
 import { jobEnvironment } from './job-environment';
 import { jobNeeds } from './job-needs';
@@ -27,6 +28,14 @@ const BaseJob: Omit<Job, 'id'> = {
   },
   with: new Map(),
   permissions: INITIAL_PERMISSIONS_STATE,
+  container: {
+    image: '',
+    credentials: { name: '', password: '' },
+    env: new Set(),
+    ports: new Set(),
+    volumes: new Set(),
+    options: new Set(),
+  },
 };
 
 export const workflowJobsStore: StateCreator<
@@ -51,4 +60,5 @@ export const workflowJobsStore: StateCreator<
   ...jobUses(set, get, ...rest),
   ...jobWith(set, get, ...rest),
   ...jobPermissions(set, get, ...rest),
+  ...jobContainer(set, get, ...rest),
 });

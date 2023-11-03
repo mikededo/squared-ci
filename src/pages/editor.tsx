@@ -1,5 +1,6 @@
 'use client';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 
@@ -20,6 +21,8 @@ import {
 } from '@/editor/components';
 import { BoxDefaults } from '@/editor/components/box-defaults';
 
+const queryClient = new QueryClient();
+
 const Editor: React.FC = () => {
   const { onLoadMode } = useThemeModeLoader();
 
@@ -29,22 +32,24 @@ const Editor: React.FC = () => {
   }, []);
 
   return (
-    <main className="overflow-hidden bg-paper bg-paper-size" id="main">
-      <News />
-      <GlobalDrag>
-        <BoxName />
-        <BoxTrigger />
-        <BoxJobs />
-        <BoxPermissions />
-        <BoxEnv />
-        <BoxConcurrency />
-        <BoxDefaults />
-        <JobDialog />
-      </GlobalDrag>
-      <Menu />
-      <Features />
-      <Visualiser />
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <main className="overflow-hidden bg-paper bg-paper-size" id="main">
+        <News />
+        <GlobalDrag>
+          <BoxName />
+          <BoxTrigger />
+          <BoxJobs />
+          <BoxPermissions />
+          <BoxEnv />
+          <BoxConcurrency />
+          <BoxDefaults />
+          <JobDialog />
+        </GlobalDrag>
+        <Menu />
+        <Features />
+        <Visualiser />
+      </main>
+    </QueryClientProvider>
   );
 };
 
