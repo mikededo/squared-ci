@@ -5,6 +5,12 @@ import { JobDocs } from '@/editor/config';
 
 import { ContainerCredentials } from './container-credentials';
 import { ContainerImage } from './container-image';
+import {
+  ContainerEnv,
+  ContainerOptions,
+  ContainerPorts,
+  ContainerVolumes,
+} from './container-sets';
 import { SectionHeader } from '../shared';
 
 export const ContainerContent: React.FC = () => (
@@ -16,5 +22,9 @@ export const ContainerContent: React.FC = () => (
     />
     <ContainerImage />
     <ContainerCredentials />
+    <ContainerEnv />
+    <ContainerPorts />
+    <ContainerVolumes />
+    <ContainerOptions />
   </VCol>
 );
