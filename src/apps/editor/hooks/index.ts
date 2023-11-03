@@ -4,6 +4,7 @@ export { useChangesStack } from './use-changes-stack';
 export { useDraggable } from './use-draggable';
 export { useExpandable } from './use-expandable';
 export { useSelectedJobId } from './use-selected-job-id';
+export { useJobView } from './use-job-view';
 export { useSizeObserver } from './use-size-observer';
 export { useToggler } from './use-toggler';
 export { useViewport } from './use-viewport';
