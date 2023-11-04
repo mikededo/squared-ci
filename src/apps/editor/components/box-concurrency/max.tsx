@@ -14,7 +14,7 @@ export const Max: React.FC = () => {
     onChangeMax(+e.target.value);
   };
 
-  const { onKeyDown } = useAdvancedInput(String(max), {
+  const [{ onKeyDown }] = useAdvancedInput(String(max), {
     numOnly: true,
   });
 
