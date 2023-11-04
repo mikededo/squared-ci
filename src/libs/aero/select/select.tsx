@@ -44,16 +44,28 @@ const filterOptions = (
   inputValue: string,
   { onClick }: Opts,
 ) =>
-  Object.entries(options).reduce<React.JSX.Element[]>(
-    (list, [key, value]) =>
-      value.toLowerCase().includes(inputValue.toLowerCase())
-        ? [
-            ...list,
-            <SelectOption key={key} text={value} onClick={onClick(key)} />,
-          ]
-        : list,
-    [],
-  );
+  Object.entries(options).reduce<React.JSX.Element[]>((list, [key, value]) => {
+    if (value.toLowerCase().includes(inputValue.toLowerCase())) {
+      const match = key.toLowerCase().match(inputValue.toLowerCase());
+      if (!match || !match.index) {
+        return list;
+      }
+
+      const text = (
+        <span>
+          {key.slice(0, match.index)}
+          <strong>{match[0]}</strong>
+          {key.slice(match.index + match[0].length)}
+        </span>
+      );
+      return [
+        ...list,
+        <SelectOption key={key} text={text} onClick={onClick(key)} />,
+      ];
+    }
+
+    return list;
+  }, []);
 
 const renderOptions = (options: Record<string, string>, { onClick }: Opts) =>
   Object.entries(options).map(([key, value]) => (
@@ -151,7 +163,7 @@ export const Select = <
       >
         <div
           className={twMerge(
-            'absolute top-9 overflow-auto w-full bg-muted border-2 border-muted-hover z-10 block',
+            'absolute top-9 overflow-auto w-full bg-muted border-2 border-muted-hover z-50 block',
             maxHeight ?? 'max-h-36',
           )}
         >

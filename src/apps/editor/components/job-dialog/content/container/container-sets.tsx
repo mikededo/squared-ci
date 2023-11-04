@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Chip, ChipWrapper, Input } from '@/aero';
+import { Banner, Chip, ChipWrapper, Input, Select } from '@/aero';
 import { JobDocs } from '@/editor/config';
+import { DOCKER_CREATE_VARIABLES } from '@/editor/domain/docker';
 import { useAdvancedInput, useSelectedJobId } from '@/editor/hooks';
 import { useJobContainerSet } from '@/editor/stores';
 
@@ -15,6 +16,8 @@ type Props = {
   docs: string;
   subtitle: string;
   placeholder: string;
+  options?: Record<string, string>;
+  banner?: React.ReactNode;
   inputOptions?: Pick<
     Parameters<typeof useAdvancedInput>[1],
     'disableSpaces' | 'preventUppercase' | 'spaceAsUnderscore' | 'numOnly'
@@ -29,6 +32,8 @@ export const ContainerSet: React.FC<Props> = ({
   subtitle,
   placeholder,
   inputOptions,
+  options,
+  banner,
   validateValue,
 }) => {
   const jobId = useSelectedJobId();
@@ -63,6 +68,15 @@ export const ContainerSet: React.FC<Props> = ({
     onDelete(value);
   };
 
+  const inputProps = {
+    variant: 'plain' as const,
+    ...methods,
+    placeholder: placeholder,
+    button: 'Add',
+    buttonDisabled: !methods.value,
+    onButtonClick: handleOnAddValue,
+  };
+
   return (
     <Section>
       <SectionHeader as="h5" title={title} docs={docs} subtitle={subtitle} />
@@ -78,14 +92,22 @@ export const ContainerSet: React.FC<Props> = ({
           ))}
         </ChipWrapper>
       ) : null}
-      <Input
-        variant="plain"
-        {...methods}
-        placeholder={placeholder}
-        button="Add"
-        buttonDisabled={!methods.value}
-        onButtonClick={handleOnAddValue}
-      />
+      {banner ? (
+        <Banner className="text-xs w-full rounded-md" title="Warning">
+          {banner}
+        </Banner>
+      ) : null}
+      {!options ? (
+        <Input {...inputProps} />
+      ) : (
+        <Select
+          inputProps={inputProps}
+          defaultValue={methods.value}
+          options={options}
+          onClickOption={onResetInput}
+          filter
+        />
+      )}
     </Section>
   );
 };
@@ -132,7 +154,14 @@ export const ContainerOptions: React.FC = () => (
     title="Options"
     docs={JobDocs.jobContainerOptions}
     subtitle="Additional Docker container resource options."
-    placeholder="--annotation"
+    placeholder="--attach"
     inputOptions={{ preventUppercase: true, disableSpaces: true }}
+    options={DOCKER_CREATE_VARIABLES}
+    banner={
+      <span>
+        The <kbd>--network</kbd> and <kbd>--entrypoint</kbd> options are not
+        supported.
+      </span>
+    }
   />
 );

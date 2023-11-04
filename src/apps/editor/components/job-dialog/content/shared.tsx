@@ -28,7 +28,13 @@ export const SectionHeader: React.FC<SectionProps> = ({
   <VCol variant="xs" expand>
     <Row align="center" justify="between" expand>
       <Row align="center" variant="md">
-        <Header className={Header === 'h4' ? 'font-semibold text-lg' : 'font-semibold' }>{title}</Header>
+        <Header
+          className={
+            Header === 'h4' ? 'font-semibold text-lg' : 'font-semibold'
+          }
+        >
+          {title}
+        </Header>
         <AppearTransition show={!!headerLabel} as={React.Fragment}>
           <span className="bg-extra text-[8px] px-2 rounded-full text-extra-foreground font-mono font-semibold uppercase">
             Active
@@ -36,12 +42,7 @@ export const SectionHeader: React.FC<SectionProps> = ({
         </AppearTransition>
       </Row>
       {docs ? (
-        <a
-          href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_id"
-          target="_blank"
-          rel="noopener"
-          className="flex"
-        >
+        <a href={docs} target="_blank" rel="noopener" className="flex">
           <QuestionIcon className="hover:fill-extra transition-colors" />
         </a>
       ) : null}

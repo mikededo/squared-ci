@@ -20,8 +20,8 @@ export const ContainerContent: React.FC = () => (
       docs={JobDocs.jobContainer}
       subtitle="Define the container in which to run the each step. You can also specify each step's container."
     />
-    <ContainerImage />
     <ContainerCredentials />
+    <ContainerImage />
     <ContainerEnv />
     <ContainerPorts />
     <ContainerVolumes />

@@ -21,7 +21,7 @@ const addToSet = (
     return;
   }
 
-  current.container[key].delete(value);
+  current.container[key].add(value);
   return updated;
 };
 

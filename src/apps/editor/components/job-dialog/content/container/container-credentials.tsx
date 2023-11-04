@@ -3,6 +3,7 @@ import { atom, useAtom } from 'jotai';
 import React, { useMemo } from 'react';
 
 import { Button, Input, Row, VCol } from '@/aero';
+import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
 import { useJobContainerCredentials } from '@/editor/stores';
 
@@ -51,6 +52,7 @@ export const ContainerCredentials: React.FC = () => {
       <SectionHeader
         as="h5"
         title="Registry credentials"
+        docs={JobDocs.jobContainerCredentials}
         subtitle="If the image's container requires authentication to pull the image, specify the credentials here."
       />
       <Row expand>

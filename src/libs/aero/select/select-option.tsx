@@ -1,7 +1,7 @@
 import React from 'react';
 
 type OptionProps = {
-  text: string;
+  text: React.ReactNode;
   onClick?: () => void;
 };
 

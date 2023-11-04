@@ -170,7 +170,7 @@ export const useJobContainerSet = <S extends ContainerSets>(
 
     return {
       [key]: jobs.get(jobId)?.container[key],
-      onAdd: state[onAddKey],
-      onDelete: state[onDeleteKey],
+      onAdd: state[onAddKey](jobId),
+      onDelete: state[onDeleteKey](jobId),
     } as never;
   });
