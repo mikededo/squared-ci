@@ -5,25 +5,30 @@ import { twMerge } from 'tailwind-merge';
 type Props = {
   text: string;
   active?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
-export const Chip: React.FC<Props> = ({ text, active, onClick }) => (
-  <div
+export const Chip: React.FC<Props> = ({ text, active, disabled, onClick }) => (
+  <button
     className={twMerge(
-      'py-1 px-2 rounded-full w-fit flex items-center gap-2 transition-all cursor-pointer bg-secondary/70 hover:bg-secondary',
+      'py-1 px-2 rounded-full w-fit flex items-center gap-2 transition-all cursor-pointer bg-muted hover:bg-muted-hover disabled:bg-slate-400 dark:disabled:bg-slate-500 disabled:cursor-not-allowed',
       active && 'bg-extra hover:bg-extra/80',
     )}
+    role="checkbox"
+    aria-checked={active}
+    disabled={disabled}
+    aria-disabled={disabled}
     onClick={onClick}
   >
     <p
       className={twMerge(
-        'text-sm leading-4 text-secondary-foreground line-clamp-1 ',
+        'text-sm leading-4 text-secondary-foreground line-clamp-1',
         active && 'text-extra-foreground',
       )}
     >
       {text}
     </p>
     {active ? <XCircleIcon className="fill-extra-foreground" /> : null}
-  </div>
+  </button>
 );

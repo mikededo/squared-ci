@@ -2,7 +2,7 @@ import React from 'react';
 
 import { VCol } from '@/aero';
 
-import { ContentSwitcher } from './content-switches';
+import { ContentSwitcher } from './content-switcher';
 import { DialogNavigation } from './dialog-navigation';
 import { DialogTitle } from './dialog-title';
 

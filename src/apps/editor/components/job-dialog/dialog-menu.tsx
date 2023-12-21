@@ -25,7 +25,7 @@ export const DialogMenu: React.FC = () => (
         <DialogMenuItem paramValue="p">Permissions</DialogMenuItem>
         <DialogMenuItem paramValue="coc">🚧 Concurrency</DialogMenuItem>
         <DialogMenuItem paramValue="o">🚧 Outputs</DialogMenuItem>
-        <DialogMenuItem paramValue="e">🚧 Env</DialogMenuItem>
+        <DialogMenuItem paramValue="e">Env</DialogMenuItem>
         <DialogMenuItem paramValue="d">🚧 Defaults</DialogMenuItem>
         <DialogMenuItem paramValue="ste">🚧 Steps</DialogMenuItem>
         <DialogMenuItem paramValue="str">🚧 Strategy</DialogMenuItem>

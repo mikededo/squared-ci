@@ -19,6 +19,7 @@ export { Input } from './input';
 export { Link } from './link';
 export { Row } from './row';
 export { Select } from './select';
+export { Tag, TagWrapper } from './tag';
 export { Toggle } from './toggle';
 export { Tooltip } from './tooltip';
 export { AppearTransition } from './transitions';

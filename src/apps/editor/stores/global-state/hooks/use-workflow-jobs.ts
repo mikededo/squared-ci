@@ -133,6 +133,13 @@ export const useJobPermissions = (jobId: string) =>
     }),
   );
 
+export const useJobEnv = (jobId: string) =>
+  globalStore(({ jobs, onAddJobEnvVariable, onDeleteJobEnvVariable }) => ({
+    env: jobs.get(jobId)?.env,
+    onAddEnv: onAddJobEnvVariable(jobId),
+    onDeleteEnv: onDeleteJobEnvVariable(jobId),
+  }));
+
 export const useJobContainerImage = (jobId: string) =>
   globalStore(({ jobs, onChangeJobContainerImage }) => ({
     image: jobs.get(jobId)?.container.image,

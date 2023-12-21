@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input, Label, Row, VCol } from '@/aero';
+import { Input, Label, Tag, TagWrapper, VCol } from '@/aero';
 import { JobDocs } from '@/editor/config';
 import { useSelectedJobId } from '@/editor/hooks';
 import { useJobCondition } from '@/editor/stores';
@@ -99,22 +99,11 @@ export const JobIf: React.FC = () => {
         <Label>
           In need of inspiration? Here are some helpers to save you time
         </Label>
-        <Row
-          justify="center"
-          variant="none"
-          className="flex-wrap gap-1.5"
-          expand
-        >
+        <TagWrapper>
           {Object.entries(IF_CONDITIONS).map(([key, { text, value }]) => (
-            <button
-              key={key}
-              className="bg-muted rounded text-xs font-mono px-2 py-1 cursor-pointer hover:bg-muted-hover transition-colors"
-              onClick={handleOnClickTemplate(value)}
-            >
-              {text}
-            </button>
+            <Tag key={key} text={text} onClick={handleOnClickTemplate(value)} />
           ))}
-        </Row>
+        </TagWrapper>
       </VCol>
     </Section>
   );

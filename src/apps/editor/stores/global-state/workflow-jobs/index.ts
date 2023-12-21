@@ -4,6 +4,7 @@ import { jobBase } from './job-base';
 import { jobCondition } from './job-condition';
 import { jobContainer } from './job-container';
 import { jobContinueOnError } from './job-continue-error';
+import { jobEnv } from './job-env';
 import { jobEnvironment } from './job-environment';
 import { jobNeeds } from './job-needs';
 import { jobPermissions } from './job-permissions';
@@ -28,6 +29,7 @@ const BaseJob: Omit<Job, 'id'> = {
   },
   with: new Map(),
   permissions: INITIAL_PERMISSIONS_STATE,
+  env: new Map(),
   container: {
     image: '',
     credentials: { name: '', password: '' },
@@ -38,13 +40,16 @@ const BaseJob: Omit<Job, 'id'> = {
   },
 };
 
+const initialMap = new Map();
+initialMap.set('initial', { ...BaseJob, name: 'initial' });
+
 export const workflowJobsStore: StateCreator<
   GlobalStore,
   [],
   [],
   WorkflowJobsStore
 > = (set, get, ...rest) => ({
-  jobs: new Map(),
+  jobs: initialMap,
   onAddJob: (id) => {
     const jobs = new Map([...get().jobs]);
     jobs.set(id, { id: id, ...BaseJob });
@@ -61,4 +66,5 @@ export const workflowJobsStore: StateCreator<
   ...jobWith(set, get, ...rest),
   ...jobPermissions(set, get, ...rest),
   ...jobContainer(set, get, ...rest),
+  ...jobEnv(set, get, ...rest),
 });

@@ -2,7 +2,12 @@ import React from 'react';
 
 import { useSearchParam } from '@/chain';
 
-import { BaseContent, ContainerContent, PermissionsContent } from './content';
+import {
+  BaseContent,
+  ContainerContent,
+  EnvContent,
+  PermissionsContent,
+} from './content';
 import type { Views } from './types';
 
 const VIEW_TO_CONTENT: Record<Views, React.ReactNode> = {
@@ -10,7 +15,7 @@ const VIEW_TO_CONTENT: Record<Views, React.ReactNode> = {
   p: <PermissionsContent />,
   coc: <div>Concurrency</div>,
   o: <div>Outputs</div>,
-  e: <div>Env</div>,
+  e: <EnvContent />,
   d: <div>Defaults</div>,
   ste: <div>Steps</div>,
   str: <div>Strategy</div>,

@@ -62,7 +62,7 @@ export type Job = {
   environment: JobEnvironment;
   concurrency?: JobConcurrency;
   outputs?: Map<string, string>;
-  env?: Map<string, string>;
+  env: Map<string, string>;
   defaults?: YamlField[];
   run?: JobRun;
   steps?: never; // TBD
@@ -119,6 +119,10 @@ export type WorkflowJobsPermissionsActions = {
   onToggleJobPermissionWriteAll: Single<string, Empty>;
   onToggleJobPermissionDisableAll: Single<string, Empty>;
 };
+export type WorkflowJobsEnvActions = {
+  onAddJobEnvVariable: Single<string, Double<string, string>>;
+  onDeleteJobEnvVariable: Single<string, Single<string>>;
+};
 export type WorkflowJobsContainerActions = {
   onChangeJobContainerImage: Single<string, Single<string>>;
   onChangeJobContainerCredentialsName: Single<string, Single<string>>;
@@ -144,5 +148,6 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsRunsOnActions &
   WorkflowJobsWithActions &
   WorkflowJobsPermissionsActions &
+  WorkflowJobsEnvActions &
   WorkflowJobsContainerActions & { onAddJob: Single<string> };
 export type WorkflowJobsStore = WorkflowJobsState & WorkflowJobsActions;
