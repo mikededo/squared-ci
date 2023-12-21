@@ -12,7 +12,7 @@ export const JobRunsOn: React.FC = () => (
   <Section>
     <SectionHeader
       title="Runs on"
-      docs={JobDocs.jobIf}
+      docs={JobDocs.jobRunsOn}
       subtitle="Specify in which machine type will the workflow be executed"
     />
     <Label className="mb-1.5">

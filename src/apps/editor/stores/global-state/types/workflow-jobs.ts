@@ -33,11 +33,8 @@ type JobRunsOn = {
 };
 type JobEnvironment = { name: string; url?: string };
 type JobConcurrency = {
-  name: string;
   cancelInProgress: boolean;
   group: string;
-  max: number;
-  matrix: YamlField[];
 };
 type JobRun = { shell: string; workingDirectory: string };
 type JobSecrets = {
@@ -60,7 +57,7 @@ export type Job = {
   condition: string;
   runsOn: JobRunsOn; // TBD
   environment: JobEnvironment;
-  concurrency?: JobConcurrency;
+  concurrency: JobConcurrency;
   outputs?: Map<string, string>;
   env: Map<string, string>;
   defaults?: YamlField[];
@@ -98,6 +95,10 @@ export type WorkflowJobsTimeoutMinutesActions = {
 };
 export type WorkflowJobsUsesActions = {
   onChangeJobUses: Single<string, Single<string>>;
+};
+export type WorkflowJobsConcurrencyActions = {
+  onChangeJobConcurrencyGroup: Single<string, Single<string>>;
+  onToggleJobConcurrencyCIP: Single<string, Empty>;
 };
 export type WorkflowJobsRunsOnActions = {
   onChangeJobGithubRunner: Single<string, Single<GitHubHostedRunners>>;
@@ -144,6 +145,7 @@ type WorkflowJobsActions = WorkflowJobsBaseActions &
   WorkflowJobsContinueOnErrorActions &
   WorkflowJobsConditionActions &
   WorkflowJobsTimeoutMinutesActions &
+  WorkflowJobsConcurrencyActions &
   WorkflowJobsUsesActions &
   WorkflowJobsRunsOnActions &
   WorkflowJobsWithActions &

@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand';
 
 import { jobBase } from './job-base';
+import { jobConcurrency } from './job-concurrency';
 import { jobCondition } from './job-condition';
 import { jobContainer } from './job-container';
 import { jobContinueOnError } from './job-continue-error';
@@ -21,6 +22,7 @@ const BaseJob: Omit<Job, 'id'> = {
   environment: { name: '' },
   continueOnError: false,
   condition: '',
+  concurrency: { group: '', cancelInProgress: false },
   timeoutMinutes: 360,
   uses: '',
   runsOn: {
@@ -56,15 +58,16 @@ export const workflowJobsStore: StateCreator<
     set({ jobs });
   },
   ...jobBase(set, get, ...rest),
+  ...jobConcurrency(set, get, ...rest),
   ...jobCondition(set, get, ...rest),
+  ...jobContainer(set, get, ...rest),
   ...jobContinueOnError(set, get, ...rest),
+  ...jobEnv(set, get, ...rest),
   ...jobEnvironment(set, get, ...rest),
   ...jobNeeds(set, get, ...rest),
+  ...jobPermissions(set, get, ...rest),
   ...jobRunsOn(set, get, ...rest),
   ...jobTimeoutMinutes(set, get, ...rest),
   ...jobUses(set, get, ...rest),
   ...jobWith(set, get, ...rest),
-  ...jobPermissions(set, get, ...rest),
-  ...jobContainer(set, get, ...rest),
-  ...jobEnv(set, get, ...rest),
 });

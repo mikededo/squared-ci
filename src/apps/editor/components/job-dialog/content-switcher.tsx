@@ -13,7 +13,6 @@ import type { Views } from './types';
 const VIEW_TO_CONTENT: Record<Views, React.ReactNode> = {
   b: <BaseContent />,
   p: <PermissionsContent />,
-  coc: <div>Concurrency</div>,
   o: <div>Outputs</div>,
   e: <EnvContent />,
   d: <div>Defaults</div>,
