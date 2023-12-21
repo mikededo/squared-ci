@@ -7,7 +7,6 @@ import type { Views } from './types';
 const VIEW_TO_TITLE: Record<Views, string> = {
   b: 'Base',
   p: 'Permissions',
-  coc: 'Concurrency',
   o: 'Outputs',
   e: 'Env',
   d: 'Defaults',

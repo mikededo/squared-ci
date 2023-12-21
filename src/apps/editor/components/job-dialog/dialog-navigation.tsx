@@ -7,8 +7,7 @@ import type { Views } from './types';
 
 const NEXT_VIEW: Record<Views, Views> = {
   b: 'p',
-  p: 'coc',
-  coc: 'o',
+  p: 'o',
   o: 'e',
   e: 'd',
   d: 'ste',
@@ -26,8 +25,7 @@ const PREV_VIEW: Record<Views, Views> = {
   ste: 'd',
   d: 'e',
   e: 'o',
-  o: 'coc',
-  coc: 'p',
+  o: 'p',
   p: 'b',
   b: 'b',
 };

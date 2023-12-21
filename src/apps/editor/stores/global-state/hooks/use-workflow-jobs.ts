@@ -108,6 +108,15 @@ export const useJobRunsOnActive = (jobId: string) =>
     return 'none';
   });
 
+export const useJobConcurrency = (jobId: string) =>
+  globalStore(
+    ({ jobs, onToggleJobConcurrencyCIP, onChangeJobConcurrencyGroup }) => ({
+      ...(jobs.get(jobId)?.concurrency ?? {}),
+      onChangeGroup: onChangeJobConcurrencyGroup(jobId),
+      onToggleCIP: onToggleJobConcurrencyCIP(jobId),
+    }),
+  );
+
 export const useJobsWith = (jobId: string) =>
   globalStore(({ jobs, onAddJobWithEntry, onRemoveJobWithEntry }) => ({
     enabled: !!jobs.get(jobId)?.uses,

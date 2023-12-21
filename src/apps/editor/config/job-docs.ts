@@ -9,6 +9,10 @@ export const JobDocs = {
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds',
   jobIf:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif',
+  jobRunsOn:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on',
+  jobConcurrency:
+    'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idconcurrency',
   jobEnv:
     'https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idenvironment',
   jobTimeoutMinutes:

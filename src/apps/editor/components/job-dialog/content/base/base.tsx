@@ -2,6 +2,7 @@ import React from 'react';
 
 import { VCol } from '@/aero';
 
+import { JobConcurrency } from './job-concurrency';
 import { JobContinueOnError } from './job-continue-on-error';
 import { JobEnvironment } from './job-environment';
 import { JobIf } from './job-if';
@@ -18,6 +19,7 @@ export const BaseContent: React.FC = () => (
     <JobNeeds />
     <JobIf />
     <JobRunsOn />
+    <JobConcurrency />
     <JobEnvironment />
     <JobUses />
     <JobWith />
