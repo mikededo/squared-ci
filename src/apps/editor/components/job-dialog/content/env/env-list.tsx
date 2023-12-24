@@ -11,7 +11,7 @@ export const EnvList: React.FC = () => {
   const hasEntries = env && env.size > 0;
   if (!hasEntries) {
     return (
-      <Label className="mx-auto">
+      <Label>
         The list of variables that you have created will be displayed here.
       </Label>
     );
@@ -28,6 +28,7 @@ export const EnvList: React.FC = () => {
           key={key}
           text={`${key}=${value}`}
           onClick={handleOnDeleteKey(key)}
+          monospace
           active
         />
       ))}

@@ -25,7 +25,7 @@ export const PredefinedEnv: React.FC = () => {
     onAddEnv(key, value);
   };
 
-  const isPrederefinedSelected = (key: string) => env && env.has(key);
+  const isPredefinedSelected = (key: string) => env && env.has(key);
 
   return (
     <VCol variant="lg">
@@ -38,7 +38,7 @@ export const PredefinedEnv: React.FC = () => {
           <Tag
             key={key}
             text={`${key}=${value}`}
-            disabled={isPrederefinedSelected(key)}
+            disabled={isPredefinedSelected(key)}
             onClick={handleOnClickPredefined(key, value)}
           />
         ))}
