@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "engines": {
-    "node": "^18.17"
+    "node": "^20.0.0"
   },
   "dependencies": {
     "@headlessui/react": "1.7.17",
@@ -53,6 +53,6 @@
     "typescript": "5.3.3"
   },
   "volta": {
-    "node": "18.19.0"
+    "node": "20.17.0"
   }
 }
